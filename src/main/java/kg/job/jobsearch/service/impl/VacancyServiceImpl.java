@@ -1,6 +1,9 @@
 package kg.job.jobsearch.service.impl;
 
+import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.VacanciesDto;
+import kg.job.jobsearch.enums.AccountType;
+import kg.job.jobsearch.service.UserService;
 import kg.job.jobsearch.service.VacancyService;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +15,9 @@ import java.util.stream.Stream;
 @Service
 public class VacancyServiceImpl implements VacancyService {
 
-    private List<VacanciesDto> vacancies = new ArrayList<>(
+    private UserService userService;
+
+    private final List<VacanciesDto> vacancies = new ArrayList<>(
             List.of(
                     VacanciesDto.builder()
                             .id(1)
@@ -46,7 +51,14 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public void createVacancy(VacanciesDto vacanciesDto){
+    public void createVacancy(Integer userId, VacanciesDto vacanciesDto){
+        UsersDto user = userService.getUserById(userId);
+
+        if (user.getAccount_type() != AccountType.EMPLOYER) {
+            throw new RuntimeException("Only employer can create vacancy");
+        }
+
+
         int id = 0;
 
         for(VacanciesDto v : vacancies){
@@ -63,22 +75,55 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public void editVacancy(int id, VacanciesDto vacanciesDto){
-        vacancies.stream()
-                .filter(v -> v.getId() == id)
+    public void editVacancy(Integer userId, Integer vacancyId, VacanciesDto vacanciesDto){
+        UsersDto user = userService.getUserById(userId);
+
+        if (user.getAccount_type() != AccountType.EMPLOYER) {
+            throw new RuntimeException("Only employer can create vacancy");
+        }
+        VacanciesDto vacancy = vacancies.stream()
+                .filter(v -> v.getId() == vacancyId)
                 .findFirst()
-                .ifPresent(v -> {
-                    v.setName(vacanciesDto.getName());
-                    v.setDescription(vacanciesDto.getDescription());
-                    v.setCategory_id(vacanciesDto.getCategory_id());
-                    v.setSalary(vacanciesDto.getSalary());
-                    v.setExp_from(vacanciesDto.getExp_from());
-                    v.setExp_to(vacanciesDto.getExp_to());
-                });
+                .orElseThrow(() -> new RuntimeException("Vacancy not found"));
+
+        if (vacancy.getAuthor_id() != userId) {
+            throw new RuntimeException("You can edit only your own vacancy");
+        }
+
+        vacancy.setName(vacanciesDto.getName());
+        vacancy.setDescription(vacanciesDto.getDescription());
+        vacancy.setCategory_id(vacanciesDto.getCategory_id());
+        vacancy.setSalary(vacanciesDto.getSalary());
+        vacancy.setExp_from(vacanciesDto.getExp_from());
+        vacancy.setExp_to(vacanciesDto.getExp_to());
+        vacancy.setUpdate_time(LocalDateTime.now());
     }
 
     @Override
-    public void deleteVacancy(int id){
-        vacancies.removeIf(v -> v.getId() == id);
+    public void deleteVacancy(Integer userId, Integer vacancyId){
+        UsersDto user = userService.getUserById(userId);
+
+        if (user.getAccount_type() != AccountType.EMPLOYER) {
+            throw new RuntimeException("Only employer can create vacancy");
+        }
+
+        VacanciesDto vacancy = vacancies.stream()
+                .filter(v -> v.getId() == vacancyId)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Vacancy not found"));
+
+        if (vacancy.getAuthor_id() != userId) {
+            throw new RuntimeException("You can delete only your own vacancy");
+        }
+
+        vacancy.set_active(false);
+    }
+
+    @Override
+    public VacanciesDto getVacancyById(Integer id){
+        return vacancies.stream()
+                .filter(vacancy -> vacancy.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 }

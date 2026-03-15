@@ -8,9 +8,11 @@ public interface VacancyService {
 
     List<VacanciesDto> searchVacancies(Integer categoryId, Integer authorId, Boolean isActive);
 
-    void createVacancy(VacanciesDto vacanciesDto);
+    void createVacancy(Integer userId, VacanciesDto vacanciesDto);
 
-    void editVacancy(int id, VacanciesDto vacanciesDto);
+    void editVacancy(Integer userId, Integer vacancyId, VacanciesDto vacanciesDto);
 
-    void deleteVacancy(int id);
+    void deleteVacancy(Integer userId, Integer vacancyId);
+
+    VacanciesDto getVacancyById(Integer id);
 }

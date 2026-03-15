@@ -1,8 +1,6 @@
 package kg.job.jobsearch.controller;
 
-import kg.job.jobsearch.dto.CategoriesDto;
 import kg.job.jobsearch.dto.VacanciesDto;
-import kg.job.jobsearch.service.CategoriesService;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,13 +27,24 @@ public class VacanciesController {
     }
 
     @PostMapping
-    public HttpStatus createVacancies(@RequestBody VacanciesDto vacanciesDto){vacancyService.createVacancy(vacanciesDto);return HttpStatus.OK;}
+    public HttpStatus createVacancies(
+            @RequestParam Integer userId,
+            @RequestBody VacanciesDto vacanciesDto
+    ){
+        vacancyService.createVacancy(userId, vacanciesDto);
+        return HttpStatus.OK;}
 
     @PutMapping("/{id}")
-    public HttpStatus editVacancies(@PathVariable int id, @RequestBody VacanciesDto vacanciesDto)
-    {vacancyService.editVacancy(id, vacanciesDto);return HttpStatus.OK;}
+    public HttpStatus editVacancies(
+            @RequestParam Integer userId,
+            @PathVariable Integer id,
+            @RequestBody VacanciesDto vacanciesDto)
+    {vacancyService.editVacancy(userId, id, vacanciesDto);return HttpStatus.OK;}
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteVacancies(@PathVariable int id){vacancyService.deleteVacancy(id);return HttpStatus.OK;}
+    public HttpStatus deleteVacancies(
+            @RequestParam Integer userId,
+            @PathVariable Integer id
+    ){vacancyService.deleteVacancy(userId, id);return HttpStatus.OK;}
 
 }
