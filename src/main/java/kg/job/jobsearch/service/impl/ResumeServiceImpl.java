@@ -53,7 +53,7 @@ public class ResumeServiceImpl implements ResumeService {
     public void createResume(Integer userId, ResumesDto resumesDto){
         UsersDto user = userService.getUserById(userId);
 
-        if (user.getAccount_type() != AccountType.APPLICANT) {
+        if (!user.getAccount_type().equals(AccountType.APPLICANT)) {
             throw new RuntimeException("Only applicant can create vacancy");
         }
 
@@ -76,7 +76,7 @@ public class ResumeServiceImpl implements ResumeService {
     public void editResume(Integer userId, Integer id, ResumesDto resumesDto){
         UsersDto user = userService.getUserById(userId);
 
-        if (user.getAccount_type() != AccountType.APPLICANT) {
+        if (!user.getAccount_type().equals(AccountType.APPLICANT)) {
             throw new RuntimeException("Only employer can create vacancy");
         }
         ResumesDto resume = resumes.stream()

@@ -45,4 +45,26 @@ public class UserServiceImpl implements UserService {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public List<UsersDto> searchUsersByAccountType(Integer userId, String name){
+
+        UsersDto user = getUserById(userId);
+
+        if(user.getAccount_type().equals(AccountType.EMPLOYER)){
+            return users.stream()
+                    .filter(u -> u.getAccount_type().equals(AccountType.APPLICANT)
+                            && u.getName().toLowerCase().contains(name.toLowerCase()))
+                    .toList();
+        }
+
+        if(user.getAccount_type().equals(AccountType.APPLICANT)){
+            return users.stream()
+                    .filter(u -> u.getAccount_type().equals(AccountType.EMPLOYER)
+                            && u.getName().toLowerCase().contains(name.toLowerCase()))
+                    .toList();
+        }
+
+        return new ArrayList<>();
+    }
 }
