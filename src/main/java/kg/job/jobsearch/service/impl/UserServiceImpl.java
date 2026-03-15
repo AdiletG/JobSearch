@@ -37,6 +37,10 @@ public class UserServiceImpl implements UserService {
             )
     );
 
+    @Override
+    public List<UsersDto> getAllUsers(){
+        return new ArrayList<>(users);
+    }
 
     @Override
     public UsersDto getUserById(Integer id){

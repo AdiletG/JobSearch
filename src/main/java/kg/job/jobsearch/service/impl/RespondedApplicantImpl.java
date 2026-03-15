@@ -25,6 +25,11 @@ public class RespondedApplicantImpl implements RespondedApplicantService {
     private final List<Responded_applicantsDto> respond = new ArrayList<>();
 
     @Override
+    public List<Responded_applicantsDto> getAllRespond(){
+        return new ArrayList<>(respond);
+    }
+
+    @Override
     public void respondToVacancy(Integer userId, Integer vacancyId, Integer resumeId){
         UsersDto user = userService.getUserById(userId);
         VacanciesDto vacancy = vacancyService.getVacancyById(vacancyId);

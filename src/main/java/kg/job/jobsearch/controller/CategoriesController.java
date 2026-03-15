@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoriesController {
 
-    private CategoriesService categoriesService;
+    private final CategoriesService categoriesService;
 
     @GetMapping
     public ResponseEntity<List<CategoriesDto>> getAllCategories(){
