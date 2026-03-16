@@ -56,7 +56,7 @@ public class VacancyServiceImpl implements VacancyService {
     public void createVacancy(Integer userId, VacanciesDto vacanciesDto){
         UsersDto user = userService.getUserById(userId);
 
-        if (user.getAccount_type() != AccountType.EMPLOYER) {
+        if (!user.getAccount_type().equals(AccountType.EMPLOYER)) {
             throw new RuntimeException("Only employer can create vacancy");
         }
 
@@ -80,7 +80,7 @@ public class VacancyServiceImpl implements VacancyService {
     public void editVacancy(Integer userId, Integer vacancyId, VacanciesDto vacanciesDto){
         UsersDto user = userService.getUserById(userId);
 
-        if (user.getAccount_type() != AccountType.EMPLOYER) {
+        if (!user.getAccount_type().equals(AccountType.EMPLOYER)) {
             throw new RuntimeException("Only employer can create vacancy");
         }
         VacanciesDto vacancy = vacancies.stream()
@@ -105,7 +105,7 @@ public class VacancyServiceImpl implements VacancyService {
     public void deleteVacancy(Integer userId, Integer vacancyId){
         UsersDto user = userService.getUserById(userId);
 
-        if (user.getAccount_type() != AccountType.EMPLOYER) {
+        if (!user.getAccount_type().equals(AccountType.EMPLOYER)) {
             throw new RuntimeException("Only employer can create vacancy");
         }
 

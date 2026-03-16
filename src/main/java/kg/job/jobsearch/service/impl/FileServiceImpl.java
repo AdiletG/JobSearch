@@ -34,7 +34,9 @@ public class FileServiceImpl implements FileService {
         try {
             return saveUploadFile(file, "images");
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка загрузки файла", e);
+            e.printStackTrace();
+            return "Ошибка загрузки файла";
+
         }
     }
 }
