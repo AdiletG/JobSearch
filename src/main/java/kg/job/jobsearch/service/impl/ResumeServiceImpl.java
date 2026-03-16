@@ -5,6 +5,7 @@ import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.enums.AccountType;
 import kg.job.jobsearch.service.ResumeService;
 import kg.job.jobsearch.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,9 +14,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class ResumeServiceImpl implements ResumeService {
 
-    private UserService userService;
+    private final UserService userService;
 
     private final List<ResumesDto> resumes = new ArrayList<>(
             List.of(
