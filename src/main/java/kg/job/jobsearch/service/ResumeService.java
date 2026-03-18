@@ -1,17 +1,17 @@
 package kg.job.jobsearch.service;
 
 import kg.job.jobsearch.dto.ResumesDto;
+import kg.job.jobsearch.exception.ResumeNotFoundException;
 
 import java.util.List;
 
 public interface ResumeService {
-    List<ResumesDto> searchResumes(Integer categoryId, Integer applicantId, Boolean isActive);
 
-    void createResume(Integer userId, ResumesDto resumesDto);
+    List<ResumesDto> getAllResume() throws ResumeNotFoundException;
 
-    void editResume(Integer userId, Integer id, ResumesDto resumesDto);
+    List<ResumesDto> getResumeByCategory(int category) throws ResumeNotFoundException;
 
-    void deleteResume(Integer userId, Integer id);
+    List<ResumesDto> getResumeByApplicant(int applicantId) throws ResumeNotFoundException;
 
-    ResumesDto getresumeById(Integer id);
+    List<ResumesDto> getResumeByActive(boolean active) throws ResumeNotFoundException;
 }

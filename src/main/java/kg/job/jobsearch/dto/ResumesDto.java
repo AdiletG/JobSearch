@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,12 +13,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResumesDto {
-    private int id;
-    private int applicant_id;
+    private Integer id;
+    private Integer applicant_id;
     private String name;
-    private int category_id;
-    private float salary;
-    private boolean is_active;
+    private Integer category_id;
+    private BigDecimal salary;
+    private Boolean is_active;
     private LocalDateTime created_date;
     private LocalDateTime update_time;
 

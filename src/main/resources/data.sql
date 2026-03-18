@@ -14,10 +14,10 @@ create table if not exists users
 insert into users(name, surname, age, email, password, phone_number, avatar, account_type)
 values
     ('Adilet', 'Janybek', 24, 'adilet@mail.ru', 'qwerty',
-     '+996775878765', 'avatar', 'EMPLOYER'),
+     '996775878765', 'avatar', 'EMPLOYER'),
 
     ('Asan', 'Uson', 32, 'asan@mail.ru', 'ytrewq',
-     '+996555987867', 'avatar', 'APPLICANT');
+     '996555987867', 'avatar', 'APPLICANT');
 
 create table if not exists categories
 (
