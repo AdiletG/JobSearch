@@ -1,6 +1,7 @@
 package kg.job.jobsearch.controller;
 
 import kg.job.jobsearch.dto.UsersDto;
+import kg.job.jobsearch.exception.UserNotFoundException;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,13 @@ public class UsersController {
     private final FileService fileService;
 
     @GetMapping
-    public ResponseEntity<List<UsersDto>> getAllUsers(){
-        return ResponseEntity.ok(
-                userService.getAllUsers()
-        );
+    public List<UsersDto> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public UsersDto findById(@PathVariable int id) throws UserNotFoundException{
+        return userService.findById(id);
     }
 
     @PostMapping
