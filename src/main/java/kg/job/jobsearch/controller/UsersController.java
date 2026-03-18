@@ -21,13 +21,33 @@ public class UsersController {
     private final FileService fileService;
 
     @GetMapping
-    public List<UsersDto> getAllUsers(){
+    public List<UsersDto> getAllUsers() throws UserNotFoundException {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{id}")
-    public UsersDto findById(@PathVariable int id) throws UserNotFoundException{
+    @GetMapping("/search/by-id")
+    public UsersDto findById(@RequestParam Integer id) throws UserNotFoundException{
         return userService.findById(id);
+    }
+
+    @GetMapping("/search/by-email")
+    public UsersDto findByEmail(@RequestParam String email) throws UserNotFoundException{
+        return userService.findByEmail(email);
+    }
+
+    @GetMapping("/search/by-name")
+    public List<UsersDto> findByName(@RequestParam String name) throws UserNotFoundException{
+        return userService.findByName(name);
+    }
+
+    @GetMapping("/search/by-phone")
+    public List<UsersDto> findByPhoneNumber(@RequestParam String phone) throws UserNotFoundException{
+        return userService.findByPhoneNumber(phone);
+    }
+
+    @GetMapping("/search/user-exists")
+    public String existsUserByEmail(@RequestParam String email) throws UserNotFoundException{
+        return userService.existsUserByEmail(email);
     }
 
     @PostMapping
