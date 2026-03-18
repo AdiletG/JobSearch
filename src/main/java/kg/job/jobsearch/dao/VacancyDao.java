@@ -17,4 +17,14 @@ public class VacancyDao {
         String sql = "select * from vacancies;";
         return jdbcTemplate.query(sql, new VacancyMapper());
     }
+
+    public List<Vacancy> getVacancyByCategory(int category){
+        String sql = "select * from vacancies where category_id = ?";
+        return jdbcTemplate.query(sql, new VacancyMapper(), category);
+    }
+
+    public List<Vacancy> getVacancyByActive(boolean active){
+        String sql = "select * from vacancies where is_active = ?";
+        return jdbcTemplate.query(sql, new VacancyMapper(), active);
+    }
 }
