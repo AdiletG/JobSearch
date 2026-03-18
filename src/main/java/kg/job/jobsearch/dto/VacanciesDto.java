@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.cglib.core.Local;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
 @Builder
@@ -16,7 +17,7 @@ public class VacanciesDto {
     private String name;
     private String description;
     private int category_id;
-    private float salary;
+    private BigDecimal salary;
     private int exp_from;
     private int exp_to;
     private boolean is_active;
