@@ -9,18 +9,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Responded_applicantsDto {
-    private int id;
-    private int resume_id;
-    private int vacancy_id;
-    private boolean confirmation;
+public class RespondedApplicantsDto {
+    private Integer id;
+    private Integer resumeId;
+    private Integer vacancyId;
+    private Boolean confirmation;
 
     @Override
     public String toString() {
         return "Responded_applicantsDto{" +
                 "id=" + id +
-                ", resume_id=" + resume_id +
-                ", vacancy_id=" + vacancy_id +
+                ", resume_id=" + resumeId +
+                ", vacancy_id=" + vacancyId +
                 ", confirmation=" + confirmation +
                 '}';
     }

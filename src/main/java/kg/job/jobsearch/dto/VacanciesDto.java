@@ -6,23 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.cglib.core.Local;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacanciesDto {
-    private int id;
+    private Integer id;
     private String name;
     private String description;
-    private int category_id;
-    private float salary;
-    private int exp_from;
-    private int exp_to;
-    private boolean is_active;
-    private int author_id;
-    private LocalDateTime created_date;
-    private LocalDateTime update_time;
+    private Integer categoryId;
+    private BigDecimal salary;
+    private Integer expFrom;
+    private Integer expTo;
+    private Boolean isActive;
+    private Integer authorId;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 
     @Override
     public String toString() {
@@ -30,14 +31,14 @@ public class VacanciesDto {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", category_id=" + category_id +
+                ", categoryId=" + categoryId +
                 ", salary=" + salary +
-                ", exp_from=" + exp_from +
-                ", exp_to=" + exp_to +
-                ", is_active=" + is_active +
-                ", author_id=" + author_id +
-                ", created_date=" + created_date +
-                ", update_time=" + update_time +
+                ", expFrom=" + expFrom +
+                ", expTo=" + expTo +
+                ", isActive=" + isActive +
+                ", authorId=" + authorId +
+                ", createdDate=" + createdDate +
+                ", updateTime=" + updateDate +
                 '}';
     }
 }

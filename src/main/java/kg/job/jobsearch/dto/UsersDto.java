@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersDto {
-   private int id;
+   private Integer id;
    private String name;
    private String surname;
-   private int age;
+   private Integer age;
    private String email;
    private String password;
-   private String phone_number;
+   private String phoneNumber;
    private String avatar;
-   private AccountType account_type;
+   private AccountType accountType;
 
    @Override
    public String toString() {
@@ -30,9 +30,10 @@ public class UsersDto {
               ", surname='" + surname + '\'' +
               ", age=" + age +
               ", email='" + email + '\'' +
-              ", phone_number='" + phone_number + '\'' +
+              ", password='" + password + '\'' +
+              ", phoneNumber='" + phoneNumber + '\'' +
               ", avatar='" + avatar + '\'' +
-              ", account_type='" + account_type + '\'' +
+              ", accountType=" + accountType +
               '}';
    }
 }

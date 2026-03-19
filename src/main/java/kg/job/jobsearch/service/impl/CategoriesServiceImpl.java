@@ -1,27 +1,37 @@
 package kg.job.jobsearch.service.impl;
 
+import kg.job.jobsearch.dao.CategoryDao;
 import kg.job.jobsearch.dto.CategoriesDto;
+import kg.job.jobsearch.exception.CategoryNotFoundException;
+import kg.job.jobsearch.model.Category;
 import kg.job.jobsearch.service.CategoriesService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CategoriesServiceImpl implements CategoriesService {
-    private List<CategoriesDto> categories = new ArrayList<>(
-            List.of(
-                    CategoriesDto.builder()
-                            .id(1)
-                            .name("Driver")
-                            .parent_id(0)
-                            .build()
-            )
-    );
+   private final CategoryDao categoryDao;
 
     @Override
-    public List<CategoriesDto> getAllCategories(){
-        return new ArrayList<>(categories);
+    public List<CategoriesDto> getAllCategories() throws CategoryNotFoundException {
+       List<Category> categories = categoryDao.getAllCategory();
+       if (categories.isEmpty()){
+           throw new CategoryNotFoundException();
+       }
+        return categories.stream()
+                .map(this::mapToDo)
+                .toList();
     }
 
+    private CategoriesDto mapToDo(Category category){
+       return CategoriesDto.builder()
+               .id(category.getId())
+               .name(category.getName())
+               .parentId(category.getParentId())
+               .build();
+    }
 }

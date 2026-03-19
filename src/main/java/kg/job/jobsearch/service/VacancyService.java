@@ -1,18 +1,19 @@
 package kg.job.jobsearch.service;
 
 import kg.job.jobsearch.dto.VacanciesDto;
+import kg.job.jobsearch.exception.VacancyNotFoundException;
 
 import java.util.List;
 
 public interface VacancyService {
 
-    List<VacanciesDto> searchVacancies(Integer categoryId, Integer authorId, Boolean isActive);
+    List<VacanciesDto> getALLVacancies() throws VacancyNotFoundException;
 
-    void createVacancy(Integer userId, VacanciesDto vacanciesDto);
+    List<VacanciesDto> getVacancyByCategory(int category) throws VacancyNotFoundException;
 
-    void editVacancy(Integer userId, Integer vacancyId, VacanciesDto vacanciesDto);
+    List<VacanciesDto> getVacancyByActive(boolean active) throws VacancyNotFoundException;
 
-    void deleteVacancy(Integer userId, Integer vacancyId);
+    List<VacanciesDto> getVacanciesByApplicant(int id) throws VacancyNotFoundException;
 
-    VacanciesDto getVacancyById(Integer id);
+    void createVacancy(VacanciesDto vacanciesDto);
 }

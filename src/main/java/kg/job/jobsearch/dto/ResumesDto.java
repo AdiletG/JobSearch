@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,26 +13,26 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResumesDto {
-    private int id;
-    private int applicant_id;
+    private Integer id;
+    private Integer applicantId;
     private String name;
-    private int category_id;
-    private float salary;
-    private boolean is_active;
-    private LocalDateTime created_date;
-    private LocalDateTime update_time;
+    private Integer categoryId;
+    private BigDecimal salary;
+    private Boolean isActive;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 
     @Override
     public String toString() {
         return "ResumesDto{" +
                 "id=" + id +
-                ", applicant_id=" + applicant_id +
+                ", applicantId=" + applicantId +
                 ", name='" + name + '\'' +
-                ", category_id=" + category_id +
+                ", categoryId=" + categoryId +
                 ", salary=" + salary +
-                ", is_active=" + is_active +
-                ", created_date=" + created_date +
-                ", update_time=" + update_time +
+                ", isActive=" + isActive +
+                ", createdDate=" + createdDate +
+                ", updateDime=" + updateDate +
                 '}';
     }
 }

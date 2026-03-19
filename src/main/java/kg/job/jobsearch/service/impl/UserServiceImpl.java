@@ -1,74 +1,95 @@
 package kg.job.jobsearch.service.impl;
 
+import kg.job.jobsearch.dao.UserDao;
 import kg.job.jobsearch.dto.UsersDto;
-import kg.job.jobsearch.enums.AccountType;
+import kg.job.jobsearch.exception.UserNotFoundException;
+import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private List<UsersDto> users = new ArrayList<>(
-            List.of(
-                    UsersDto.builder()
-                            .id(1)
-                            .name("Adilet")
-                            .surname("Gainazarov")
-                            .age(24)
-                            .email("adilet@mail.ru")
-                            .password("qweqweqwe123")
-                            .phone_number("+996500411713")
-                            .avatar("/")
-                            .account_type(AccountType.EMPLOYER)
-                            .build(),
-                    UsersDto.builder()
-                            .id(2)
-                            .name("Asan")
-                            .surname("Uson")
-                            .age(24)
-                            .email("asan@mail.ru")
-                            .password("123qweqweqwe")
-                            .phone_number("+996550490711")
-                            .avatar("/")
-                            .account_type(AccountType.APPLICANT)
-                            .build()
-            )
-    );
+    private final UserDao userDao;
 
     @Override
-    public List<UsersDto> getAllUsers(){
-        return new ArrayList<>(users);
-    }
-
-    @Override
-    public UsersDto getUserById(Integer id){
+    public List<UsersDto> getAllUsers() throws UserNotFoundException {
+        List<User> users = userDao.getAllUser();
+        if(users.isEmpty()){
+            throw new UserNotFoundException();
+        }
         return users.stream()
-                .filter(users -> users.getId() == id)
-                .findFirst()
-                .orElse(null);
+                .map(this::mapToDto)
+                .toList();
     }
 
     @Override
-    public List<UsersDto> searchUsersByAccountType(Integer userId, String name){
+    public UsersDto findById(int id) throws UserNotFoundException {
+          User user = userDao.findById(id)
+                  .orElseThrow(UserNotFoundException::new);
+        return mapToDto(user);
+    }
 
-        UsersDto user = getUserById(userId);
+    @Override
+    public UsersDto findByEmail(String email) throws UserNotFoundException {
+        User user = userDao.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+        return mapToDto(user);
+    }
 
-        if(user.getAccount_type().equals(AccountType.EMPLOYER)){
-            return users.stream()
-                    .filter(u -> u.getAccount_type().equals(AccountType.APPLICANT)
-                            && u.getName().toLowerCase().contains(name.toLowerCase()))
-                    .toList();
+    @Override
+    public List<UsersDto> findByName(String name) throws UserNotFoundException {
+        List<User> users = userDao.findByName(name);
+        if(users.isEmpty()){
+            throw new UserNotFoundException();
         }
+        return  users.stream()
+                .map(this::mapToDto)
+                .toList();
+    }
 
-        if(user.getAccount_type().equals(AccountType.APPLICANT)){
-            return users.stream()
-                    .filter(u -> u.getAccount_type().equals(AccountType.EMPLOYER)
-                            && u.getName().toLowerCase().contains(name.toLowerCase()))
-                    .toList();
+    @Override
+    public List<UsersDto> findByPhoneNumber(String number) throws UserNotFoundException {
+        List<User> users = userDao.findByPhoneNumber(number);
+        if(users.isEmpty()){
+            throw new UserNotFoundException();
         }
+        return users.stream()
+                .map(this::mapToDto)
+                .toList();
+    }
 
-        return new ArrayList<>();
+    @Override
+    public boolean existsUserByEmail(String email) {
+        return userDao.existsUserByEmail(email);
+    }
+
+    @Override
+    public List<UsersDto> getApplicantByVacancies(int id) throws UserNotFoundException {
+        List<User> users = userDao.getApplicantByVacancies(id);
+
+        if(users.isEmpty()){
+            throw new UserNotFoundException();
+        }
+        return users.stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    private UsersDto mapToDto(User user) {
+        return UsersDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .age(user.getAge())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .phoneNumber(user.getPhoneNumber())
+                .avatar(user.getAvatar())
+                .accountType(user.getAccountType())
+                .build();
     }
 }
