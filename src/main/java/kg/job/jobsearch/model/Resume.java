@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Setter
 public class Resume {
     private Integer id;
-    private Integer applicant_id;
+    private Integer applicantId;
     private String name;
-    private Integer category_id;
+    private Integer categoryId;
     private BigDecimal salary;
-    private Boolean is_active;
-    private LocalDateTime created_date;
-    private LocalDateTime update_time;
+    private Boolean isActive;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 }

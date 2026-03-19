@@ -14,25 +14,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ResumesDto {
     private Integer id;
-    private Integer applicant_id;
+    private Integer applicantId;
     private String name;
-    private Integer category_id;
+    private Integer categoryId;
     private BigDecimal salary;
-    private Boolean is_active;
-    private LocalDateTime created_date;
-    private LocalDateTime update_time;
+    private Boolean isActive;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 
     @Override
     public String toString() {
         return "ResumesDto{" +
                 "id=" + id +
-                ", applicant_id=" + applicant_id +
+                ", applicantId=" + applicantId +
                 ", name='" + name + '\'' +
-                ", category_id=" + category_id +
+                ", categoryId=" + categoryId +
                 ", salary=" + salary +
-                ", is_active=" + is_active +
-                ", created_date=" + created_date +
-                ", update_time=" + update_time +
+                ", isActive=" + isActive +
+                ", createdDate=" + createdDate +
+                ", updateDime=" + updateDate +
                 '}';
     }
 }

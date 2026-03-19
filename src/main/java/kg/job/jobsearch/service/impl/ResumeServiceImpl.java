@@ -8,7 +8,6 @@ import kg.job.jobsearch.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,28 +18,15 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public List<ResumesDto> getAllResume() throws ResumeNotFoundException {
-        List<Resume> resume = resumeDao.getAllResume();
+        List<Resume> resumes = resumeDao.getAllResume();
 
-        if(resume.isEmpty()){
+        if(resumes.isEmpty()){
             throw new ResumeNotFoundException();
         }
 
-        List<ResumesDto> result = new ArrayList<>();
-        resume.forEach(r -> {
-            ResumesDto resumes = ResumesDto.builder()
-                    .id(r.getId())
-                    .applicant_id(r.getApplicant_id())
-                    .name(r.getName())
-                    .category_id(r.getCategory_id())
-                    .salary(r.getSalary())
-                    .is_active(r.getIs_active())
-                    .created_date(r.getCreated_date())
-                    .update_time(r.getUpdate_time())
-                    .build();
-            result.add(resumes);
-        });
-
-        return result;
+        return resumes.stream()
+                .map(this::mapToDto)
+                .toList();
     }
 
     @Override
@@ -50,17 +36,8 @@ public class ResumeServiceImpl implements ResumeService {
             throw new ResumeNotFoundException();
         }
 
-        return resumes.stream()
-                .map(r -> ResumesDto.builder()
-                        .id(r.getId())
-                        .applicant_id(r.getApplicant_id())
-                        .name(r.getName())
-                        .category_id(r.getCategory_id())
-                        .salary(r.getSalary())
-                        .is_active(r.getIs_active())
-                        .created_date(r.getCreated_date())
-                        .update_time(r.getUpdate_time())
-                        .build())
+        return  resumes.stream()
+                .map(this::mapToDto)
                 .toList();
     }
 
@@ -72,16 +49,7 @@ public class ResumeServiceImpl implements ResumeService {
             throw new ResumeNotFoundException();
         }
         return resumes.stream()
-                .map(r -> ResumesDto.builder()
-                        .id(r.getId())
-                        .applicant_id(r.getApplicant_id())
-                        .name(r.getName())
-                        .category_id(r.getCategory_id())
-                        .salary(r.getSalary())
-                        .is_active(r.getIs_active())
-                        .created_date(r.getCreated_date())
-                        .update_time(r.getUpdate_time())
-                        .build())
+                .map(this::mapToDto)
                 .toList();
     }
 
@@ -94,16 +62,20 @@ public class ResumeServiceImpl implements ResumeService {
         }
 
         return resumes.stream()
-                .map(r -> ResumesDto.builder()
-                        .id(r.getId())
-                        .applicant_id(r.getApplicant_id())
-                        .name(r.getName())
-                        .category_id(r.getCategory_id())
-                        .salary(r.getSalary())
-                        .is_active(r.getIs_active())
-                        .created_date(r.getCreated_date())
-                        .update_time(r.getUpdate_time())
-                        .build())
+                .map(this::mapToDto)
                 .toList();
+    }
+
+    private ResumesDto mapToDto(Resume resume) {
+        return ResumesDto.builder()
+                .id(resume.getId())
+                .applicantId(resume.getApplicantId())
+                .name(resume.getName())
+                .categoryId(resume.getCategoryId())
+                .salary(resume.getSalary())
+                .isActive(resume.getIsActive())
+                .createdDate(resume.getCreatedDate())
+                .updateDate(resume.getUpdateDate())
+                .build();
     }
 }
