@@ -1,0 +1,35 @@
+package kg.job.jobsearch.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class EducationInfoDto {
+    private Integer id;
+    private Integer resumeId;
+    private String institution;
+    private String program;
+    private Integer startDate;
+    private Integer endDate;
+    private String degree;
+
+    @Override
+    public String toString() {
+        return "EducationInfoDto{" +
+                "id=" + id +
+                ", resumeId=" + resumeId +
+                ", institution='" + institution + '\'' +
+                ", program='" + program + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", degree='" + degree + '\'' +
+                '}';
+    }
+}
