@@ -1,6 +1,7 @@
 package kg.job.jobsearch.controller;
 
 import kg.job.jobsearch.dto.CategoriesDto;
+import kg.job.jobsearch.exception.CategoryNotFoundException;
 import kg.job.jobsearch.service.CategoriesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class CategoriesController {
     private final CategoriesService categoriesService;
 
     @GetMapping
-    public ResponseEntity<List<CategoriesDto>> getAllCategories(){
-        return ResponseEntity.ok(categoriesService.getAllCategories());
+    public List<CategoriesDto> getAllCategories() throws CategoryNotFoundException {
+        return categoriesService.getAllCategories();
     }
 
 }
