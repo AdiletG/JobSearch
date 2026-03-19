@@ -74,7 +74,7 @@ create table if not exists resumes
 
 insert into resumes(applicant_id, name, category_id, salary, is_active, created_date, update_date)
 values
-    (2, 'Asan Driver Resume', 2, 13000, true,
+    (1, 'Adilet Driver Resume', 2, 13000, true,
      '2026-03-03 17:00:00', null),
 
     (2, 'Asan Teacher Resume', 3, 10000, true,
@@ -123,8 +123,8 @@ create table if not exists responded_applicant
 
 insert into responded_applicant(resume_id, vacancy_id, confirmation)
 values
-    (2, 1, null),
-    (1, 2, null);
+    (1, 1, null),
+    (2, 2, null);
 
 create table if not exists education_info
 (
