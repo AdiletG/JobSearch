@@ -17,5 +17,7 @@ public interface UserService {
 
     List<UsersDto> findByPhoneNumber(String number) throws UserNotFoundException;
 
-    String existsUserByEmail(String email) throws UserNotFoundException;
+    boolean existsUserByEmail(String email) throws UserNotFoundException;
+
+    List<UsersDto> getApplicantByVacancies(int id) throws UserNotFoundException;
 }

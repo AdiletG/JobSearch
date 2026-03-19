@@ -5,7 +5,6 @@ import kg.job.jobsearch.exception.UserNotFoundException;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,8 +45,13 @@ public class UsersController {
     }
 
     @GetMapping("/search/user-exists")
-    public String existsUserByEmail(@RequestParam String email) throws UserNotFoundException{
+    public boolean existsUserByEmail(@RequestParam String email) throws UserNotFoundException{
         return userService.existsUserByEmail(email);
+    }
+
+    @GetMapping("/search/user-vacancies")
+    public List<UsersDto> getApplicantByVacancies(@RequestParam Integer id) throws UserNotFoundException{
+        return userService.getApplicantByVacancies(id);
     }
 
     @PostMapping

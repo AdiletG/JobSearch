@@ -8,7 +8,6 @@ import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,58 +21,23 @@ public class UserServiceImpl implements UserService {
         if(users.isEmpty()){
             throw new UserNotFoundException();
         }
-        List<UsersDto> result = new ArrayList<>();
-
-        users.forEach( a -> {
-            UsersDto user = UsersDto.builder()
-                    .id(a.getId())
-                    .name(a.getName())
-                    .surname(a.getSurname())
-                    .age(a.getAge())
-                    .email(a.getEmail())
-                    .password(a.getPassword())
-                    .phone_number(a.getPhone_number())
-                    .avatar(a.getAvatar())
-                    .account_type(a.getAccount_type())
-                    .build();
-            result.add(user);
-        });
-
-        return result;
+        return users.stream()
+                .map(this::mapToDto)
+                .toList();
     }
 
     @Override
     public UsersDto findById(int id) throws UserNotFoundException {
           User user = userDao.findById(id)
                   .orElseThrow(UserNotFoundException::new);
-        return UsersDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .age(user.getAge())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .phone_number(user.getPhone_number())
-                .avatar(user.getAvatar())
-                .account_type(user.getAccount_type())
-                .build();
+        return mapToDto(user);
     }
 
     @Override
     public UsersDto findByEmail(String email) throws UserNotFoundException {
         User user = userDao.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
-        return UsersDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .age(user.getAge())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .phone_number(user.getPhone_number())
-                .avatar(user.getAvatar())
-                .account_type(user.getAccount_type())
-                .build();
+        return mapToDto(user);
     }
 
     @Override
@@ -82,18 +46,8 @@ public class UserServiceImpl implements UserService {
         if(users.isEmpty()){
             throw new UserNotFoundException();
         }
-        return users.stream()
-                .map(user -> UsersDto.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .surname(user.getSurname())
-                        .age(user.getAge())
-                        .email(user.getEmail())
-                        .password(user.getPassword())
-                        .phone_number(user.getPhone_number())
-                        .avatar(user.getAvatar())
-                        .account_type(user.getAccount_type())
-                        .build())
+        return  users.stream()
+                .map(this::mapToDto)
                 .toList();
     }
 
@@ -104,30 +58,38 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException();
         }
         return users.stream()
-                .map(user -> UsersDto.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .surname(user.getSurname())
-                        .age(user.getAge())
-                        .email(user.getEmail())
-                        .password(user.getPassword())
-                        .phone_number(user.getPhone_number())
-                        .avatar(user.getAvatar())
-                        .account_type(user.getAccount_type())
-                        .build())
+                .map(this::mapToDto)
                 .toList();
     }
 
     @Override
-    public String existsUserByEmail(String email) throws UserNotFoundException {
-        String result = "Пользователь существует";
-
-        if(!userDao.existsUserByEmail(email)){
-           result = "Пользователь не существует";
-           throw new UserNotFoundException();
-        }
-
-        return result;
+    public boolean existsUserByEmail(String email) {
+        return userDao.existsUserByEmail(email);
     }
 
+    @Override
+    public List<UsersDto> getApplicantByVacancies(int id) throws UserNotFoundException {
+        List<User> users = userDao.getApplicantByVacancies(id);
+
+        if(users.isEmpty()){
+            throw new UserNotFoundException();
+        }
+        return users.stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    private UsersDto mapToDto(User user) {
+        return UsersDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .age(user.getAge())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .phoneNumber(user.getPhoneNumber())
+                .avatar(user.getAvatar())
+                .accountType(user.getAccountType())
+                .build();
+    }
 }

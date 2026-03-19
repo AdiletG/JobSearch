@@ -1,7 +1,9 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.UserMapper;
+import kg.job.jobsearch.dao.mapper.VacancyMapper;
 import kg.job.jobsearch.model.User;
+import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,5 +54,17 @@ public class UserDao {
     public Boolean existsUserByEmail(String email){
         String sql = "select exists (select 1 from users where email = ?)";
         return jdbcTemplate.queryForObject(sql, Boolean.class, email);
+    }
+
+    public List<User> getApplicantByVacancies(int id){
+        String sql = """
+        SELECT u.*
+        FROM users u
+        JOIN resumes res ON u.id = res.applicant_id
+        JOIN responded_applicant r ON res.id = r.resume_id
+        WHERE r.vacancy_id = ?
+        """;
+
+        return jdbcTemplate.query(sql, new UserMapper(), id);
     }
 }
