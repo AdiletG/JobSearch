@@ -12,12 +12,12 @@ public class Vacancy {
     private Integer id;
     private String name;
     private String description;
-    private Integer category_id;
+    private Integer categoryId;
     private BigDecimal salary;
-    private Integer exp_from;
-    private Integer exp_to;
-    private Boolean is_active;
-    private Integer author_id;
-    private LocalDateTime created_date;
-    private LocalDateTime update_time;
+    private Integer expFrom;
+    private Integer expTo;
+    private Boolean isActive;
+    private Integer authorId;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 }

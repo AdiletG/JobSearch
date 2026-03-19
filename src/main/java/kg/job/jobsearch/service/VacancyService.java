@@ -12,4 +12,8 @@ public interface VacancyService {
     List<VacanciesDto> getVacancyByCategory(int category) throws VacancyNotFoundException;
 
     List<VacanciesDto> getVacancyByActive(boolean active) throws VacancyNotFoundException;
+
+    List<VacanciesDto> getVacanciesByApplicant(int id) throws VacancyNotFoundException;
+
+    void createVacancy(VacanciesDto vacanciesDto);
 }

@@ -30,4 +30,14 @@ public class VacanciesController {
         return vacancyService.getVacancyByActive(active);
     }
 
+    @GetMapping("/search/by-applicant")
+    public List<VacanciesDto> getVacanciesByApplicant(@RequestParam Integer id) throws VacancyNotFoundException {
+        return vacancyService.getVacanciesByApplicant(id);
+    }
+
+    @PostMapping("/create")
+    public void createVacancy(@RequestBody VacanciesDto vacanciesDto){
+        vacancyService.createVacancy(vacanciesDto);
+    }
+
 }
