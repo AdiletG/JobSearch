@@ -12,7 +12,7 @@ public class EducationInfo {
     private Integer resumeId;
     private String institution;
     private String program;
-    private Integer startDate;
-    private Integer endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String degree;
 }

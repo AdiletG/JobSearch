@@ -1,5 +1,6 @@
 package kg.job.jobsearch.controller;
 
+import kg.job.jobsearch.dto.ResumeCreateDto;
 import kg.job.jobsearch.dto.ResumesDto;
 import kg.job.jobsearch.exception.ResumeNotFoundException;
 import kg.job.jobsearch.service.ResumeService;
@@ -32,6 +33,14 @@ public class ResumeController {
     @GetMapping("/search/by-active")
     public List<ResumesDto> getResumesByActive(@RequestParam Boolean active) throws ResumeNotFoundException {
         return resumeService.getResumeByActive(active);
+    }
+
+    @PostMapping("/create/{id}/resumes")
+    public void createResume(
+            @PathVariable Long id,
+            @RequestBody ResumeCreateDto dto
+            ) throws ResumeNotFoundException {
+        resumeService.createResume(id,dto);
     }
 
 }

@@ -1,5 +1,6 @@
 package kg.job.jobsearch.service;
 
+import kg.job.jobsearch.dto.ResumeCreateDto;
 import kg.job.jobsearch.dto.ResumesDto;
 import kg.job.jobsearch.exception.ResumeNotFoundException;
 
@@ -14,4 +15,6 @@ public interface ResumeService {
     List<ResumesDto> getResumeByApplicant(int applicantId) throws ResumeNotFoundException;
 
     List<ResumesDto> getResumeByActive(boolean active) throws ResumeNotFoundException;
+
+    void createResume(Long applicantId, ResumeCreateDto dto) throws ResumeNotFoundException;
 }

@@ -1,7 +1,9 @@
 package kg.job.jobsearch.service.impl;
 
+import kg.job.jobsearch.dao.EducationInfoDao;
 import kg.job.jobsearch.dao.ResumeDao;
-import kg.job.jobsearch.dto.ResumesDto;
+import kg.job.jobsearch.dao.WorkExperienceInfoDao;
+import kg.job.jobsearch.dto.*;
 import kg.job.jobsearch.exception.ResumeNotFoundException;
 import kg.job.jobsearch.model.Resume;
 import kg.job.jobsearch.service.ResumeService;
@@ -15,6 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResumeServiceImpl implements ResumeService {
     private final ResumeDao resumeDao;
+    private final EducationInfoDao educationInfoDao;
+    private final WorkExperienceInfoDao workExperienceInfoDao;
+
 
     @Override
     public List<ResumesDto> getAllResume() throws ResumeNotFoundException {
@@ -64,6 +69,19 @@ public class ResumeServiceImpl implements ResumeService {
         return resumes.stream()
                 .map(this::mapToDto)
                 .toList();
+    }
+
+    @Override
+    public void createResume(Long applicantId, ResumeCreateDto dto) throws ResumeNotFoundException {
+        Long resumeId = resumeDao.createResume(applicantId, dto);
+
+        for(EducationInfoCreateDto education : dto.getEducations()){
+            educationInfoDao.save(resumeId, education);
+        }
+
+        for(WorkExperienceInfoCreateDto work : dto.getWorkExperiences()){
+            workExperienceInfoDao.save(resumeId, work);
+        }
     }
 
     private ResumesDto mapToDto(Resume resume) {

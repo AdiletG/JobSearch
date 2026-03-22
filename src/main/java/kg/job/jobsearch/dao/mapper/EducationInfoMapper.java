@@ -15,8 +15,8 @@ public class EducationInfoMapper implements RowMapper<EducationInfo> {
         educationInfo.setResumeId(rs.getInt("resume_id"));
         educationInfo.setInstitution(rs.getString("institution"));
         educationInfo.setProgram(rs.getString("program"));
-        educationInfo.setStartDate(rs.getInt("start_date"));
-        educationInfo.setEndDate(rs.getInt("end_date"));
+        educationInfo.setStartDate(rs.getDate("start_date").toLocalDate());
+        educationInfo.setEndDate(rs.getDate("end_date").toLocalDate());
         educationInfo.setDegree(rs.getString("degree"));
         return educationInfo;
     }

@@ -1,7 +1,6 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.VacancyMapper;
-import kg.job.jobsearch.dto.RespondedApplicantsDto;
 import kg.job.jobsearch.dto.VacanciesDto;
 import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
