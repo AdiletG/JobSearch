@@ -14,7 +14,7 @@ public class CategoryDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Category> getAllCategory(){
-        String sql = "select * from education_info;";
+        String sql = "select * from categories;";
         return jdbcTemplate.query(sql, new CategoryMapper());
     }
 

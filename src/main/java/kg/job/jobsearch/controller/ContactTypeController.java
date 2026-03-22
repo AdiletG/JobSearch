@@ -1,8 +1,7 @@
 package kg.job.jobsearch.controller;
 
-import kg.job.jobsearch.dto.ContactTypeDto;
+import kg.job.jobsearch.dto.ContactTypesDto;
 import kg.job.jobsearch.exception.ContactsTypeNotFoundException;
-import kg.job.jobsearch.model.ContactType;
 import kg.job.jobsearch.service.ContactTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ public class ContactTypeController {
     private final ContactTypeService contactTypeService;
 
     @GetMapping
-    public List<ContactTypeDto> getAllContactType() throws ContactsTypeNotFoundException {
+    public List<ContactTypesDto> getAllContactType() throws ContactsTypeNotFoundException {
         return contactTypeService.getAllContactType();
     }
 }

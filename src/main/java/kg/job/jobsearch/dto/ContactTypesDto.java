@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContactTypeDto {
+public class ContactTypesDto {
    private Integer id;
    private String type;
 

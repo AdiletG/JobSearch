@@ -39,7 +39,7 @@ public class VacancyDao {
         String sql = """
         SELECT v.*
         FROM vacancies v
-        JOIN responded_applicant r ON v.id = r.vacancy_id
+        JOIN responded_applicants r ON v.id = r.vacancy_id
         JOIN resumes res ON r.resume_id = res.id
         WHERE res.applicant_id = ?
         """;

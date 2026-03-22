@@ -61,7 +61,7 @@ public class UserDao {
         SELECT u.*
         FROM users u
         JOIN resumes res ON u.id = res.applicant_id
-        JOIN responded_applicant r ON res.id = r.resume_id
+        JOIN responded_applicants r ON res.id = r.resume_id
         WHERE r.vacancy_id = ?
         """;
 
