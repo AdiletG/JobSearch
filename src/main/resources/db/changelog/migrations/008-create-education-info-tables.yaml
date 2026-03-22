@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-create-education-info-tables
+      author: AdiletG
+      changes:
+        - createTable:
+            tableName: education_info
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: long
+                  constraints:
+                    nullable: false
+              - column:
+                  name: institution
+                  type: varchar(255)
+              - column:
+                  name: program
+                  type: varchar(255)
+              - column:
+                  name: start_date
+                  type: date
+              - column:
+                  name: end_date
+                  type: date
+              - column:
+                  name: degree
+                  type: varchar(255)
+        - addForeignKeyConstraint:
+            baseTableName: education_info
+            baseColumnNames: resume_id
+            referencedTableName: resumes
+            referencedColumnNames: id
+            constraintName: fk_education_resume_id
+            onDelete: SET NULL
