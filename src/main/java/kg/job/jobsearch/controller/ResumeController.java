@@ -30,7 +30,7 @@ public class ResumeController {
     }
 
     @GetMapping("/search/by-applicant")
-    public List<ResumesDto> getResumesByApplicant(@RequestParam Integer applicant) throws ResumeNotFoundException {
+    public List<ResumesDto> getResumesByApplicant(@RequestParam Long applicant) throws ResumeNotFoundException {
         return resumeService.getResumeByApplicant(applicant);
     }
 

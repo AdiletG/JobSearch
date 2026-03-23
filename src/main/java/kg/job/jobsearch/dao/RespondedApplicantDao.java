@@ -19,8 +19,13 @@ public class RespondedApplicantDao {
         return jdbcTemplate.query(sql, new RespondedApplicantMapper());
     }
 
-    public void delete(Long resume_id){
+    public void deleteResume(Long resumeId){
         String sql = "delete from responded_applicants where resume_id = ?";
-        jdbcTemplate.update(sql, resume_id);
+        jdbcTemplate.update(sql, resumeId);
+    }
+
+    public void deleteVacancy(Long vacancyId){
+        String sql = "delete from responded_applicants where vacancy_id = ?";
+        jdbcTemplate.update(sql, vacancyId);
     }
 }

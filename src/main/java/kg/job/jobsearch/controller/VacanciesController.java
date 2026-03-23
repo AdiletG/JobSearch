@@ -1,7 +1,8 @@
 package kg.job.jobsearch.controller;
 
-import kg.job.jobsearch.dto.VacanciesDto;
-import kg.job.jobsearch.exception.VacancyNotFoundException;
+import kg.job.jobsearch.dto.*;
+import kg.job.jobsearch.exception.*;
+import kg.job.jobsearch.model.Vacancy;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +36,24 @@ public class VacanciesController {
         return vacancyService.getVacanciesByApplicant(id);
     }
 
-    @PostMapping("/create")
-    public void createVacancy(@RequestBody VacanciesDto vacanciesDto){
-        vacancyService.createVacancy(vacanciesDto);
+    @PostMapping("/{authorId}")
+    public void createVacancy(
+            @PathVariable Long authorId,
+            @RequestBody VacanciesCreateDto dto){
+        vacancyService.createVacancy(authorId, dto);
+    }
+
+    @PatchMapping("/{vacancyId}")
+    public VacanciesDto update(
+            @PathVariable Long vacancyId,
+            @RequestBody VacanciesUpdateDto dto
+    ) throws VacancyNotFoundException {
+        return vacancyService.update(vacancyId, dto);
+    }
+
+    @DeleteMapping("/{vacancyId}")
+    public void deleteResume( @PathVariable Long vacancyId) throws VacancyNotFoundException {
+        vacancyService.delete(vacancyId);
     }
 
 }

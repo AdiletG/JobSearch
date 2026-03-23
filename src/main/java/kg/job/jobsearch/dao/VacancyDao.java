@@ -1,9 +1,9 @@
 package kg.job.jobsearch.dao;
 
-import kg.job.jobsearch.dao.mapper.ResumeMapper;
 import kg.job.jobsearch.dao.mapper.VacancyMapper;
+import kg.job.jobsearch.dto.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
-import kg.job.jobsearch.model.Resume;
+import kg.job.jobsearch.dto.VacanciesUpdateDto;
 import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
@@ -39,7 +39,7 @@ public class VacancyDao {
 
     public Optional<Vacancy> getVacancyById(Long vacancyId){
         String sql = """
-                select * vacancies where id = ?
+                select * from vacancies where id = ?
                 """;
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(jdbcTemplate.query(sql, new VacancyMapper(), vacancyId)
@@ -60,22 +60,52 @@ public class VacancyDao {
         return jdbcTemplate.query(sql, new VacancyMapper(), id);
     }
 
-    public void createVacancy(VacanciesDto vacanciesDto) {
+    public void createVacancy(Long authorId, VacanciesCreateDto dto) {
         String sql = """
         INSERT INTO vacancies (
             name, description, category_id, salary,
             exp_from, exp_to, is_active, author_id,
-            created_date, update_date
+            created_date
         )
-        VALUES (
-            :name, :description, :categoryId, :salary,
-            :expFrom, :expTo, :isActive, :authorId,
-            :createdDate, :updateDate
-        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, now())
         """;
 
-        SqlParameterSource params = new BeanPropertySqlParameterSource(vacanciesDto);
+        jdbcTemplate.update(
+                sql,
+                dto.getName(),
+                dto.getDescription(),
+                dto.getCategoryId(),
+                dto.getSalary(),
+                dto.getExpFrom(),
+                dto.getExpTo(),
+                dto.getIsActive(),
+                authorId
+                );
+    }
 
-        namedParameterJdbcTemplate.update(sql, params);
+    public void update(Long vacancyId, Vacancy dto){
+        String sql = """
+                update vacancies
+                set name = ?, description = ?, category_id = ?, salary = ?, exp_from = ?, exp_to = ?,
+                is_active = ?, update_date = now()
+                where id = ?
+                """;
+
+        jdbcTemplate.update(
+                sql,
+                dto.getName(),
+                dto.getDescription(),
+                dto.getCategoryId(),
+                dto.getSalary(),
+                dto.getExpFrom(),
+                dto.getExpTo(),
+                dto.getIsActive(),
+                vacancyId
+        );
+    }
+
+    public void delete(Long id){
+        String sql = "delete from vacancies where id = ?";
+        jdbcTemplate.update(sql, id);
     }
 }

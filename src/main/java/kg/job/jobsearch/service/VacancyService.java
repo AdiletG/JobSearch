@@ -1,6 +1,8 @@
 package kg.job.jobsearch.service;
 
+import kg.job.jobsearch.dto.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
+import kg.job.jobsearch.dto.VacanciesUpdateDto;
 import kg.job.jobsearch.exception.VacancyNotFoundException;
 
 import java.util.List;
@@ -15,5 +17,9 @@ public interface VacancyService {
 
     List<VacanciesDto> getVacanciesByApplicant(int id) throws VacancyNotFoundException;
 
-    void createVacancy(VacanciesDto vacanciesDto);
+    void createVacancy(Long authorId, VacanciesCreateDto dto);
+
+    VacanciesDto update(Long vacancyId, VacanciesUpdateDto dto) throws VacancyNotFoundException;
+
+    void delete(Long resumeId) throws VacancyNotFoundException;
 }

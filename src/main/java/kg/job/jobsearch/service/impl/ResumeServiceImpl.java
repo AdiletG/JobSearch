@@ -53,7 +53,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public List<ResumesDto> getResumeByApplicant(int applicantId) throws ResumeNotFoundException {
+    public List<ResumesDto> getResumeByApplicant(Long applicantId) throws ResumeNotFoundException {
         List<Resume> resumes = resumeDao.getResumeByApplicant(applicantId);
 
         if(resumes.isEmpty()){
@@ -227,7 +227,7 @@ public class ResumeServiceImpl implements ResumeService {
         educationInfoDao.deleteById(resumeId);
         workExperienceInfoDao.deleteById(resumeId);
         contactsInfoDao.delete(resumeId);
-        applicantDao.delete(resumeId);
+        applicantDao.deleteResume(resumeId);
         resumeDao.deleteResume(resumeId);
 
     }

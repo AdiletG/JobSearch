@@ -8,6 +8,7 @@ import kg.job.jobsearch.dto.ResumesDto;
 import kg.job.jobsearch.exception.ResumeNotFoundException;
 import kg.job.jobsearch.model.Resume;
 import kg.job.jobsearch.model.User;
+import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,11 +38,6 @@ public class ResumeDao {
         return jdbcTemplate.query(sql, new ResumeMapper(), category);
     }
 
-    public List<Resume> getResumeByApplicant(int applicantId){
-        String sql = "select * from resumes where applicant_id = ?";
-        return jdbcTemplate.query(sql, new ResumeMapper(), applicantId);
-    }
-
     public List<Resume> getResumeByActive(boolean active){
         String sql = "select * from resumes where is_active = ?";
         return jdbcTemplate.query(sql, new ResumeMapper(), active);
@@ -55,6 +51,11 @@ public class ResumeDao {
                 DataAccessUtils.singleResult(jdbcTemplate.query(sql, new ResumeMapper(), resumeId)
                 )
         );
+    }
+
+    public List<Resume> getResumeByApplicant(Long applicantId){
+        String sql = "select * from resumes where applicant_id = ?";
+        return jdbcTemplate.query(sql, new ResumeMapper(), applicantId);
     }
 
     public Long createResume(Long applicantId, ResumeCreateDto dto) throws ResumeNotFoundException {
