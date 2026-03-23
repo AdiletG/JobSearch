@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WorkExperienceInfo {
-    private Integer id;
-    private Integer resumeId;
+    private Long id;
+    private Long resumeId;
     private Integer years;
     private String companyName;
     private String position;

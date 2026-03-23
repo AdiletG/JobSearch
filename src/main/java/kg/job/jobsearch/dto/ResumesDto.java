@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResumesDto {
-    private Integer id;
-    private Integer applicantId;
+    private Long id;
+    private Long applicantId;
     private String name;
-    private Integer categoryId;
+    private Long categoryId;
     private BigDecimal salary;
     private Boolean isActive;
     private LocalDateTime createdDate;

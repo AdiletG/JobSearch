@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactTypesDto {
-   private Integer id;
+   private Long id;
    private String type;
 
    @Override

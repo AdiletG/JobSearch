@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Message {
-    private Integer id;
-    private Integer respondedApplicants;
+    private Long id;
+    private Long respondedApplicants;
     private String content;
     private LocalDateTime times;
 }

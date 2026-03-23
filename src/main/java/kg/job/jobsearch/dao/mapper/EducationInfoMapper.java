@@ -11,8 +11,8 @@ public class EducationInfoMapper implements RowMapper<EducationInfo> {
     @Override
     public EducationInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         EducationInfo educationInfo = new EducationInfo();
-        educationInfo.setId(rs.getInt("id"));
-        educationInfo.setResumeId(rs.getInt("resume_id"));
+        educationInfo.setId(rs.getLong("id"));
+        educationInfo.setResumeId(rs.getLong("resume_id"));
         educationInfo.setInstitution(rs.getString("institution"));
         educationInfo.setProgram(rs.getString("program"));
         educationInfo.setStartDate(rs.getDate("start_date").toLocalDate());

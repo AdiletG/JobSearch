@@ -30,4 +30,4 @@ databaseChangeLog:
             referencedTableName: responded_applicants
             referencedColumnNames: id
             constraintName: fk_message_responded_applicant_id
-            onDelete: SET NULL
+            onDelete: CASCADE

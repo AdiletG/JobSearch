@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Category {
-    private int id;
+    private Long id;
     private String name;
-    private int parentId;
+    private Long parentId;
 }

@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactsInfoDto {
-   private Integer id;
-   private Integer type_id;
-   private Integer resume_id;
+   private Long id;
+   private Long type_id;
+   private Long resume_id;
    private String contactValue;
 
    @Override
