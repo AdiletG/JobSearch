@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoriesDto {
-    private int id;
+    private Long id;
     private String name;
-    private int parentId;
+    private Long parentId;
 
     @Override
     public String toString() {

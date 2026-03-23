@@ -12,8 +12,8 @@ public class MessageMapper implements RowMapper<Message> {
     @Override
     public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
         Message message = new Message();
-        message.setId(rs.getInt("id"));
-        message.setRespondedApplicants(rs.getInt("responded_applicant_id"));
+        message.setId(rs.getLong("id"));
+        message.setRespondedApplicants(rs.getLong("responded_applicant_id"));
         message.setContent(rs.getString("content"));
         Timestamp times = rs.getTimestamp("times");
 

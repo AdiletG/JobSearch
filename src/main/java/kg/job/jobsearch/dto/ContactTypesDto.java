@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContactTypeDto {
-   private Integer id;
+public class ContactTypesDto {
+   private Long id;
    private String type;
 
    @Override

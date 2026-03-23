@@ -1,10 +1,12 @@
 package kg.job.jobsearch.controller;
 
+import kg.job.jobsearch.dto.UserImageDto;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.exception.UserNotFoundException;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,8 +57,8 @@ public class UsersController {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadAvatar(@RequestParam MultipartFile file) {
-        String filename = fileService.upload(file);
-        return ResponseEntity.ok(filename);
+    public HttpStatus uploadAvatar(@RequestParam UserImageDto dto) {
+       fileService.upload(dto);
+        return HttpStatus.OK;
     }
 }

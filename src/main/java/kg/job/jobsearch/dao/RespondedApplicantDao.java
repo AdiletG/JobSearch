@@ -15,7 +15,17 @@ public class RespondedApplicantDao {
     private final JdbcTemplate jdbcTemplate;
 
     public List<RespondedApplicant> getAllResponds(){
-        String sql = "select * from responded_applicant;";
+        String sql = "select * from responded_applicants;";
         return jdbcTemplate.query(sql, new RespondedApplicantMapper());
+    }
+
+    public void deleteResume(Long resumeId){
+        String sql = "delete from responded_applicants where resume_id = ?";
+        jdbcTemplate.update(sql, resumeId);
+    }
+
+    public void deleteVacancy(Long vacancyId){
+        String sql = "delete from responded_applicants where vacancy_id = ?";
+        jdbcTemplate.update(sql, vacancyId);
     }
 }

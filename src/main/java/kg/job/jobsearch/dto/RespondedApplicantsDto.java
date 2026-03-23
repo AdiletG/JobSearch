@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RespondedApplicantsDto {
-    private Integer id;
-    private Integer resumeId;
-    private Integer vacancyId;
+    private Long id;
+    private Long resumeId;
+    private Long vacancyId;
     private Boolean confirmation;
 
     @Override

@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacanciesDto {
-    private Integer id;
+    private Long id;
     private String name;
     private String description;
-    private Integer categoryId;
+    private Long categoryId;
     private BigDecimal salary;
     private Integer expFrom;
     private Integer expTo;
     private Boolean isActive;
-    private Integer authorId;
+    private Long authorId;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;
 

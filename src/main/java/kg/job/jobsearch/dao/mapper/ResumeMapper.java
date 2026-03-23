@@ -12,10 +12,10 @@ public class ResumeMapper implements RowMapper<Resume> {
     @Override
     public Resume mapRow(ResultSet rs, int rowNum) throws SQLException {
         Resume resume = new Resume();
-        resume.setId(rs.getInt("id"));
-        resume.setApplicantId(rs.getInt("applicant_id"));
+        resume.setId(rs.getLong("id"));
+        resume.setApplicantId(rs.getLong("applicant_id"));
         resume.setName(rs.getString("name"));
-        resume.setCategoryId(rs.getInt("category_id"));
+        resume.setCategoryId(rs.getLong("category_id"));
         resume.setSalary(rs.getBigDecimal("salary"));
         resume.setIsActive(rs.getBoolean("is_active"));
         Timestamp createdDate = rs.getTimestamp("created_date");
