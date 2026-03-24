@@ -2,18 +2,40 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.UserDao;
 import kg.job.jobsearch.dto.UsersDto;
-import kg.job.jobsearch.exception.UserNotFoundException;
+import kg.job.jobsearch.dto.create.UsersCreateDto;
+import kg.job.jobsearch.exception.createException.UserDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
+
+    @Override
+    public void createUser(UsersCreateDto dto) throws UserDataCreateException {
+        try{
+            User user = new User();
+            user.setName(dto.getName());
+            user.setSurname(dto.getSurname());
+            user.setAge(dto.getAge());
+            user.setEmail(dto.getEmail());
+            user.setPassword(dto.getPassword());
+            user.setPhoneNumber(dto.getPhoneNumber());
+            user.setAvatar(dto.getAvatar());
+            user.setAccountType(dto.getAccountType());
+
+            userDao.createUser(user);
+        }catch (SQLException e){
+            throw new UserDataCreateException();
+        }
+    }
 
     @Override
     public List<UsersDto> getAllUsers() throws UserNotFoundException {

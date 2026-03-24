@@ -1,7 +1,7 @@
 package kg.job.jobsearch.controller;
 
 import kg.job.jobsearch.dto.ContactsInfoDto;
-import kg.job.jobsearch.exception.ContactsInfoNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.ContactsInfoNotFoundException;
 import kg.job.jobsearch.service.ContactsInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

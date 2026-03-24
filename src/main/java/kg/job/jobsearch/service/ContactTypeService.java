@@ -1,7 +1,7 @@
 package kg.job.jobsearch.service;
 
 import kg.job.jobsearch.dto.ContactTypesDto;
-import kg.job.jobsearch.exception.ContactsTypeNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.ContactsTypeNotFoundException;
 
 import java.util.List;
 

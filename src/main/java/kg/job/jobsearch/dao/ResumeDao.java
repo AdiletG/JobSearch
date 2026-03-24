@@ -1,14 +1,9 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.ResumeMapper;
-import kg.job.jobsearch.dao.mapper.UserMapper;
-import kg.job.jobsearch.dto.ResumeCreateDto;
-import kg.job.jobsearch.dto.ResumeUpdateDto;
-import kg.job.jobsearch.dto.ResumesDto;
-import kg.job.jobsearch.exception.ResumeNotFoundException;
+import kg.job.jobsearch.dto.create.ResumeCreateDto;
+import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
 import kg.job.jobsearch.model.Resume;
-import kg.job.jobsearch.model.User;
-import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +12,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

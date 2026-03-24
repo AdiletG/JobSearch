@@ -2,10 +2,10 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.RespondedApplicantDao;
 import kg.job.jobsearch.dao.VacancyDao;
-import kg.job.jobsearch.dto.VacanciesCreateDto;
+import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
-import kg.job.jobsearch.dto.VacanciesUpdateDto;
-import kg.job.jobsearch.exception.VacancyNotFoundException;
+import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
+import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.model.Vacancy;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;

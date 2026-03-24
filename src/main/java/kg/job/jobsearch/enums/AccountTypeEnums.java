@@ -1,17 +1,16 @@
 package kg.job.jobsearch.enums;
 
-public enum AccountType {
-    EMPLOYER("Работадатель"),
+public enum AccountTypeEnums {
+    EMPLOYER("Работодатель"),
     APPLICANT("Соискатель");
 
     private final String accountType;
 
-    AccountType(String accountType) {
+    AccountTypeEnums(String accountType) {
         this.accountType =  accountType;
     }
 
-    @Override
-    public String toString() {
+    public String getAccountType() {
         return accountType;
     }
 }

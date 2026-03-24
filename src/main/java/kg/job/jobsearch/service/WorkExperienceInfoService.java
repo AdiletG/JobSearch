@@ -1,7 +1,7 @@
 package kg.job.jobsearch.service;
 
 import kg.job.jobsearch.dto.WorkExperienceInfoDto;
-import kg.job.jobsearch.exception.WorkExperienceInfoNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.WorkExperienceInfoNotFoundException;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package kg.job.jobsearch.controller;
 
 import kg.job.jobsearch.dto.RespondedApplicantsDto;
-import kg.job.jobsearch.exception.RespondedApplicantNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.RespondedApplicantNotFoundException;
 import kg.job.jobsearch.service.RespondedApplicantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,15 +1,17 @@
 package kg.job.jobsearch.controller;
 
+import jakarta.validation.Valid;
 import kg.job.jobsearch.dto.UserImageDto;
 import kg.job.jobsearch.dto.UsersDto;
-import kg.job.jobsearch.exception.UserNotFoundException;
+import kg.job.jobsearch.dto.create.UsersCreateDto;
+import kg.job.jobsearch.exception.createException.UserDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -56,9 +58,8 @@ public class UsersController {
         return userService.getApplicantByVacancies(id);
     }
 
-    @PostMapping
-    public HttpStatus uploadAvatar(@RequestParam UserImageDto dto) {
-       fileService.upload(dto);
-        return HttpStatus.OK;
+    @PostMapping()
+    public void createUsers(@Valid @RequestBody UsersCreateDto user) throws UserDataCreateException {
+        userService.createUser(user);
     }
 }

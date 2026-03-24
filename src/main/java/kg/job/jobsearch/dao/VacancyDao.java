@@ -1,16 +1,12 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.VacancyMapper;
-import kg.job.jobsearch.dto.VacanciesCreateDto;
-import kg.job.jobsearch.dto.VacanciesDto;
-import kg.job.jobsearch.dto.VacanciesUpdateDto;
+import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

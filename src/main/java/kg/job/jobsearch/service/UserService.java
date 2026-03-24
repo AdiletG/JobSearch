@@ -1,11 +1,15 @@
 package kg.job.jobsearch.service;
 
 import kg.job.jobsearch.dto.UsersDto;
-import kg.job.jobsearch.exception.UserNotFoundException;
+import kg.job.jobsearch.dto.create.UsersCreateDto;
+import kg.job.jobsearch.exception.createException.UserDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 
 import java.util.List;
 
 public interface UserService {
+    void createUser(UsersCreateDto dto) throws UserDataCreateException;
+
     List<UsersDto> getAllUsers() throws UserNotFoundException;
 
 

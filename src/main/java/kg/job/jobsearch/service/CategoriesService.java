@@ -1,7 +1,7 @@
 package kg.job.jobsearch.service;
 
 import kg.job.jobsearch.dto.CategoriesDto;
-import kg.job.jobsearch.exception.CategoryNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
 package kg.job.jobsearch.controller;
 
 import kg.job.jobsearch.dto.*;
-import kg.job.jobsearch.exception.*;
-import kg.job.jobsearch.model.Vacancy;
+import kg.job.jobsearch.dto.create.VacanciesCreateDto;
+import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
+import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

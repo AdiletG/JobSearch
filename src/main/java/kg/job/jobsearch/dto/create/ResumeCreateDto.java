@@ -1,4 +1,4 @@
-package kg.job.jobsearch.dto;
+package kg.job.jobsearch.dto.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +12,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResumeUpdateDto {
+public class ResumeCreateDto {
     private String name;
     private BigDecimal salary;
     private Long categoryId;
-    private List<ContactsInfoUpdateDto> contacts;
-    private List<EducationInfoUpdateDto> educations;
-    private List<WorkExperienceInfoUpdateDto> workExperiences;
+    private List<ContactsInfoCreateDto> contacts;
+    private List<EducationInfoCreateDto> educations;
+    private List<WorkExperienceInfoCreateDto> workExperiences;
 }

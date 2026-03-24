@@ -2,7 +2,7 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.MessageDao;
 import kg.job.jobsearch.dto.MessagesDto;
-import kg.job.jobsearch.exception.MessageNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.MessageNotFoundException;
 import kg.job.jobsearch.model.Message;
 import kg.job.jobsearch.service.MessagesService;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,8 @@
 package kg.job.jobsearch.dto;
 
 
-import kg.job.jobsearch.enums.AccountType;
+import jakarta.validation.constraints.*;
+import kg.job.jobsearch.enums.AccountTypeEnums;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class UsersDto {
    private String password;
    private String phoneNumber;
    private String avatar;
-   private AccountType accountType;
+   private AccountTypeEnums accountType;
 
    @Override
    public String toString() {

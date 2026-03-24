@@ -1,5 +1,6 @@
 package kg.job.jobsearch.dto;
 
+import kg.job.jobsearch.enums.ContactTypeEnums;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ContactTypesDto {
    private Long id;
-   private String type;
+   private ContactTypeEnums type;
 
    @Override
    public String toString() {
-      return "ContactTypeDto{" +
-              "id=" + id +
-              ", type='" + type + '\'' +
-              '}';
+      return "Id: " + id +
+              "\nType: " + type;
    }
 }

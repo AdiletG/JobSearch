@@ -1,12 +1,12 @@
 package kg.job.jobsearch.controller;
 
-import kg.job.jobsearch.dto.ResumeCreateDto;
-import kg.job.jobsearch.dto.ResumeUpdateDto;
+import kg.job.jobsearch.dto.create.ResumeCreateDto;
+import kg.job.jobsearch.dto.update.ResumeUpdateDto;
 import kg.job.jobsearch.dto.ResumesDto;
-import kg.job.jobsearch.exception.ContactsInfoNotFoundException;
-import kg.job.jobsearch.exception.EducationNotFoundException;
-import kg.job.jobsearch.exception.ResumeNotFoundException;
-import kg.job.jobsearch.exception.WorkExperienceInfoNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.ContactsInfoNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.WorkExperienceInfoNotFoundException;
 import kg.job.jobsearch.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

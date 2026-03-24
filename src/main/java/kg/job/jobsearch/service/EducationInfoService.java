@@ -1,7 +1,7 @@
 package kg.job.jobsearch.service;
 
 import kg.job.jobsearch.dto.EducationInfoDto;
-import kg.job.jobsearch.exception.EducationNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
 
 import java.util.List;
 

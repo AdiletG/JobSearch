@@ -2,7 +2,7 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.ContactsInfoDao;
 import kg.job.jobsearch.dto.ContactsInfoDto;
-import kg.job.jobsearch.exception.ContactsInfoNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.ContactsInfoNotFoundException;
 import kg.job.jobsearch.model.ContactsInfo;
 import kg.job.jobsearch.service.ContactsInfoService;
 import lombok.RequiredArgsConstructor;

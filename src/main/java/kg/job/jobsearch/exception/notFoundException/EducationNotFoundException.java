@@ -1,6 +1,8 @@
-package kg.job.jobsearch.exception;
+package kg.job.jobsearch.exception.notFoundException;
 
-public class EducationNotFoundException extends NoSuchFieldException{
+import kg.job.jobsearch.exception.NotFoundEntryException;
+
+public class EducationNotFoundException extends NotFoundEntryException {
     public EducationNotFoundException() {
         super("Education information not found");
     }

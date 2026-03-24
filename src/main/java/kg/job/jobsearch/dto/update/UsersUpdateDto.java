@@ -1,4 +1,4 @@
-package kg.job.jobsearch.dto;
+package kg.job.jobsearch.dto.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

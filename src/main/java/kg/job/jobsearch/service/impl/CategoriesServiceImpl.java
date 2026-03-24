@@ -2,13 +2,12 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.CategoryDao;
 import kg.job.jobsearch.dto.CategoriesDto;
-import kg.job.jobsearch.exception.CategoryNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
 import kg.job.jobsearch.model.Category;
 import kg.job.jobsearch.service.CategoriesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -1,9 +1,9 @@
 package kg.job.jobsearch.service;
 
-import kg.job.jobsearch.dto.VacanciesCreateDto;
+import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
-import kg.job.jobsearch.dto.VacanciesUpdateDto;
-import kg.job.jobsearch.exception.VacancyNotFoundException;
+import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
+import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 
 import java.util.List;
 

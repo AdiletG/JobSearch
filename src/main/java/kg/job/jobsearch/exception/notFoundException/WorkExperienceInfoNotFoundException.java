@@ -1,6 +1,8 @@
-package kg.job.jobsearch.exception;
+package kg.job.jobsearch.exception.notFoundException;
 
-public class WorkExperienceInfoNotFoundException  extends NoSuchFieldException{
+import kg.job.jobsearch.exception.NotFoundEntryException;
+
+public class WorkExperienceInfoNotFoundException  extends NotFoundEntryException {
     public WorkExperienceInfoNotFoundException() {
         super("Work experience info not found");
     }

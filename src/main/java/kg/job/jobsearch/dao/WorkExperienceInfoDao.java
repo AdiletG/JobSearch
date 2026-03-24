@@ -1,16 +1,14 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.WorkExperienceInfoMapper;
-import kg.job.jobsearch.dto.WorkExperienceInfoCreateDto;
-import kg.job.jobsearch.dto.WorkExperienceInfoUpdateDto;
+import kg.job.jobsearch.dto.create.WorkExperienceInfoCreateDto;
+import kg.job.jobsearch.dto.update.WorkExperienceInfoUpdateDto;
 import kg.job.jobsearch.model.WorkExperienceInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
