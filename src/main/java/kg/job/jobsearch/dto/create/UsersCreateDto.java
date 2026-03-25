@@ -22,7 +22,7 @@ public class UsersCreateDto {
     private String surname;
 
     @NotNull(message = "Возраст обязателен")
-    @Min(value = 0, message = "Возраст должен быть положительным")
+    @Min(value = 16, message = "Возраст должен быть более 16ти")
     @Max(value = 150, message = "Возраст не может быть более 150")
     private Integer age;
 

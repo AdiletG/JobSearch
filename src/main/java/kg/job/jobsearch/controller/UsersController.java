@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import kg.job.jobsearch.dto.UserImageDto;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
+import kg.job.jobsearch.dto.update.UsersUpdateDto;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
+import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -54,12 +56,25 @@ public class UsersController {
     }
 
     @GetMapping("/search/user-vacancies")
-    public List<UsersDto> getApplicantByVacancies(@RequestParam Integer id) throws UserNotFoundException{
+    public List<UsersDto> getApplicantByVacancies(@RequestParam Long id) throws UserNotFoundException{
         return userService.getApplicantByVacancies(id);
     }
 
     @PostMapping()
     public void createUsers(@Valid @RequestBody UsersCreateDto user) throws UserDataCreateException {
         userService.createUser(user);
+    }
+
+    @PatchMapping
+    public void updateUsers(
+            @Valid
+            @RequestParam Long userId,
+            @RequestBody UsersUpdateDto user) throws UserDataUpdateException {
+        userService.updateUser(userId, user);
+    }
+
+    @DeleteMapping
+    public void deleteUsers(@Valid @RequestParam Long userId){
+        userService.deleteUser(userId);
     }
 }

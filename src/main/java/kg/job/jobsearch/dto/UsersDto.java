@@ -1,7 +1,6 @@
 package kg.job.jobsearch.dto;
 
 
-import jakarta.validation.constraints.*;
 import kg.job.jobsearch.enums.AccountTypeEnums;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

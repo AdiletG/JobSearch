@@ -3,8 +3,10 @@ package kg.job.jobsearch.service.impl;
 import kg.job.jobsearch.dao.UserDao;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
+import kg.job.jobsearch.dto.update.UsersUpdateDto;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
+import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
+
+    @Override
+    public void deleteUser(Long userId){
+            userDao.deleteUser(userId);
+    }
+
+    @Override
+    public void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException{
+        try{
+            User user = new User();
+            user.setName(dto.getName());
+            user.setSurname(dto.getSurname());
+            user.setAge(dto.getAge());
+            user.setEmail(dto.getEmail());
+            user.setPassword(dto.getPassword());
+            user.setPhoneNumber(dto.getPhoneNumber());
+            user.setAvatar(dto.getAvatar());
+
+            userDao.updateUser(userId, user);
+        }catch (SQLException e){
+            throw new UserDataUpdateException();
+        }
+    }
 
     @Override
     public void createUser(UsersCreateDto dto) throws UserDataCreateException {
@@ -90,7 +115,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UsersDto> getApplicantByVacancies(int id) throws UserNotFoundException {
+    public List<UsersDto> getApplicantByVacancies(Long id) throws UserNotFoundException {
         List<User> users = userDao.getApplicantByVacancies(id);
 
         if(users.isEmpty()){

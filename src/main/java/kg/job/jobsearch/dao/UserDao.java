@@ -1,10 +1,7 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.UserMapper;
-import kg.job.jobsearch.dao.mapper.VacancyMapper;
-import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.model.User;
-import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -61,7 +58,7 @@ public class UserDao {
         return jdbcTemplate.queryForObject(sql, Boolean.class, email);
     }
 
-    public List<User> getApplicantByVacancies(int id){
+    public List<User> getApplicantByVacancies(Long id){
         String sql = """
         SELECT u.*
         FROM users u
@@ -90,5 +87,30 @@ public class UserDao {
                 .addValue("accountType", dto.getAccountType().name());
 
         namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    public void updateUser(Long userId, User dto) throws SQLException{
+        String sql = """
+                update users 
+                set name = ?, surname = ?, age = ?, email = ?, password = ?, phone_number = ?, avatar = ?
+                where id = ?
+                """;
+
+        jdbcTemplate.update(
+                sql,
+                dto.getName(),
+                dto.getSurname(),
+                dto.getAge(),
+                dto.getEmail(),
+                dto.getPassword(),
+                dto.getPhoneNumber(),
+                dto.getAvatar(),
+                userId
+        );
+    }
+
+    public void deleteUser(Long userId){
+        String sql = "delete from users where id = ?";
+        jdbcTemplate.update(sql, userId);
     }
 }
