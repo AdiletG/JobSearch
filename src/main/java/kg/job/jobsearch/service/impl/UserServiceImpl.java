@@ -21,24 +21,49 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
     @Override
-    public void deleteUser(Long userId){
+    public void deleteUser(Long userId) throws UserNotFoundException {
+            User user = userDao.findById(userId)
+                    .orElseThrow(UserNotFoundException::new);
+
             userDao.deleteUser(userId);
     }
 
     @Override
     public void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException{
         try{
-            User user = new User();
-            user.setName(dto.getName());
-            user.setSurname(dto.getSurname());
-            user.setAge(dto.getAge());
-            user.setEmail(dto.getEmail());
-            user.setPassword(dto.getPassword());
-            user.setPhoneNumber(dto.getPhoneNumber());
-            user.setAvatar(dto.getAvatar());
+            User user = userDao.findById(userId)
+                    .orElseThrow(UserNotFoundException::new);
+
+            if (dto.getName() != null) {
+                user.setName(dto.getName());
+            }
+
+            if (dto.getSurname() != null) {
+                user.setSurname(dto.getSurname());
+            }
+
+            if (dto.getAge() != null) {
+                user.setAge(dto.getAge());
+            }
+
+            if (dto.getEmail() != null) {
+                user.setEmail(dto.getEmail());
+            }
+
+            if (dto.getPassword() != null) {
+                user.setPassword(dto.getPassword());
+            }
+
+            if (dto.getPhoneNumber() != null) {
+                user.setPhoneNumber(dto.getPhoneNumber());
+            }
+
+            if (dto.getAvatar() != null) {
+                user.setAvatar(dto.getAvatar());
+            }
 
             userDao.updateUser(userId, user);
-        }catch (SQLException e){
+        }catch (SQLException | UserNotFoundException e){
             throw new UserDataUpdateException();
         }
     }
@@ -74,7 +99,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UsersDto findById(int id) throws UserNotFoundException {
+    public UsersDto findById(Long id) throws UserNotFoundException {
           User user = userDao.findById(id)
                   .orElseThrow(UserNotFoundException::new);
         return mapToDto(user);

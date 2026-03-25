@@ -10,7 +10,7 @@ import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import java.util.List;
 
 public interface UserService {
-    void deleteUser(Long userId);
+    void deleteUser(Long userId) throws UserNotFoundException;
 
     void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException;
 
@@ -18,8 +18,7 @@ public interface UserService {
 
     List<UsersDto> getAllUsers() throws UserNotFoundException;
 
-
-    UsersDto findById(int id) throws UserNotFoundException;
+    UsersDto findById(Long id) throws UserNotFoundException;
 
     UsersDto findByEmail(String email) throws UserNotFoundException;
 

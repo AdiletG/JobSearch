@@ -25,7 +25,7 @@ public class UserDao {
         return jdbcTemplate.query(sql, new UserMapper());
     }
 
-    public Optional<User> findById(int id){
+    public Optional<User> findById(Long id){
         String sql = "select * from users where id = ?";
 
         return Optional.ofNullable(

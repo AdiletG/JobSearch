@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersUpdateDto {
-    @NotBlank(message = "Имя обязательно для указания")
     @Size(min = 3, max = 15, message = "Имя не можеть быть меньше 3х и больше 15ти")
     @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Имя не может содержать цифры")
     private String name;
@@ -20,16 +19,13 @@ public class UsersUpdateDto {
     @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Фамилия не может содержать цифры")
     private String surname;
 
-    @NotNull(message = "Возраст обязателен")
     @Min(value = 0, message = "Возраст должен быть положительным")
     @Max(value = 150, message = "Возраст не может быть более 150")
     private Integer age;
 
-    @NotBlank(message = "Email должен быть заполнен")
     @Email(message = "Некорректный email")
     private String email;
 
-    @NotBlank
     @Size(
             min = 6,
             max = 26,

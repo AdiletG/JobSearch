@@ -31,7 +31,7 @@ public class UsersController {
     }
 
     @GetMapping("/search/by-id")
-    public UsersDto findById(@RequestParam Integer id) throws UserNotFoundException{
+    public UsersDto findById(@RequestParam Long id) throws UserNotFoundException{
         return userService.findById(id);
     }
 
@@ -65,16 +65,16 @@ public class UsersController {
         userService.createUser(user);
     }
 
-    @PatchMapping
+    @PatchMapping("/{userId}")
     public void updateUsers(
             @Valid
-            @RequestParam Long userId,
+            @PathVariable Long userId,
             @RequestBody UsersUpdateDto user) throws UserDataUpdateException {
         userService.updateUser(userId, user);
     }
 
-    @DeleteMapping
-    public void deleteUsers(@Valid @RequestParam Long userId){
+    @DeleteMapping("/{userId}")
+    public void deleteUsers(@Valid @PathVariable Long userId){
         userService.deleteUser(userId);
     }
 }
