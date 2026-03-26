@@ -49,7 +49,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public List<ResumesDto> getResumeByCategory(int category) throws ResumeNotFoundException {
+    public List<ResumesDto> getResumeByCategory(Long category) throws ResumeNotFoundException {
         List<Resume> resumes = resumeDao.getResumeByCategory(category);
         if(resumes.isEmpty()){
             throw new ResumeNotFoundException();

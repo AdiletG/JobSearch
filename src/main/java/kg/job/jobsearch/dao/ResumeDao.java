@@ -27,7 +27,7 @@ public class ResumeDao {
         return jdbcTemplate.query(sql, new ResumeMapper());
     }
 
-    public List<Resume> getResumeByCategory(int category){
+    public List<Resume> getResumeByCategory(Long category){
         String sql = "select * from resumes where category_id = ?";
         return jdbcTemplate.query(sql, new ResumeMapper(), category);
     }

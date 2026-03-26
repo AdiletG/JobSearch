@@ -25,7 +25,7 @@ public class ResumeController {
     }
 
     @GetMapping("/search/by-category")
-    public List<ResumesDto> getResumesByCategory(@RequestParam Integer category) throws ResumeNotFoundException {
+    public List<ResumesDto> getResumesByCategory(@RequestParam Long category) throws ResumeNotFoundException {
         return resumeService.getResumeByCategory(category);
     }
 

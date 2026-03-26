@@ -14,7 +14,7 @@ public interface ResumeService {
 
     List<ResumesDto> getAllResume() throws ResumeNotFoundException;
 
-    List<ResumesDto> getResumeByCategory(int category) throws ResumeNotFoundException;
+    List<ResumesDto> getResumeByCategory(Long category) throws ResumeNotFoundException;
 
     List<ResumesDto> getResumeByApplicant(Long applicantId) throws ResumeNotFoundException;
 

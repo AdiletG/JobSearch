@@ -5,12 +5,15 @@ import kg.job.jobsearch.dao.VacancyDao;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
 import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
+import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
+import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
 import kg.job.jobsearch.model.Vacancy;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -33,7 +36,7 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<VacanciesDto> getVacancyByCategory(int category) throws VacancyNotFoundException {
+    public List<VacanciesDto> getVacancyByCategory(Long category) throws VacancyNotFoundException {
         List<Vacancy> vacancies = vacancyDao.getVacancyByCategory(category);
 
         if (vacancies.isEmpty()) {
@@ -59,7 +62,7 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<VacanciesDto> getVacanciesByApplicant(int id) throws VacancyNotFoundException {
+    public List<VacanciesDto> getVacanciesByApplicant(Long id) throws VacancyNotFoundException {
         List<Vacancy> vacancies = vacancyDao.getVacanciesByApplicant(id);
 
         if (vacancies.isEmpty()) {
@@ -72,12 +75,17 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public void createVacancy(Long authorId, VacanciesCreateDto dto){
-        vacancyDao.createVacancy(authorId, dto);
+    public void createVacancy(Long authorId, VacanciesCreateDto dto) throws VacancyDataCreateException {
+        try {
+            vacancyDao.createVacancy(authorId, dto);
+        }catch (SQLException e){
+            throw new VacancyDataCreateException();
+        }
+
     }
 
     @Override
-    public VacanciesDto update(Long vacancyId, VacanciesUpdateDto dto) throws VacancyNotFoundException {
+    public VacanciesDto update(Long vacancyId, VacanciesUpdateDto dto) throws VacancyNotFoundException, VacancyDataUpdateException {
         Vacancy vacancy = vacancyDao.getVacancyById(vacancyId)
                 .orElseThrow(VacancyNotFoundException::new);
 
@@ -111,7 +119,7 @@ public class VacancyServiceImpl implements VacancyService {
 
         vacancyDao.update(vacancyId, vacancy);
         Vacancy updatedVacancy = vacancyDao.getVacancyById(vacancyId)
-                .orElseThrow(VacancyNotFoundException::new);
+                .orElseThrow(VacancyDataUpdateException::new);
         return mapToDto(updatedVacancy);
     }
 

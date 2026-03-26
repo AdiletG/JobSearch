@@ -22,10 +22,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long userId) throws UserNotFoundException {
-            User user = userDao.findById(userId)
+        userDao.findById(userId)
                     .orElseThrow(UserNotFoundException::new);
 
-            userDao.deleteUser(userId);
+        userDao.deleteUser(userId);
     }
 
     @Override
