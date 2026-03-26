@@ -1,6 +1,6 @@
 package kg.job.jobsearch.dao.mapper;
 
-import kg.job.jobsearch.enums.AccountType;
+import kg.job.jobsearch.enums.AccountTypeEnums;
 import kg.job.jobsearch.model.User;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,7 +20,7 @@ public class UserMapper implements RowMapper<User> {
         user.setPassword(rs.getString("password"));
         user.setPhoneNumber(rs.getString("phone_number"));
         user.setAvatar(rs.getString("avatar"));
-        user.setAccountType(AccountType.valueOf(rs.getString("account_type")));
+        user.setAccountType(AccountTypeEnums.valueOf(rs.getString("account_type")));
         return user;
     }
 }

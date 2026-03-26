@@ -2,10 +2,18 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.*;
 import kg.job.jobsearch.dto.*;
-import kg.job.jobsearch.exception.ContactsInfoNotFoundException;
-import kg.job.jobsearch.exception.EducationNotFoundException;
-import kg.job.jobsearch.exception.ResumeNotFoundException;
-import kg.job.jobsearch.exception.WorkExperienceInfoNotFoundException;
+import kg.job.jobsearch.dto.create.ContactsInfoCreateDto;
+import kg.job.jobsearch.dto.create.EducationInfoCreateDto;
+import kg.job.jobsearch.dto.create.ResumeCreateDto;
+import kg.job.jobsearch.dto.create.WorkExperienceInfoCreateDto;
+import kg.job.jobsearch.dto.update.ContactsInfoUpdateDto;
+import kg.job.jobsearch.dto.update.EducationInfoUpdateDto;
+import kg.job.jobsearch.dto.update.ResumeUpdateDto;
+import kg.job.jobsearch.dto.update.WorkExperienceInfoUpdateDto;
+import kg.job.jobsearch.exception.notFoundException.ContactsInfoNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.WorkExperienceInfoNotFoundException;
 import kg.job.jobsearch.model.ContactsInfo;
 import kg.job.jobsearch.model.EducationInfo;
 import kg.job.jobsearch.model.Resume;
@@ -41,7 +49,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public List<ResumesDto> getResumeByCategory(int category) throws ResumeNotFoundException {
+    public List<ResumesDto> getResumeByCategory(Long category) throws ResumeNotFoundException {
         List<Resume> resumes = resumeDao.getResumeByCategory(category);
         if(resumes.isEmpty()){
             throw new ResumeNotFoundException();

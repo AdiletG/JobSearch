@@ -2,12 +2,10 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.RespondedApplicantDao;
 import kg.job.jobsearch.dto.RespondedApplicantsDto;
-import kg.job.jobsearch.exception.RespondedApplicantNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.RespondedApplicantNotFoundException;
 import kg.job.jobsearch.model.RespondedApplicant;
 import kg.job.jobsearch.service.RespondedApplicantService;
-import kg.job.jobsearch.service.ResumeService;
 import kg.job.jobsearch.service.UserService;
-import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RespondedApplicantImpl implements RespondedApplicantService {
     private final RespondedApplicantDao respondedApplicantDao;
-    private final VacancyService vacancyService;
-    private final ResumeService resumeService;
     private final UserService userService;
 
 

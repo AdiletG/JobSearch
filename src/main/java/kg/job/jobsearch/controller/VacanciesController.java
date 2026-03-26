@@ -1,8 +1,11 @@
 package kg.job.jobsearch.controller;
 
 import kg.job.jobsearch.dto.*;
-import kg.job.jobsearch.exception.*;
-import kg.job.jobsearch.model.Vacancy;
+import kg.job.jobsearch.dto.create.VacanciesCreateDto;
+import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
+import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
+import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,7 @@ public class VacanciesController {
     }
 
     @GetMapping("/search/by-category")
-    public List<VacanciesDto> getVacanciesByCategory(@RequestParam Integer category) throws VacancyNotFoundException {
+    public List<VacanciesDto> getVacanciesByCategory(@RequestParam Long category) throws VacancyNotFoundException {
         return vacancyService.getVacancyByCategory(category);
     }
 
@@ -32,14 +35,14 @@ public class VacanciesController {
     }
 
     @GetMapping("/search/by-applicant")
-    public List<VacanciesDto> getVacanciesByApplicant(@RequestParam Integer id) throws VacancyNotFoundException {
+    public List<VacanciesDto> getVacanciesByApplicant(@RequestParam Long id) throws VacancyNotFoundException {
         return vacancyService.getVacanciesByApplicant(id);
     }
 
     @PostMapping("/{authorId}")
     public void createVacancy(
             @PathVariable Long authorId,
-            @RequestBody VacanciesCreateDto dto){
+            @RequestBody VacanciesCreateDto dto) throws VacancyDataCreateException {
         vacancyService.createVacancy(authorId, dto);
     }
 
@@ -47,7 +50,7 @@ public class VacanciesController {
     public VacanciesDto update(
             @PathVariable Long vacancyId,
             @RequestBody VacanciesUpdateDto dto
-    ) throws VacancyNotFoundException {
+    ) throws VacancyDataUpdateException, VacancyNotFoundException {
         return vacancyService.update(vacancyId, dto);
     }
 

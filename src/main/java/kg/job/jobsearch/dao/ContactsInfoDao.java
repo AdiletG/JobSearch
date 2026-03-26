@@ -1,8 +1,8 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.ContactsInfoMapper;
-import kg.job.jobsearch.dto.ContactsInfoCreateDto;
-import kg.job.jobsearch.dto.ContactsInfoUpdateDto;
+import kg.job.jobsearch.dto.create.ContactsInfoCreateDto;
+import kg.job.jobsearch.dto.update.ContactsInfoUpdateDto;
 import kg.job.jobsearch.model.ContactsInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;

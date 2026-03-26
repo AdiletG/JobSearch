@@ -1,18 +1,17 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.VacancyMapper;
-import kg.job.jobsearch.dto.VacanciesCreateDto;
-import kg.job.jobsearch.dto.VacanciesDto;
-import kg.job.jobsearch.dto.VacanciesUpdateDto;
+import kg.job.jobsearch.dto.create.VacanciesCreateDto;
+import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
+import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
 import kg.job.jobsearch.model.Vacancy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class VacancyDao {
         return jdbcTemplate.query(sql, new VacancyMapper());
     }
 
-    public List<Vacancy> getVacancyByCategory(int category){
+    public List<Vacancy> getVacancyByCategory(Long category){
         String sql = "select * from vacancies where category_id = ?";
         return jdbcTemplate.query(sql, new VacancyMapper(), category);
     }
@@ -47,7 +46,7 @@ public class VacancyDao {
         );
     }
 
-    public List<Vacancy> getVacanciesByApplicant(int id){
+    public List<Vacancy> getVacanciesByApplicant(Long id){
 
         String sql = """
         SELECT v.*
@@ -60,7 +59,7 @@ public class VacancyDao {
         return jdbcTemplate.query(sql, new VacancyMapper(), id);
     }
 
-    public void createVacancy(Long authorId, VacanciesCreateDto dto) {
+    public void createVacancy(Long authorId, VacanciesCreateDto dto) throws SQLException {
         String sql = """
         INSERT INTO vacancies (
             name, description, category_id, salary,
@@ -83,7 +82,7 @@ public class VacancyDao {
                 );
     }
 
-    public void update(Long vacancyId, Vacancy dto){
+    public void update(Long vacancyId, Vacancy dto) throws VacancyDataUpdateException {
         String sql = """
                 update vacancies
                 set name = ?, description = ?, category_id = ?, salary = ?, exp_from = ?, exp_to = ?,
@@ -104,7 +103,7 @@ public class VacancyDao {
         );
     }
 
-    public void delete(Long id){
+    public void delete(Long id) throws VacancyNotFoundException {
         String sql = "delete from vacancies where id = ?";
         jdbcTemplate.update(sql, id);
     }

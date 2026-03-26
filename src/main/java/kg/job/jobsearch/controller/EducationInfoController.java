@@ -1,7 +1,7 @@
 package kg.job.jobsearch.controller;
 
 import kg.job.jobsearch.dto.EducationInfoDto;
-import kg.job.jobsearch.exception.EducationNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
 import kg.job.jobsearch.service.EducationInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

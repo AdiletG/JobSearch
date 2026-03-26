@@ -1,5 +1,6 @@
 package kg.job.jobsearch.model;
 
+import kg.job.jobsearch.enums.ContactTypeEnums;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class ContactType {
     private Long id;
-    private String type;
+    private ContactTypeEnums type;
 }

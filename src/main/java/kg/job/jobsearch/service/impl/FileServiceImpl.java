@@ -2,7 +2,7 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.UserImageDao;
 import kg.job.jobsearch.dto.UserImageDto;
-import kg.job.jobsearch.exception.UserImageNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.UserImageNotFoundException;
 import kg.job.jobsearch.model.UserImage;
 import kg.job.jobsearch.service.FileService;
 import lombok.RequiredArgsConstructor;

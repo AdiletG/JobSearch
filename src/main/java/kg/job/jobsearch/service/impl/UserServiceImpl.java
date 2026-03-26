@@ -2,18 +2,90 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.UserDao;
 import kg.job.jobsearch.dto.UsersDto;
-import kg.job.jobsearch.exception.UserNotFoundException;
+import kg.job.jobsearch.dto.create.UsersCreateDto;
+import kg.job.jobsearch.dto.update.UsersUpdateDto;
+import kg.job.jobsearch.exception.createException.UserDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
+import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
+
+    @Override
+    public void deleteUser(Long userId) throws UserNotFoundException {
+        userDao.findById(userId)
+                    .orElseThrow(UserNotFoundException::new);
+
+        userDao.deleteUser(userId);
+    }
+
+    @Override
+    public void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException{
+        try{
+            User user = userDao.findById(userId)
+                    .orElseThrow(UserNotFoundException::new);
+
+            if (dto.getName() != null) {
+                user.setName(dto.getName());
+            }
+
+            if (dto.getSurname() != null) {
+                user.setSurname(dto.getSurname());
+            }
+
+            if (dto.getAge() != null) {
+                user.setAge(dto.getAge());
+            }
+
+            if (dto.getEmail() != null) {
+                user.setEmail(dto.getEmail());
+            }
+
+            if (dto.getPassword() != null) {
+                user.setPassword(dto.getPassword());
+            }
+
+            if (dto.getPhoneNumber() != null) {
+                user.setPhoneNumber(dto.getPhoneNumber());
+            }
+
+            if (dto.getAvatar() != null) {
+                user.setAvatar(dto.getAvatar());
+            }
+
+            userDao.updateUser(userId, user);
+        }catch (SQLException | UserNotFoundException e){
+            throw new UserDataUpdateException();
+        }
+    }
+
+    @Override
+    public void createUser(UsersCreateDto dto) throws UserDataCreateException {
+        try{
+            User user = new User();
+            user.setName(dto.getName());
+            user.setSurname(dto.getSurname());
+            user.setAge(dto.getAge());
+            user.setEmail(dto.getEmail());
+            user.setPassword(dto.getPassword());
+            user.setPhoneNumber(dto.getPhoneNumber());
+            user.setAvatar(dto.getAvatar());
+            user.setAccountType(dto.getAccountType());
+
+            userDao.createUser(user);
+        }catch (SQLException e){
+            throw new UserDataCreateException();
+        }
+    }
 
     @Override
     public List<UsersDto> getAllUsers() throws UserNotFoundException {
@@ -27,7 +99,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UsersDto findById(int id) throws UserNotFoundException {
+    public UsersDto findById(Long id) throws UserNotFoundException {
           User user = userDao.findById(id)
                   .orElseThrow(UserNotFoundException::new);
         return mapToDto(user);
@@ -68,7 +140,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UsersDto> getApplicantByVacancies(int id) throws UserNotFoundException {
+    public List<UsersDto> getApplicantByVacancies(Long id) throws UserNotFoundException {
         List<User> users = userDao.getApplicantByVacancies(id);
 
         if(users.isEmpty()){

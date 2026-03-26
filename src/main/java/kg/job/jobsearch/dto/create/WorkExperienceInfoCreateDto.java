@@ -1,0 +1,17 @@
+package kg.job.jobsearch.dto.create;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class WorkExperienceInfoCreateDto {
+    private Integer years;
+    private String companyName;
+    private String position;
+    private String responsibilities;
+}
