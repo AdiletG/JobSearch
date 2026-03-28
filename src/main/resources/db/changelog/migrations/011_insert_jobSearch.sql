@@ -1,22 +1,22 @@
 ﻿
 INSERT INTO users (name, surname, age, email, password, phone_number, avatar, account_type)
 VALUES
-    ('Adilet',    'Janybek',   35, 'adilet@techcorp.kg',    'pass1234', '996700111001', 'avatars/adilet.jpg',    'EMPLOYER'),
-    ('Bakyt',     'Mamytov',   42, 'bakyt@logistic.kg',     'pass1234', '996700111002', 'avatars/bakyt.jpg',     'EMPLOYER'),
-    ('Cholpon',   'Sydykova',  38, 'cholpon@edunet.kg',     'pass1234', '996700111003', 'avatars/cholpon.jpg',   'EMPLOYER'),
-    ('Daniyar',   'Usenov',    45, 'daniyar@medclinic.kg',  'pass1234', '996700111004', 'avatars/daniyar.jpg',   'EMPLOYER'),
-    ('Elmira',    'Kadyrova',  39, 'elmira@buildpro.kg',    'pass1234', '996700111005', 'avatars/elmira.jpg',    'EMPLOYER'),
+    ('Adilet',    'Janybek',   35, 'adilet@techcorp.kg',    '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996700111001', 'avatars/adilet.jpg',    'EMPLOYER'),
+    ('Bakyt',     'Mamytov',   42, 'bakyt@logistic.kg',     '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996700111002', 'avatars/bakyt.jpg',     'EMPLOYER'),
+    ('Cholpon',   'Sydykova',  38, 'cholpon@edunet.kg',     '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996700111003', 'avatars/cholpon.jpg',   'EMPLOYER'),
+    ('Daniyar',   'Usenov',    45, 'daniyar@medclinic.kg',  '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996700111004', 'avatars/daniyar.jpg',   'EMPLOYER'),
+    ('Elmira',    'Kadyrova',  39, 'elmira@buildpro.kg',    '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996700111005', 'avatars/elmira.jpg',    'EMPLOYER'),
 
-    ('Farida',    'Asanova',   24, 'farida@mail.kg',        'pass1234', '996770211001', 'avatars/farida.jpg',    'APPLICANT'),
-    ('Gulnara',   'Bekova',    27, 'gulnara@mail.kg',       'pass1234', '996770211002', 'avatars/gulnara.jpg',   'APPLICANT'),
-    ('Hamid',     'Jumaev',    30, 'hamid@mail.kg',         'pass1234', '996770211003', 'avatars/hamid.jpg',     'APPLICANT'),
-    ('Iskender',  'Orozov',    22, 'iskender@mail.kg',      'pass1234', '996770211004', 'avatars/iskender.jpg',  'APPLICANT'),
-    ('Janara',    'Seitova',   29, 'janara@mail.kg',        'pass1234', '996770211005', 'avatars/janara.jpg',    'APPLICANT'),
-    ('Kuban',     'Dzhaksybekov', 26, 'kuban@mail.kg',      'pass1234', '996770211006', 'avatars/kuban.jpg',     'APPLICANT'),
-    ('Lira',      'Mamytova',  31, 'lira@mail.kg',          'pass1234', '996770211007', 'avatars/lira.jpg',      'APPLICANT'),
-    ('Manas',     'Atabekov',  25, 'manas@mail.kg',         'pass1234', '996770211008', 'avatars/manas.jpg',     'APPLICANT'),
-    ('Nurzat',    'Isaeva',    28, 'nurzat@mail.kg',        'pass1234', '996770211009', 'avatars/nurzat.jpg',    'APPLICANT'),
-    ('Omurbek',   'Toktosunov',33, 'omurbek@mail.kg',       'pass1234', '996770211010', 'avatars/omurbek.jpg',   'APPLICANT');
+    ('Farida',    'Asanova',   24, 'farida@mail.kg',        '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211001', 'avatars/farida.jpg',    'APPLICANT'),
+    ('Gulnara',   'Bekova',    27, 'gulnara@mail.kg',       '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211002', 'avatars/gulnara.jpg',   'APPLICANT'),
+    ('Hamid',     'Jumaev',    30, 'hamid@mail.kg',         '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211003', 'avatars/hamid.jpg',     'APPLICANT'),
+    ('Iskender',  'Orozov',    22, 'iskender@mail.kg',      '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211004', 'avatars/iskender.jpg',  'APPLICANT'),
+    ('Janara',    'Seitova',   29, 'janara@mail.kg',        '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211005', 'avatars/janara.jpg',    'APPLICANT'),
+    ('Kuban',     'Dzhaksybekov', 26, 'kuban@mail.kg',      '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211006', 'avatars/kuban.jpg',     'APPLICANT'),
+    ('Lira',      'Mamytova',  31, 'lira@mail.kg',          '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211007', 'avatars/lira.jpg',      'APPLICANT'),
+    ('Manas',     'Atabekov',  25, 'manas@mail.kg',         '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211008', 'avatars/manas.jpg',     'APPLICANT'),
+    ('Nurzat',    'Isaeva',    28, 'nurzat@mail.kg',        '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211009', 'avatars/nurzat.jpg',    'APPLICANT'),
+    ('Omurbek',   'Toktosunov',33, 'omurbek@mail.kg',       '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '996770211010', 'avatars/omurbek.jpg',   'APPLICANT');
 
 INSERT INTO categories (name, parent_id)
 VALUES
