@@ -73,6 +73,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/resumes/**").hasAuthority("RESUME_CREATE")
                         .requestMatchers(HttpMethod.POST, "/respond/**").hasAuthority("RESPOND_TO_VACANCY")
 
+                        .requestMatchers(HttpMethod.PATCH, "/vacancies/**").hasAuthority("VACANCY_UPDATE")
+                        .requestMatchers(HttpMethod.PATCH, "/resumes/**").hasAuthority("RESUME_UPDATE")
+                        .requestMatchers(HttpMethod.PATCH, "/users/**").hasAuthority("PROFILE_EDIT")
+
 
                 );
 
