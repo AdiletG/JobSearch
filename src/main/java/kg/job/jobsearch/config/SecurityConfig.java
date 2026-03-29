@@ -64,10 +64,12 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                .requestMatchers(HttpMethod.GET,"/vacancies/**").fullyAuthenticated()
-                .requestMatchers(HttpMethod.GET, "/resumes/**").hasAnyAuthority("MAKE")
-                        .anyRequest().permitAll()
-        );
+                        .requestMatchers(HttpMethod.GET,"/vacancies/**").hasAuthority("VACANCY_VIEW")
+                        .requestMatchers(HttpMethod.GET, "/resumes/**").hasAuthority("RESUME_VIEW")
+                        .requestMatchers(HttpMethod.GET, "/respond/**").hasAuthority("RESPONDED_APPLICANTS_VIEW")
+                        .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+
+                );
 
 
         return http.build();
