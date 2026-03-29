@@ -69,6 +69,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/respond/**").hasAuthority("RESPONDED_APPLICANTS_VIEW")
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
 
+                        .requestMatchers(HttpMethod.POST, "/vacancies/**").hasAuthority("VACANCY_CREATE")
+                        .requestMatchers(HttpMethod.POST, "/resumes/**").hasAuthority("RESUME_CREATE")
+                        .requestMatchers(HttpMethod.POST, "/respond/**").hasAuthority("RESPOND_TO_VACANCY")
+
+
                 );
 
 
