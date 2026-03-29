@@ -20,7 +20,7 @@ values ('ROLE_APPLICANT'),
        ('ROLE_ADMIN');
 
 
--- ===== APPLICANT =====
+-- APPLICANT
 insert into role_auth (auth_id, role_id)
 values
     ((select id from authorities where authority = 'VACANCY_VIEW'),
@@ -44,7 +44,7 @@ values
     ((select id from authorities where authority = 'PROFILE_EDIT'),
      (select id from roles where role = 'ROLE_APPLICANT'));
 
--- ===== EMPLOYER =====
+-- EMPLOYER
 insert into role_auth (auth_id, role_id)
 values
     ((select id from authorities where authority = 'VACANCY_VIEW'),

@@ -77,7 +77,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/resumes/**").hasAuthority("RESUME_UPDATE")
                         .requestMatchers(HttpMethod.PATCH, "/users/**").hasAuthority("PROFILE_EDIT")
 
-
+                        .requestMatchers(HttpMethod.DELETE, "/vacancies/**").hasAuthority("VACANCY_DELETE")
+                        .requestMatchers(HttpMethod.DELETE, "/resumes/**").hasAuthority("RESUME_DELETE")
+                        .anyRequest().authenticated()
                 );
 
 
