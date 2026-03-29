@@ -26,7 +26,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
     @Bean
@@ -49,10 +49,16 @@ public class SecurityConfig {
                 inner join users u on ur.user_id = u.id
                 where u.email = ?
                 """;
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(authQuery);
+        try {
+
+            auth.jdbcAuthentication()
+                    .dataSource(dataSource)
+                    .usersByUsernameQuery(userQuery)
+                    .authoritiesByUsernameQuery(authQuery)
+                    .passwordEncoder(new BCryptPasswordEncoder());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Bean
