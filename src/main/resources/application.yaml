@@ -22,6 +22,7 @@ spring:
 
 logging:
   level:
+    org.springframework.security: DEBUG
     root: info
     kg.job.jobsearch: debug
     com.zaxxer.hikari: error
@@ -31,3 +32,4 @@ logging:
     path: logs
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
+

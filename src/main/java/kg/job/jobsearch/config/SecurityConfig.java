@@ -2,18 +2,23 @@ package kg.job.jobsearch.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
@@ -26,16 +31,43 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
+
+//    @Bean
+//    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+//        return new InMemoryUserDetailsManager();
+//    }
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth){
+//        String userQuery = """
+//                select email, password, enabled from users
+//                where email = ?
+//                """;
+//        String authQuery = """
+//                select u.email, auth.authority
+//                from authorities auth
+//                inner join role_auth ra on auth.id = ra.auth_id
+//                inner join roles r on ra.role_id = r.id
+//                inner join user_role ur on r.id = ur.role_id
+//                inner join users u on ur.user_id = u.id
+//                where u.email = ?
+//                """;
+//        try {
+//
+//            auth.jdbcAuthentication()
+//                    .dataSource(dataSource)
+//                    .usersByUsernameQuery(userQuery)
+//                    .authoritiesByUsernameQuery(authQuery)
+//                    .passwordEncoder(new BCryptPasswordEncoder());
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
-        return new InMemoryUserDetailsManager();
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth){
+    public UserDetailsService userDetailsService() {
         String userQuery = """
                 select email, password, enabled from users
                 where email = ?
@@ -49,15 +81,24 @@ public class SecurityConfig {
                 inner join users u on ur.user_id = u.id
                 where u.email = ?
                 """;
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(authQuery);
+
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+        manager.setUsersByUsernameQuery(userQuery);
+        manager.setAuthoritiesByUsernameQuery(authQuery);
+        return manager;
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService());
+        provider.setPasswordEncoder(encoder());
+        return provider;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
+                .authenticationProvider(authenticationProvider())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .logout(AbstractHttpConfigurer::disable)
