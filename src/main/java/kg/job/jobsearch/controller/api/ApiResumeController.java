@@ -1,5 +1,6 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
+import jakarta.validation.Valid;
 import kg.job.jobsearch.dto.create.ResumeCreateDto;
 import kg.job.jobsearch.dto.update.ResumeUpdateDto;
 import kg.job.jobsearch.dto.ResumesDto;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/resumes")
+@RequestMapping("api/resumes")
 @RequiredArgsConstructor
-public class ResumeController {
+public class ApiResumeController {
     private final ResumeService resumeService;
 
     @GetMapping
@@ -41,6 +42,7 @@ public class ResumeController {
 
     @PostMapping("/{applicantId}")
     public void createResume(
+            @Valid
             @PathVariable Long applicantId,
             @RequestBody ResumeCreateDto dto
             ) throws ResumeNotFoundException {

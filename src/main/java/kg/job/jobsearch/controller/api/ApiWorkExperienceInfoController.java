@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.WorkExperienceInfoDto;
 import kg.job.jobsearch.exception.notFoundException.WorkExperienceInfoNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/experience")
 @RequiredArgsConstructor
-public class WorkExperienceInfoController {
+public class ApiWorkExperienceInfoController {
     private final WorkExperienceInfoService workExperienceInfoService;
 
     @GetMapping

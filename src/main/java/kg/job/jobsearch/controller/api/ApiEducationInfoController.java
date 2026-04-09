@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.EducationInfoDto;
 import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/education")
 @RequiredArgsConstructor
-public class EducationInfoController {
+public class ApiEducationInfoController {
     private final EducationInfoService educationInfoService;
 
     @GetMapping

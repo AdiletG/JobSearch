@@ -10,6 +10,7 @@ import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void deleteUser(Long userId) throws UserNotFoundException {
@@ -76,7 +78,7 @@ public class UserServiceImpl implements UserService {
             user.setSurname(dto.getSurname());
             user.setAge(dto.getAge());
             user.setEmail(dto.getEmail());
-            user.setPassword(dto.getPassword());
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
             user.setPhoneNumber(dto.getPhoneNumber());
             user.setAvatar(dto.getAvatar());
             user.setAccountType(dto.getAccountType());

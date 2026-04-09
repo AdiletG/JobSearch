@@ -27,9 +27,13 @@ logging:
     kg.job.jobsearch: debug
     com.zaxxer.hikari: error
     org.apache.tomcat: error
-    liquibase: error
+    liquibase: info
   file:
     path: logs
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
+
+token:
+  signing:
+    key: ${JWT_SECRET}
 

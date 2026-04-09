@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.ContactTypesDto;
 import kg.job.jobsearch.exception.notFoundException.ContactsTypeNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/contact-type")
 @RequiredArgsConstructor
-public class ContactTypeController {
+public class ApiContactTypeController {
     private final ContactTypeService contactTypeService;
 
     @GetMapping

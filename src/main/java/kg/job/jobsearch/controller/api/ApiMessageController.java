@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.MessagesDto;
 import kg.job.jobsearch.exception.notFoundException.MessageNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/messages")
 @RequiredArgsConstructor
-public class MessageController {
+public class ApiMessageController {
     private final MessagesService messagesService;
 
     @GetMapping

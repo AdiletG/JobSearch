@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
+import org.springframework.security.web.util.matcher.ParameterRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -26,7 +28,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder encoder(){
-        return new BCryptPasswordEncoder(12);
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -64,20 +66,29 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin(AbstractHttpConfigurer::disable)
-                .logout(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .formLogin(login -> login
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/auth/login?error=true")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/auth/logout"))
+                        .permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET,"/vacancies/**").hasAuthority("VACANCY_VIEW")
                         .requestMatchers(HttpMethod.GET, "/resumes/**").hasAuthority("RESUME_VIEW")
                         .requestMatchers(HttpMethod.GET, "/respond/**").hasAuthority("RESPONDED_APPLICANTS_VIEW")
+                        .requestMatchers(HttpMethod.GET, "/users/**").hasAuthority("USER_MANAGE")
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/vacancies/**").hasAuthority("VACANCY_CREATE")
                         .requestMatchers(HttpMethod.POST, "/resumes/**").hasAuthority("RESUME_CREATE")
                         .requestMatchers(HttpMethod.POST, "/respond/**").hasAuthority("RESPOND_TO_VACANCY")
+                        .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
 
                         .requestMatchers(HttpMethod.PATCH, "/vacancies/**").hasAuthority("VACANCY_UPDATE")
                         .requestMatchers(HttpMethod.PATCH, "/resumes/**").hasAuthority("RESUME_UPDATE")
@@ -85,7 +96,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.DELETE, "/vacancies/**").hasAuthority("VACANCY_DELETE")
                         .requestMatchers(HttpMethod.DELETE, "/resumes/**").hasAuthority("RESUME_DELETE")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
 

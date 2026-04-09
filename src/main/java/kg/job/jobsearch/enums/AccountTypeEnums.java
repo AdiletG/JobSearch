@@ -1,8 +1,12 @@
 package kg.job.jobsearch.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum AccountTypeEnums {
     EMPLOYER("Работодатель"),
-    APPLICANT("Соискатель");
+    APPLICANT("Соискатель"),
+    ADMIN("ADMIN");
 
     private final String accountType;
 
@@ -10,7 +14,4 @@ public enum AccountTypeEnums {
         this.accountType =  accountType;
     }
 
-    public String getAccountType() {
-        return accountType;
-    }
 }

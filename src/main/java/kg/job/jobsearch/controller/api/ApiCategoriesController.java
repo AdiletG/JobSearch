@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.CategoriesDto;
 import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @RequiredArgsConstructor
-public class CategoriesController {
+public class ApiCategoriesController {
 
     private final CategoriesService categoriesService;
 

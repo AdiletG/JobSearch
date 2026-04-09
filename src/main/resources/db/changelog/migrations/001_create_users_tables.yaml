@@ -48,4 +48,4 @@
                     nullable: false
 
         - sql:
-            sql: "ALTER TABLE users ADD CONSTRAINT chk_account_type CHECK (account_type IN ('EMPLOYER', 'APPLICANT'));"
+            sql: "ALTER TABLE users ADD CONSTRAINT chk_account_type CHECK (account_type IN ('EMPLOYER', 'APPLICANT', 'ADMIN'));"

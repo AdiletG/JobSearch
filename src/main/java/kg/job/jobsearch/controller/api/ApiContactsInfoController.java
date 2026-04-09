@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.ContactsInfoDto;
 import kg.job.jobsearch.exception.notFoundException.ContactsInfoNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/contacts")
 @RequiredArgsConstructor
-public class ContactsInfoController {
+public class ApiContactsInfoController {
     private final ContactsInfoService contactsInfoService;
 
     @GetMapping
