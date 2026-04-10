@@ -14,7 +14,8 @@ public interface UserService {
 
     void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException;
 
-    void createUser(UsersCreateDto dto) throws UserDataCreateException;
+
+    void createUser(UsersCreateDto form) throws UserDataCreateException;
 
     List<UsersDto> getAllUsers() throws UserNotFoundException;
 

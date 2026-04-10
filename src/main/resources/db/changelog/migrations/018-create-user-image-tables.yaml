@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 018
+      author: AdiletG
+      changes:
+        - createTable:
+            tableName: user_images
+            columns:
+              - column:
+                  name: user_id
+                  type: long
+                  constraints:
+                    nullable: false
+              - column:
+                  name:  filename
+                  type: text
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: user_images
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_user-image-id
