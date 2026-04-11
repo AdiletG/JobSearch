@@ -30,17 +30,22 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: salary
-                  type: numeric(10, 2)
+                  type: numeric(10,2)
               - column:
                   name: is_active
                   type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
               - column:
                   name: created_date
-                  type: timestamp
-                  defaultValueComputed: CURRENT_TIMESTAMP
+                  type: date
+                  defaultValueComputed: CURRENT_DATE
+                  constraints:
+                    nullable: false
               - column:
                   name: update_date
-                  type: timestamp
+                  type: date
 
         - addForeignKeyConstraint:
             constraintName: fk_resume_category_id
@@ -57,3 +62,27 @@ databaseChangeLog:
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
+
+        - sql:
+            sql: "ALTER TABLE resumes ADD CONSTRAINT chk_resumes_salary CHECK (salary IS NULL OR salary >= 0);"
+
+        - createIndex:
+            tableName: resumes
+            indexName: idx_resumes_applicant_id
+            columns:
+              - column:
+                  name: applicant_id
+
+        - createIndex:
+            tableName: resumes
+            indexName: idx_resumes_category_id
+            columns:
+              - column:
+                  name: category_id
+
+        - createIndex:
+            tableName: resumes
+            indexName: idx_resumes_is_active
+            columns:
+              - column:
+                  name: is_active

@@ -24,15 +24,19 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: confirmation
-                  type: boolean
+                  name: status
+                  type: varchar(30)
+                  defaultValue: 'PENDING'
+                  constraints:
+                    nullable: false
+
         - addForeignKeyConstraint:
             baseTableName: responded_applicants
             baseColumnNames: resume_id
             referencedTableName: resumes
             referencedColumnNames: id
             constraintName: fk_responded_resume_id
-            onDelete: SET NULL
+            onDelete: CASCADE
 
         - addForeignKeyConstraint:
             baseTableName: responded_applicants
@@ -40,4 +44,33 @@ databaseChangeLog:
             referencedTableName: vacancies
             referencedColumnNames: id
             constraintName: fk_responded_vacancy_id
-            onDelete: SET NULL
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            tableName: responded_applicants
+            columnNames: resume_id, vacancy_id
+            constraintName: uq_responded_applicants_resume_vacancy
+
+        - sql:
+            sql: "ALTER TABLE responded_applicants ADD CONSTRAINT chk_responded_applicants_status CHECK (status IN ('PENDING', 'ACCEPTED', 'REJECTED'));"
+
+        - createIndex:
+            tableName: responded_applicants
+            indexName: idx_responded_applicants_resume_id
+            columns:
+              - column:
+                  name: resume_id
+
+        - createIndex:
+            tableName: responded_applicants
+            indexName: idx_responded_applicants_vacancy_id
+            columns:
+              - column:
+                  name: vacancy_id
+
+        - createIndex:
+            tableName: responded_applicants
+            indexName: idx_responded_applicants_status
+            columns:
+              - column:
+                  name: status

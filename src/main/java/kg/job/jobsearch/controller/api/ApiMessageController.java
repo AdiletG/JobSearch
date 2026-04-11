@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("api/messages")
 @RequiredArgsConstructor
 public class ApiMessageController {
     private final MessagesService messagesService;

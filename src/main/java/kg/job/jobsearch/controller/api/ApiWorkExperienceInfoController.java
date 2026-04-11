@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/experience")
+@RequestMapping("api/experience")
 @RequiredArgsConstructor
 public class ApiWorkExperienceInfoController {
     private final WorkExperienceInfoService workExperienceInfoService;

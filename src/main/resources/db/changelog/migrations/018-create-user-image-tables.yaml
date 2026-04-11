@@ -12,13 +12,22 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name:  filename
+                  name: filename
                   type: text
                   constraints:
                     nullable: false
+
         - addForeignKeyConstraint:
             baseTableName: user_images
             baseColumnNames: user_id
             referencedTableName: users
             referencedColumnNames: id
-            constraintName: fk_user-image-id
+            constraintName: fk_user_images_user_id
+            onDelete: CASCADE
+
+        - createIndex:
+            tableName: user_images
+            indexName: idx_user_images_user_id
+            columns:
+              - column:
+                  name: user_id

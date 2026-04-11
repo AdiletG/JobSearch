@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contact-type")
+@RequestMapping("api/contact-type")
 @RequiredArgsConstructor
 public class ApiContactTypeController {
     private final ContactTypeService contactTypeService;

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 003-create-vacancies-table
-      author: admin
+      author: AdiletG
       changes:
         - createTable:
             tableName: vacancies
@@ -21,6 +21,8 @@ databaseChangeLog:
               - column:
                   name: description
                   type: text
+                  constraints:
+                    nullable: false
               - column:
                   name: category_id
                   type: long
@@ -28,7 +30,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: salary
-                  type: numeric(10, 2)
+                  type: numeric(10,2)
               - column:
                   name: exp_from
                   type: int
@@ -38,6 +40,9 @@ databaseChangeLog:
               - column:
                   name: is_active
                   type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
               - column:
                   name: author_id
                   type: long
@@ -45,11 +50,13 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: created_date
-                  type: timestamp
-                  defaultValueComputed: CURRENT_TIMESTAMP
+                  type: date
+                  defaultValueComputed: CURRENT_DATE
+                  constraints:
+                    nullable: false
               - column:
                   name: update_date
-                  type: timestamp
+                  type: date
 
         - addForeignKeyConstraint:
             constraintName: fk_vacancy_category_id
@@ -66,3 +73,36 @@ databaseChangeLog:
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
+
+        - sql:
+            sql: "ALTER TABLE vacancies ADD CONSTRAINT chk_vacancies_salary CHECK (salary IS NULL OR salary >= 0);"
+
+        - sql:
+            sql: "ALTER TABLE vacancies ADD CONSTRAINT chk_vacancies_exp_from CHECK (exp_from IS NULL OR exp_from >= 0);"
+
+        - sql:
+            sql: "ALTER TABLE vacancies ADD CONSTRAINT chk_vacancies_exp_to CHECK (exp_to IS NULL OR exp_to >= 0);"
+
+        - sql:
+            sql: "ALTER TABLE vacancies ADD CONSTRAINT chk_vacancies_exp_range CHECK (exp_from IS NULL OR exp_to IS NULL OR exp_from <= exp_to);"
+
+        - createIndex:
+            tableName: vacancies
+            indexName: idx_vacancies_category_id
+            columns:
+              - column:
+                  name: category_id
+
+        - createIndex:
+            tableName: vacancies
+            indexName: idx_vacancies_author_id
+            columns:
+              - column:
+                  name: author_id
+
+        - createIndex:
+            tableName: vacancies
+            indexName: idx_vacancies_is_active
+            columns:
+              - column:
+                  name: is_active

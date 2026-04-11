@@ -28,6 +28,7 @@ databaseChangeLog:
             referencedTableName: roles
             referencedColumnNames: id
             constraintName: fk_role_auth_role
+            onDelete: CASCADE
 
         - addForeignKeyConstraint:
             baseTableName: role_auth
@@ -35,3 +36,11 @@ databaseChangeLog:
             referencedTableName: authorities
             referencedColumnNames: id
             constraintName: fk_role_auth_authority
+            onDelete: CASCADE
+
+        - createIndex:
+            tableName: role_auth
+            indexName: idx_role_auth_auth_id
+            columns:
+              - column:
+                  name: auth_id

@@ -18,3 +18,12 @@ databaseChangeLog:
                   type: varchar(100)
                   constraints:
                     nullable: false
+                    unique: true
+
+        - createIndex:
+            tableName: contact_types
+            indexName: idx_contact_types_type
+            unique: true
+            columns:
+              - column:
+                  name: type

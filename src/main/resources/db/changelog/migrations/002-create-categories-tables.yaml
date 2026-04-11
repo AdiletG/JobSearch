@@ -21,10 +21,18 @@ databaseChangeLog:
               - column:
                   name: parent_id
                   type: long
+
         - addForeignKeyConstraint:
-            constraintName: fk_parent_id
+            constraintName: fk_categories_parent_id
             baseTableName: categories
             baseColumnNames: parent_id
             referencedTableName: categories
             referencedColumnNames: id
             onDelete: SET NULL
+
+        - createIndex:
+            tableName: categories
+            indexName: idx_categories_parent_id
+            columns:
+              - column:
+                  name: parent_id
