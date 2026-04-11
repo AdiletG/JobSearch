@@ -16,6 +16,7 @@ public class MvcResumeController {
 
     @GetMapping
     public String getAllResumes(Model model) throws ResumeNotFoundException {
+        model.addAttribute("currentPage", "resumes");
         model.addAttribute("resumes", resumeService.getAllResume());
         return "resumes/resumes";
     }
