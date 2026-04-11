@@ -2,12 +2,10 @@ package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.UserMapper;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
-import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
 import kg.job.jobsearch.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;

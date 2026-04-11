@@ -75,6 +75,9 @@ public class SecurityConfig {
                         .permitAll())
                 .logout(logout -> logout
                         .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/auth/logout"))
+//                        .logoutSuccessUrl("/auth/login")
+//                        .invalidateHttpSession(true)
+//                        .clearAuthentication(true)
                         .permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -83,6 +86,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/resumes/**").hasAuthority("RESUME_VIEW")
                         .requestMatchers(HttpMethod.GET, "/respond/**").hasAuthority("RESPONDED_APPLICANTS_VIEW")
                         .requestMatchers(HttpMethod.GET, "/users/**").hasAuthority("USER_MANAGE")
+                        .requestMatchers(HttpMethod.GET, "/profile/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/vacancies/**").hasAuthority("VACANCY_CREATE")

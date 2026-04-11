@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -19,8 +19,8 @@ public class ResumesDto {
     private Long categoryId;
     private BigDecimal salary;
     private Boolean isActive;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+    private LocalDate createdDate;
+    private LocalDate updateDate;
 
     @Override
     public String toString() {

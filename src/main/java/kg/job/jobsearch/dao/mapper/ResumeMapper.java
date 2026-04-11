@@ -3,9 +3,9 @@ package kg.job.jobsearch.dao.mapper;
 import kg.job.jobsearch.model.Resume;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class ResumeMapper implements RowMapper<Resume> {
 
@@ -18,11 +18,11 @@ public class ResumeMapper implements RowMapper<Resume> {
         resume.setCategoryId(rs.getLong("category_id"));
         resume.setSalary(rs.getBigDecimal("salary"));
         resume.setIsActive(rs.getBoolean("is_active"));
-        Timestamp createdDate = rs.getTimestamp("created_date");
-        Timestamp updateDate = rs.getTimestamp("update_date");
+        Date createdDate = rs.getDate("created_date");
+        Date updateDate = rs.getDate("update_date");
 
-        resume.setCreatedDate(createdDate != null ? createdDate.toLocalDateTime() : null);
-        resume.setUpdateDate(updateDate != null ? updateDate.toLocalDateTime() : null);
+        resume.setCreatedDate(createdDate != null ? createdDate.toLocalDate() : null);
+        resume.setUpdateDate(updateDate != null ? updateDate.toLocalDate() : null);
 
         return resume;
     }
