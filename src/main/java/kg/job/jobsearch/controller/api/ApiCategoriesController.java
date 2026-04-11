@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.CategoriesDto;
 import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("api/categories")
 @RequiredArgsConstructor
-public class CategoriesController {
+public class ApiCategoriesController {
 
     private final CategoriesService categoriesService;
 

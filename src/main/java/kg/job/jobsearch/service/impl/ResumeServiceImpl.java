@@ -89,17 +89,24 @@ public class ResumeServiceImpl implements ResumeService {
     public void createResume(Long applicantId, ResumeCreateDto dto) throws ResumeNotFoundException {
         Long resumeId = resumeDao.createResume(applicantId, dto);
 
-        for(ContactsInfoCreateDto contact : dto.getContacts()){
-            contactsInfoDao.save(resumeId, contact);
+        if(dto.getEducations() != null){
+            for(EducationInfoCreateDto education : dto.getEducations()){
+                educationInfoDao.save(resumeId, education);
+            }
         }
 
-        for(EducationInfoCreateDto education : dto.getEducations()){
-            educationInfoDao.save(resumeId, education);
+        if(dto.getContacts() != null){
+            for(ContactsInfoCreateDto contact : dto.getContacts()){
+                contactsInfoDao.save(resumeId, contact);
+            }
         }
 
-        for(WorkExperienceInfoCreateDto work : dto.getWorkExperiences()){
-            workExperienceInfoDao.save(resumeId, work);
+        if(dto.getWorkExperiences() != null){
+            for(WorkExperienceInfoCreateDto work : dto.getWorkExperiences()){
+                workExperienceInfoDao.save(resumeId, work);
+            }
         }
+
     }
 
     @Override

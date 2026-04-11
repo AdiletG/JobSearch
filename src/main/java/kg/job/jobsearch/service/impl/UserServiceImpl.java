@@ -8,8 +8,10 @@ import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.model.User;
+import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -19,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
+    private final FileService fileService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void deleteUser(Long userId) throws UserNotFoundException {
@@ -69,19 +73,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(UsersCreateDto dto) throws UserDataCreateException {
+    public void createUser(UsersCreateDto form) throws UserDataCreateException {
         try{
-            User user = new User();
-            user.setName(dto.getName());
-            user.setSurname(dto.getSurname());
-            user.setAge(dto.getAge());
-            user.setEmail(dto.getEmail());
-            user.setPassword(dto.getPassword());
-            user.setPhoneNumber(dto.getPhoneNumber());
-            user.setAvatar(dto.getAvatar());
-            user.setAccountType(dto.getAccountType());
+            User dto = new User();
+            dto.setName(form.getName());
+            dto.setSurname(form.getSurname());
+            dto.setAge(form.getAge());
+            dto.setEmail(form.getEmail());
+            dto.setPassword(passwordEncoder.encode(form.getPassword()));
+            dto.setPhoneNumber(form.getPhoneNumber());
+            dto.setAccountType(form.getAccountType());
 
-            userDao.createUser(user);
+            String avatarFilename = null;
+
+            if (form.getAvatar() != null && !form.getAvatar().isEmpty()) {
+                avatarFilename = fileService.saveAvatar(form.getAvatar());
+                dto.setAvatar(avatarFilename);
+            }
+
+            Long userId = userDao.createUser(dto);
+
+            if (avatarFilename != null) {
+                fileService.upload(userId, avatarFilename);
+            }
+
         }catch (SQLException e){
             throw new UserDataCreateException();
         }

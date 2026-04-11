@@ -26,6 +26,11 @@ public class VacancyDao {
         return jdbcTemplate.query(sql, new VacancyMapper());
     }
 
+    public List<Vacancy> getALlVacancyByAuthor(Long id){
+        String sql = "select * from vacancies where author_id = ?";
+        return jdbcTemplate.query(sql, new VacancyMapper(), id);
+    }
+
     public List<Vacancy> getVacancyByCategory(Long category){
         String sql = "select * from vacancies where category_id = ?";
         return jdbcTemplate.query(sql, new VacancyMapper(), category);

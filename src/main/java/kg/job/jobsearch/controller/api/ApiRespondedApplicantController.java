@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.RespondedApplicantsDto;
 import kg.job.jobsearch.exception.notFoundException.RespondedApplicantNotFoundException;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/respond")
+@RequestMapping("api/respond")
 @RequiredArgsConstructor
-public class RespondedApplicantController {
+public class ApiRespondedApplicantController {
     private final RespondedApplicantService respondedApplicantService;
 
     @GetMapping

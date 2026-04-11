@@ -24,16 +24,31 @@ databaseChangeLog:
               - column:
                   name: company_name
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: position_in_company
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: responsibilities
                   type: text
+
         - addForeignKeyConstraint:
             baseTableName: work_experience_info
             baseColumnNames: resume_id
             referencedTableName: resumes
             referencedColumnNames: id
             constraintName: fk_work_exp_resume_id
-            onDelete: SET NULL
+            onDelete: CASCADE
+
+        - sql:
+            sql: "ALTER TABLE work_experience_info ADD CONSTRAINT chk_work_experience_years CHECK (years IS NULL OR years >= 0);"
+
+        - createIndex:
+            tableName: work_experience_info
+            indexName: idx_work_experience_info_resume_id
+            columns:
+              - column:
+                  name: resume_id

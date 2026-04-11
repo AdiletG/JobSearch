@@ -1,19 +1,26 @@
 package kg.job.jobsearch.service.impl;
 
+import kg.job.jobsearch.dao.CategoryDao;
 import kg.job.jobsearch.dao.RespondedApplicantDao;
+import kg.job.jobsearch.dao.UserDao;
 import kg.job.jobsearch.dao.VacancyDao;
+import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
 import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
 import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
+import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.model.Vacancy;
+import kg.job.jobsearch.service.UserService;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,10 +28,21 @@ import java.util.List;
 public class VacancyServiceImpl implements VacancyService {
     private final VacancyDao vacancyDao;
     private final RespondedApplicantDao applicantDao;
+    private final CategoryDao categoryDao;
+    private final UserService userService;
 
     @Override
-    public List<VacanciesDto> getALLVacancies() throws VacancyNotFoundException {
+    public List<VacanciesDto> getALLVacancies() {
         List<Vacancy> vacancies = vacancyDao.getALlVacancy();
+
+       return vacancies.stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    @Override
+    public List<VacanciesDto> getALLVacanciesByAuthor(Long id) throws VacancyNotFoundException {
+        List<Vacancy> vacancies = vacancyDao.getALlVacancyByAuthor(id);
 
         if (vacancies.isEmpty()) {
             throw new VacancyNotFoundException();
@@ -33,9 +51,9 @@ public class VacancyServiceImpl implements VacancyService {
         return vacancies.stream()
                 .map(this::mapToDto)
                 .toList();
-    }
 
-    @Override
+    }
+        @Override
     public List<VacanciesDto> getVacancyByCategory(Long category) throws VacancyNotFoundException {
         List<Vacancy> vacancies = vacancyDao.getVacancyByCategory(category);
 

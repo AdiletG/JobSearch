@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -37,10 +38,18 @@ public class UsersCreateDto {
             message = "Длина пароля должна быть >= 6 и <= 26"
     )
     @Pattern(
-            regexp = "^(?=.*\\\\d)(?=.*[a-z])(?=.*[A-Z]).+$",
-            message = "Содержит как минимум одну заглавную букву и одну цифру"
+            regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).+$",
+            message = "Должен содержать как минимум одну заглавную букву и одну цифру"
     )
     private String password;
+
+    @NotBlank
+    @Size(
+            min = 6,
+            max = 26,
+            message = "Длина пароля должна быть >= 6 и <= 26"
+    )
+    private String passwordConfirm;
 
     @Pattern(
             regexp = "^\\+?[0-9\\s]{10,}$",
@@ -48,7 +57,7 @@ public class UsersCreateDto {
     )
     private String phoneNumber;
 
-    private String avatar;
+    private MultipartFile avatar;
 
     @NotNull(message = "Тип аккаунта обязателен")
     private AccountTypeEnums accountType;

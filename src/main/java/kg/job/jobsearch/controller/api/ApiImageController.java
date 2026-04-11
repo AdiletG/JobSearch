@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.UserImageDto;
 import kg.job.jobsearch.exception.notFoundException.UserImageNotFoundException;
@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("api/image")
 @RequiredArgsConstructor
-public class ImageController {
+public class ApiImageController {
     private final FileService fileService;
 
     @PostMapping

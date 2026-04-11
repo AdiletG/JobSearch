@@ -3,9 +3,9 @@ package kg.job.jobsearch.dao.mapper;
 import kg.job.jobsearch.model.Vacancy;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class VacancyMapper implements RowMapper<Vacancy> {
 
@@ -22,11 +22,11 @@ public class VacancyMapper implements RowMapper<Vacancy> {
         vacancy.setIsActive(rs.getObject("is_active", Boolean.class));
         vacancy.setAuthorId(rs.getLong("author_id"));
 
-        Timestamp createdDate = rs.getTimestamp("created_date");
-        Timestamp updateDate = rs.getTimestamp("update_date");
+        Date createdDate = rs.getDate("created_date");
+        Date updateDate = rs.getDate("update_date");
 
-        vacancy.setCreatedDate(createdDate != null ? createdDate.toLocalDateTime() : null);
-        vacancy.setUpdateDate(updateDate != null ? updateDate.toLocalDateTime() : null);
+        vacancy.setCreatedDate(createdDate != null ? createdDate.toLocalDate() : null);
+        vacancy.setUpdateDate(updateDate != null ? updateDate.toLocalDate() : null);
         return vacancy;
     }
 }

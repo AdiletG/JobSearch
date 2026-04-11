@@ -24,7 +24,6 @@ public class ResumeCreateDto {
     private BigDecimal salary;
 
     @NotNull
-    @NotBlank(message = "Категория обязательно для указания")
     @Min(value = 0, message = "Категория должна быть положительным")
     private Long categoryId;
 

@@ -21,9 +21,15 @@ databaseChangeLog:
               - column:
                   name: content
                   type: text
+                  constraints:
+                    nullable: false
               - column:
-                  name: times
+                  name: sent_at
                   type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
         - addForeignKeyConstraint:
             baseTableName: messages
             baseColumnNames: responded_applicants_id
@@ -31,3 +37,17 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_message_responded_applicant_id
             onDelete: CASCADE
+
+        - createIndex:
+            tableName: messages
+            indexName: idx_messages_responded_applicants_id
+            columns:
+              - column:
+                  name: responded_applicants_id
+
+        - createIndex:
+            tableName: messages
+            indexName: idx_messages_sent_at
+            columns:
+              - column:
+                  name: sent_at

@@ -1,4 +1,4 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import kg.job.jobsearch.dto.*;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vacancies")
+@RequestMapping("/api/vacancies")
 @RequiredArgsConstructor
-public class VacanciesController {
+public class ApiVacanciesController {
     private final VacancyService vacancyService;
 
 

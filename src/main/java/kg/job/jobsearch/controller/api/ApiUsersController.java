@@ -1,7 +1,6 @@
-package kg.job.jobsearch.controller;
+package kg.job.jobsearch.controller.api;
 
 import jakarta.validation.Valid;
-import kg.job.jobsearch.dto.UserImageDto;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
@@ -11,17 +10,15 @@ import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 @RequiredArgsConstructor
-public class UsersController {
+public class ApiUsersController {
     private final UserService userService;
     private final FileService fileService;
 

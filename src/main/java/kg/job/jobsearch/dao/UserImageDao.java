@@ -15,13 +15,13 @@ public class UserImageDao {
     private final JdbcTemplate jdbcTemplate;
 
     public void save(Long userId, String filename) {
-        String sql = "insert into movie_images (movie_id, filename) " +
-                "values((select id from movie where id = ?), ?)";
+        String sql = "insert into user_images (user_id, filename) " +
+                "values((select id from users where id = ?), ?)";
         jdbcTemplate.update(sql, userId, filename);
     }
 
     public Optional<UserImage> findByUserId(Long userId) {
-        String sql = "select * from movie_images where movie_id = ?";
+        String sql = "select * from user_images where user_id = ?";
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(
                         jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(UserImage.class), userId)

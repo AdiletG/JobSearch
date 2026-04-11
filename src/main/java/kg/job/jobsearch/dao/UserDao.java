@@ -1,16 +1,20 @@
 package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.UserMapper;
+import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -18,6 +22,7 @@ import java.util.Optional;
 public class UserDao {
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
     public List<User> getAllUser(){
         String sql = "select * from users;";
@@ -70,24 +75,31 @@ public class UserDao {
         return jdbcTemplate.query(sql, new UserMapper(), id);
     }
 
-    public void createUser(User dto) throws SQLException {
+    public Long createUser(User dto) throws SQLException {
         String sql = """
                 insert into users(name, surname, age, email, password, phone_number, avatar, account_type)
-                values(:name, :surname, :age, :email, :password, :phoneNumber, :avatar, :accountType)
+                values(?, ?, ?, ?, ?, ?, ?, ?)
                 """;
+        jdbcTemplate.update(user -> {
+            PreparedStatement ps = user.prepareStatement(sql, new String[]{"id"});
+           ps.setString(1, dto.getName());
+           ps.setString(2, dto.getSurname());
+           ps.setInt(3, dto.getAge());
+           ps.setString(4, dto.getEmail());
+           ps.setString(5, dto.getPassword());
+           ps.setString(6, dto.getPhoneNumber());
+           ps.setString(7, dto.getAvatar());
+           ps.setString(8, dto.getAccountType().name());
+            return ps;
+        }, keyHolder);
 
-        MapSqlParameterSource params = new MapSqlParameterSource()
-                .addValue("name", dto.getName())
-                .addValue("surname", dto.getSurname())
-                .addValue("age", dto.getAge())
-                .addValue("email", dto.getEmail())
-                .addValue("password", dto.getPassword())
-                .addValue("phoneNumber", dto.getPhoneNumber())
-                .addValue("avatar", dto.getAvatar())
-                .addValue("accountType", dto.getAccountType().name());
 
-        namedParameterJdbcTemplate.update(sql, params);
+        if (keyHolder.getKey() == null) throw new UserDataCreateException();
+
+        return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
+
+
 
     public void updateUser(Long userId, User dto) throws SQLException{
         String sql = """

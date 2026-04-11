@@ -33,15 +33,20 @@ public class FileServiceImpl implements FileService {
     private final UserImageDao userImageDao;
     private static final String UPLOAD_DIR = "data/";
 
+    @Override
+    public String saveAvatar(MultipartFile file) {
+        return saveUploadedFile(file, "images");
+    }
+
     @SneakyThrows
     private String saveUploadedFile(MultipartFile file, String subdir) {
         String uuid = UUID.randomUUID().toString();
         String resultFilename = uuid + "_" + file.getOriginalFilename();
 
         Path pathDir = Paths.get(UPLOAD_DIR + subdir); // data/images
-        if (!Files.exists(pathDir)) Files.createDirectory(pathDir);
+        if (!Files.exists(pathDir)) Files.createDirectories(pathDir);
 
-        Path filePath = Paths.get(pathDir + "/" + resultFilename);
+        Path filePath = pathDir.resolve(resultFilename);
         if (!Files.exists(filePath)) {
             Files.createFile(filePath);
         }
@@ -61,12 +66,19 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void upload(UserImageDto userImageDto) {
-        String resultFilename = saveUploadedFile(userImageDto.getFile(), "images");
+    public void upload(Long userId, String fileName) {
 
-        log.debug("Result filename uploaded image is {}", resultFilename);
+        log.debug("Result filename uploaded image is {}", fileName);
 
-        userImageDao.save(userImageDto.getUserId(), resultFilename);
+        userImageDao.save(userId, fileName);
+    }
+
+    @Override
+    public void upload(UserImageDto imageDto) {
+        String fileName = saveUploadedFile(imageDto.getFile(), "image");
+        log.debug("Result filename uploaded image is {}", fileName);
+
+        userImageDao.save(imageDto.getUserId(), fileName);
     }
 
     @Override

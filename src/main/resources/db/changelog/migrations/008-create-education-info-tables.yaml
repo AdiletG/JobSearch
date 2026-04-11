@@ -21,22 +21,39 @@ databaseChangeLog:
               - column:
                   name: institution
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: program
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: start_date
                   type: date
+                  constraints:
+                    nullable: false
               - column:
                   name: end_date
                   type: date
               - column:
                   name: degree
                   type: varchar(255)
+
         - addForeignKeyConstraint:
             baseTableName: education_info
             baseColumnNames: resume_id
             referencedTableName: resumes
             referencedColumnNames: id
             constraintName: fk_education_resume_id
-            onDelete: SET NULL
+            onDelete: CASCADE
+
+        - sql:
+            sql: "ALTER TABLE education_info ADD CONSTRAINT chk_education_info_dates CHECK (end_date IS NULL OR end_date >= start_date);"
+
+        - createIndex:
+            tableName: education_info
+            indexName: idx_education_info_resume_id
+            columns:
+              - column:
+                  name: resume_id

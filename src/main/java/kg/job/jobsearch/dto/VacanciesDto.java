@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 @Data
 @Builder
 @NoArgsConstructor
@@ -22,8 +21,8 @@ public class VacanciesDto {
     private Integer expTo;
     private Boolean isActive;
     private Long authorId;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+    private LocalDate createdDate;
+    private LocalDate updateDate;
 
     @Override
     public String toString() {

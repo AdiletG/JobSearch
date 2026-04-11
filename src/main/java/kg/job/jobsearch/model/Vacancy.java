@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,6 +18,6 @@ public class Vacancy {
     private Integer expTo;
     private Boolean isActive;
     private Long authorId;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+    private LocalDate createdDate;
+    private LocalDate updateDate;
 }

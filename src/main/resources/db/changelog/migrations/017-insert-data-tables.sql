@@ -120,3 +120,10 @@ select id,
        (select id from roles where role = 'ROLE_EMPLOYER')
 from users
 where account_type = 'EMPLOYER';
+
+-- ADMIN
+insert into user_role (user_id, role_id)
+select id,
+       (select id from roles where role = 'ROLE_ADMIN')
+from users
+where account_type = 'ADMIN';

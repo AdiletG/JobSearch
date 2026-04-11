@@ -1,0 +1,220 @@
+:root {
+  --fb-blue: #1877F2;
+  --fb-blue-600: #166FE5;
+  --fb-bg: #F0F2F5;
+  --fb-card: #FFFFFF;
+  --fb-text: #1C1E21;
+  --fb-muted: #65676B;
+  --fb-border: #DADDE1;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --shadow: 0 6px 18px rgba(0, 0, 0, .10);
+  --shadow-hover: 0 14px 30px rgba(0, 0, 0, .14);
+
+  --ring: 0 0 0 3px rgba(24, 119, 242, .25);
+
+  --error: #ff4d4d;
+  --error-bg: #fff5f5;
+  --error-box: #ffdede;
+  --error-text: #a10000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+}
+
+html, body {
+  background: var(--fb-bg);
+  color: var(--fb-text);
+}
+
+.form {
+  width: min(520px, 92vw);
+  margin: 100px auto;
+  background: var(--fb-card);
+  color: var(--fb-text);
+  padding: 40px;
+  border: 1px solid var(--fb-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 20px 0 0;
+}
+
+.legend {
+  margin: 0 0 10px;
+  font-size: 24px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-header {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.birth-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-element {
+  width: 100%;
+  margin-top: 20px;
+}
+
+fieldset label {
+  display: none;
+}
+
+.form input:not([type="checkbox"]) {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--fb-border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--fb-text);
+}
+
+.form input:not([type="checkbox"])::placeholder {
+  color: var(--fb-muted);
+}
+
+.form input:not([type="checkbox"]):focus {
+  outline: none;
+  border-color: var(--fb-blue);
+  box-shadow: var(--ring);
+}
+
+.form input.input-error:not([type="checkbox"]) {
+  border: 2px solid var(--error);
+  background: var(--error-bg);
+}
+
+.form input.input-error:not([type="checkbox"]):focus {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.25);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hr-line {
+  border-bottom: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+/* ===== Footer buttons ===== */
+.form-footer {
+  display: flex;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.register-button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s, filter .2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  user-select: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--fb-blue), var(--fb-blue-600));
+  box-shadow: 0 6px 14px rgba(24, 119, 242, .30);
+  font-size: 16px;
+}
+
+.register-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+  box-shadow: 0 12px 22px rgba(24, 119, 242, .38);
+}
+
+.link {
+  width: 100%;
+  border: 1px solid var(--fb-border);
+  border-radius: 12px;
+  padding: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  user-select: none;
+  background: var(--fb-bg);
+  color: var(--fb-text);
+  font-size: 16px;
+}
+
+.link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+  background: #fff;
+}
+
+.checkBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.check {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+
+.checkBox {
+  color: var(--fb-muted);
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.checkBlock.input-error {
+  border: 2px solid var(--error);
+  background: var(--error-bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.error {
+  background: var(--error-box);
+  border: 1px solid #ff6b6b;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  color: var(--error-text);
+}
+
+.logo{
+width: 320px;
+height: 170px;
+margin: 0 30px 20px 0;
+}

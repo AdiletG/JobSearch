@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,6 +15,6 @@ public class Resume {
     private Long categoryId;
     private BigDecimal salary;
     private Boolean isActive;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+    private LocalDate createdDate;
+    private LocalDate updateDate;
 }

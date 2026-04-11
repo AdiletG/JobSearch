@@ -18,4 +18,11 @@ public class CategoryDao {
         return jdbcTemplate.query(sql, new CategoryMapper());
     }
 
+    public String getCategoryName(Long id){
+        String sql = """
+                select * from categories where id = ?
+                """;
+        return jdbcTemplate.queryForObject(sql, String.class, id);
+    }
+
 }
