@@ -13,6 +13,8 @@ public interface VacancyService {
 
     List<VacanciesDto> getALLVacancies() throws VacancyNotFoundException;
 
+    List<VacanciesDto> getALLVacanciesByAuthor(Long id) throws VacancyNotFoundException;
+
     List<VacanciesDto> getVacancyByCategory(Long category) throws VacancyNotFoundException;
 
     List<VacanciesDto> getVacancyByActive(boolean active) throws VacancyNotFoundException;
