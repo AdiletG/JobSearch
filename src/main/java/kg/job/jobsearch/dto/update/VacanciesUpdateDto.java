@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacanciesUpdateDto {
+
     @NotBlank(message = "Названия обязательно для указания")
     @Size(min = 5, max = 25, message = "Названия не можеть быть меньше 5х и больше 25ти")
     @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Названия не может содержать цифры")
@@ -21,8 +22,7 @@ public class VacanciesUpdateDto {
     @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Описание не может содержать цифры")
     private String description;
 
-    @NotNull
-    @NotBlank(message = "Категория обязательно для указания")
+    @NotNull(message = "Категория обязательно для указания")
     @Min(value = 0, message = "Категория должна быть положительным")
     private Long categoryId;
 

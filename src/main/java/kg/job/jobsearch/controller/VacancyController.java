@@ -7,16 +7,14 @@ import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
 import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
+import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
 import kg.job.jobsearch.service.UserService;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -40,12 +38,12 @@ public class VacancyController {
         return "vacancies/vacancy-create";
     }
 
-    @GetMapping("/update")
-    public String update(Model model){
-        model.addAttribute("vacancy", new VacanciesUpdateDto());
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable Long id, Model model) throws VacancyNotFoundException {
+        VacanciesUpdateDto vacancy = vacancyService.getByIdForUpdate(id);
+        model.addAttribute("vacancy", vacancy);
         return "vacancies/vacancy-update";
     }
-
 
     @PostMapping("/create")
     public String createPost(
@@ -60,5 +58,26 @@ public class VacancyController {
 
         model.addAttribute("vacancy", new VacanciesCreateDto());
         return "vacancies/vacancy-create";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updatePost(
+            @Valid @ModelAttribute("vacancy") VacanciesUpdateDto dto,
+            @PathVariable Long id, BindingResult bindingResult, Model model)
+            throws VacancyDataUpdateException, VacancyNotFoundException {
+        if(!bindingResult.hasErrors()){
+            vacancyService.update(id, dto);
+            return "redirect:/profile";
+        }
+
+        model.addAttribute("vacancy", dto);
+        return "vacancies/vacancy-update";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deletePost(
+            @PathVariable Long id, Model model) throws VacancyNotFoundException {
+        vacancyService.delete(id);
+        return "redirect:/profile";
     }
 }

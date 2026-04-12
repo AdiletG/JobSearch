@@ -69,6 +69,7 @@
             <div class="hr-line"></div>
 
             <div class="form-actions">
+                <a href="/profile" class="link">Назад</a>
                 <button type="submit" class="register-button">Создать вакансию</button>
             </div>
         </fieldset>
