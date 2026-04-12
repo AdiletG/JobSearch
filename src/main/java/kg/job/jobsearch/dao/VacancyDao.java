@@ -71,7 +71,7 @@ public class VacancyDao {
             exp_from, exp_to, is_active, author_id,
             created_date
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, now())
+        VALUES (?, ?, ?, ?, ?, ?, true, ?, now())
         """;
 
         jdbcTemplate.update(
@@ -82,7 +82,6 @@ public class VacancyDao {
                 dto.getSalary(),
                 dto.getExpFrom(),
                 dto.getExpTo(),
-                dto.getIsActive(),
                 authorId
                 );
     }

@@ -188,6 +188,7 @@ body {
     position: relative;
     transition: 0.2s ease;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .action-card:hover {

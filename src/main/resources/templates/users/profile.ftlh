@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="header-actions">
-                            <div class="action-card create"><span>+ Создать вакансию</span></div>
+                                    <a href="/vacancies/create" class="action-card create">Создать вакансию</a>
                             <div class="action-card responses">
                                 <span>Отклики</span>
                                 <div class="badge">5</div>
