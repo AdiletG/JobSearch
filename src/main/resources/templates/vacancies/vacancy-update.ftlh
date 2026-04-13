@@ -6,14 +6,14 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JobSearch/Registration</title>
+    <title>JobSearch/Vacancies</title>
     <link rel="stylesheet" href="/css/vacancy-create.css">
     <#import "/spring.ftl" as spring>
 </head>
 
 <body>
     <div class="container">
-        <form action="/vacancies/update" method="post" enctype="multipart/form-data" class="form">
+        <form action="/vacancies/update/${vacancy.id}" method="post" enctype="multipart/form-data" class="form">
             <fieldset>
                 <div class="legend">
                     <img src="/logo/logo.png" class="logo" alt="logo">

@@ -24,13 +24,9 @@ databaseChangeLog:
               - column:
                   name: company_name
                   type: varchar(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: position_in_company
                   type: varchar(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: responsibilities
                   type: text
@@ -44,7 +40,7 @@ databaseChangeLog:
             onDelete: CASCADE
 
         - sql:
-            sql: "ALTER TABLE work_experience_info ADD CONSTRAINT chk_work_experience_years CHECK (years IS NULL OR years >= 0);"
+            sql: "ALTER TABLE work_experience_info ADD CONSTRAINT chk_work_experience_years CHECK (years >= 0);"
 
         - createIndex:
             tableName: work_experience_info

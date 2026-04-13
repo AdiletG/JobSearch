@@ -15,6 +15,24 @@ import java.util.List;
 public class EducationInfoDao {
     private final JdbcTemplate jdbcTemplate;
 
+    public List<EducationInfoUpdateDto> getByResumeIdByUpdate(Long resumeId){
+        String sql = """
+                select * from education_info where resume_id = ?
+                """;
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            EducationInfoUpdateDto educ = new EducationInfoUpdateDto();
+            educ.setId(rs.getLong("id"));
+            educ.setInstitution(rs.getString("institution"));
+            educ.setProgram(rs.getString("program"));
+            java.sql.Date startDate = rs.getDate("start_date");
+            educ.setStartDate(startDate != null ? startDate.toLocalDate() : null);
+            java.sql.Date endDate = rs.getDate("end_date");
+            educ.setEndDate(endDate != null ? endDate.toLocalDate() : null);
+            educ.setDegree(rs.getString("degree"));
+            return educ;
+        }, resumeId);
+    }
+
     public List<EducationInfo> getAllEducationInfo(){
         String sql = "select * from education_info;";
         return jdbcTemplate.query(sql, new EducationInfoMapper());

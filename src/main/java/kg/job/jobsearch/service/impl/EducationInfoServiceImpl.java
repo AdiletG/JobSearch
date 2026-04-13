@@ -2,6 +2,7 @@ package kg.job.jobsearch.service.impl;
 
 import kg.job.jobsearch.dao.EducationInfoDao;
 import kg.job.jobsearch.dto.EducationInfoDto;
+import kg.job.jobsearch.dto.update.EducationInfoUpdateDto;
 import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
 import kg.job.jobsearch.model.EducationInfo;
 import kg.job.jobsearch.service.EducationInfoService;

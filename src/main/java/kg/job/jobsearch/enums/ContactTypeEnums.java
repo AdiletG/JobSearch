@@ -11,8 +11,17 @@ public enum ContactTypeEnums {
         this.contactType = contactType;
     }
 
+    public static ContactTypeEnums fromDbValue(String value) {
+        for (ContactTypeEnums type : values()) {
+            if (type.name().equalsIgnoreCase(value) || type.contactType.equalsIgnoreCase(value)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("Unknown contact type: " + value);
+    }
+
     @Override
     public String toString() {
-        return "ContactType: " + contactType;
+        return contactType;
     }
 }
