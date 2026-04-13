@@ -1,10 +1,13 @@
 package kg.job.jobsearch.dao;
 
+import io.jsonwebtoken.security.PublicJwkBuilder;
 import kg.job.jobsearch.dao.mapper.UserMapper;
+import kg.job.jobsearch.dto.update.UsersUpdateDto;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -23,6 +26,21 @@ public class UserDao {
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
+
+    public UsersUpdateDto getByEmailForUpdate(String email){
+        String sql = "select * from users where email = ?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                        UsersUpdateDto.builder()
+                                .id(rs.getLong("id"))
+                                .name(rs.getString("name"))
+                                .surname(rs.getString("surname"))
+                                .age(rs.getInt("age"))
+                                .email(rs.getString("email"))
+                                .phoneNumber(rs.getString("phone_number"))
+                                .avatarPath(rs.getString("avatar"))
+                                .build()
+                , email);
+    }
 
     public List<User> getAllUser(){
         String sql = "select * from users;";

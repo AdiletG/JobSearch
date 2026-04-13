@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersUpdateDto {
+    private Long id;
+
     @Size(min = 3, max = 15, message = "Имя не можеть быть меньше 3х и больше 15ти")
     @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Имя не может содержать цифры")
     private String name;
@@ -26,22 +29,23 @@ public class UsersUpdateDto {
     @Email(message = "Некорректный email")
     private String email;
 
-    @Size(
-            min = 6,
-            max = 26,
-            message = "Длина пароля должна быть >= 6 и <= 26"
-    )
     @Pattern(
-            regexp = "^(?=.*\\\\d)(?=.*[a-z])(?=.*[A-Z]).+$",
-            message = "Содержит как минимум одну заглавную букву и одну цифру"
+            regexp = "^$|^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,26}$",
+            message = "Пароль должен быть от 6 до 26 символов, содержать заглавную букву и цифру"
     )
     private String password;
 
+    @Pattern(
+            regexp = "^$|.{6,26}$",
+            message = "Подтверждение должно быть от 6 до 26 символов"
+    )
+    private String passwordConfirm;
     @Pattern(
             regexp = "^\\+?[0-9\\s]{10,}$",
             message = "Номер телефона должен содержать минимум 10 символов (цифры, пробелы, знак +)"
     )
     private String phoneNumber;
 
-    private String avatar;
+    private MultipartFile avatar;
+    private String avatarPath;
 }

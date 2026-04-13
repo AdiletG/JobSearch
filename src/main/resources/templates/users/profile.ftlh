@@ -16,7 +16,7 @@
                                     <h1 class="user-name">${user.name} ${user.surname}</h1>
                                     <div class="user-meta">Возраст: ${user.age}</div>
                                     <div class="btn-row">
-                                        <button class="btn btn-primary">Редактировать профиль</button>
+                                        <a href="/profile/update" class="btn btn-primary">Редактировать профиль</a>
                                     </div>
                                 </div>
                             </div>
