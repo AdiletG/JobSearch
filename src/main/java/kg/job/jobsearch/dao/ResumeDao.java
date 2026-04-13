@@ -2,6 +2,7 @@ package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.ResumeMapper;
 import kg.job.jobsearch.dto.create.ResumeCreateDto;
+import kg.job.jobsearch.dto.update.ResumeUpdateDto;
 import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
 import kg.job.jobsearch.model.Resume;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,19 @@ import java.util.Optional;
 public class ResumeDao {
     private final JdbcTemplate jdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
+
+    public ResumeUpdateDto getByIdForUpdate(Long id) throws ResumeNotFoundException {
+        String sql = "SELECT * FROM resumes WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+            ResumeUpdateDto dto = new ResumeUpdateDto();
+            dto.setId(rs.getLong("id"));
+            dto.setName(rs.getString("name"));
+            dto.setSalary(rs.getBigDecimal("salary"));
+            dto.setCategoryId(rs.getLong("category_id"));
+            dto.setIsActive(rs.getBoolean("is_active"));
+            return dto;
+        }, id);
+    }
 
     public List<Resume> getAllResume(){
         String sql = "select * from resumes;";
@@ -55,7 +69,7 @@ public class ResumeDao {
     public Long createResume(Long applicantId, ResumeCreateDto dto) throws ResumeNotFoundException {
         String sql = """
                 insert into resumes (applicant_id, name, category_id, salary, is_active, created_date)
-                values(?, ?, ?, ?, ?, now())
+                values(?, ?, ?, ?, true, now())
                 """;
 
         jdbcTemplate.update(resume -> {
@@ -64,7 +78,6 @@ public class ResumeDao {
             ps.setString(2, dto.getName());
             ps.setLong(3, dto.getCategoryId());
             ps.setBigDecimal(4, dto.getSalary());
-            ps.setBoolean(5,true);
             return ps;
         }, keyHolder);
 

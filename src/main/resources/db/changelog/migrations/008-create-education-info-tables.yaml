@@ -31,8 +31,6 @@ databaseChangeLog:
               - column:
                   name: start_date
                   type: date
-                  constraints:
-                    nullable: false
               - column:
                   name: end_date
                   type: date
@@ -49,7 +47,7 @@ databaseChangeLog:
             onDelete: CASCADE
 
         - sql:
-            sql: "ALTER TABLE education_info ADD CONSTRAINT chk_education_info_dates CHECK (end_date IS NULL OR end_date >= start_date);"
+            sql: "ALTER TABLE education_info ADD CONSTRAINT chk_education_info_dates CHECK (end_date >= start_date);"
 
         - createIndex:
             tableName: education_info

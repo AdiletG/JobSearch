@@ -24,6 +24,20 @@ public class UserServiceImpl implements UserService {
     private final FileService fileService;
     private final PasswordEncoder passwordEncoder;
 
+        @Override
+        public UsersUpdateDto getUserForUpdate(String email){
+            UsersUpdateDto user = userDao.getByEmailForUpdate(email);
+            return UsersUpdateDto.builder()
+                    .id(user.getId())
+                    .name(user.getName())
+                    .surname(user.getSurname())
+                    .age(user.getAge())
+                    .email(user.getEmail())
+                    .phoneNumber(user.getPhoneNumber())
+                    .avatarPath(user.getAvatarPath())
+                    .build();
+        }
+
     @Override
     public void deleteUser(Long userId) throws UserNotFoundException {
         userDao.findById(userId)
@@ -54,16 +68,26 @@ public class UserServiceImpl implements UserService {
                 user.setEmail(dto.getEmail());
             }
 
-            if (dto.getPassword() != null) {
-                user.setPassword(dto.getPassword());
+            if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+                if (!dto.getPassword().equals(dto.getPasswordConfirm())) {
+                    throw new UserDataUpdateException();
+                }
+                user.setPassword(passwordEncoder.encode(dto.getPassword()));
             }
 
             if (dto.getPhoneNumber() != null) {
                 user.setPhoneNumber(dto.getPhoneNumber());
             }
 
-            if (dto.getAvatar() != null) {
-                user.setAvatar(dto.getAvatar());
+            String avatarFilename = null;
+
+            if (dto.getAvatar() != null && !dto.getAvatar().isEmpty()) {
+                avatarFilename = fileService.saveAvatar(dto.getAvatar());
+                user.setAvatar(avatarFilename);
+            }
+
+            if (avatarFilename != null) {
+                fileService.upload(userId, avatarFilename);
             }
 
             userDao.updateUser(userId, user);

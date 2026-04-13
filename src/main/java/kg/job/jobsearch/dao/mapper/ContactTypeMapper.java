@@ -12,7 +12,7 @@ public class ContactTypeMapper implements RowMapper<ContactType> {
     public ContactType mapRow(ResultSet rs, int rowNum) throws SQLException {
         ContactType contactType = new ContactType();
         contactType.setId(rs.getLong("id"));
-        contactType.setType(ContactTypeEnums.valueOf(rs.getString("type")));
+        contactType.setType(ContactTypeEnums.fromDbValue(rs.getString("type")));
         return contactType;
     }
 }

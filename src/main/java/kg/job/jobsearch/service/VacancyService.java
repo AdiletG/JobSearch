@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface VacancyService {
 
+    VacanciesUpdateDto getByIdForUpdate(Long id) throws VacancyNotFoundException;
+
     List<VacanciesDto> getALLVacancies() throws VacancyNotFoundException;
 
     List<VacanciesDto> getALLVacanciesByAuthor(Long id) throws VacancyNotFoundException;

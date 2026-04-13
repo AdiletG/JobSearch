@@ -22,9 +22,8 @@ public class VacanciesCreateDto {
     @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Описание не может содержать цифры")
     private String description;
 
-    @NotNull
-    @NotBlank(message = "Категория обязательно для указания")
-    @Min(value = 0, message = "Категория должна быть положительным")
+    @NotNull(message = "Категория обязательна для указания")
+    @Min(value = 1, message = "Выберите категорию")
     private Long categoryId;
 
     @Min(value = 0, message = "Зарплата должна быть положительным")
@@ -35,8 +34,4 @@ public class VacanciesCreateDto {
 
     @Min(value = 0, message = "Опыт работы должен быть положительным")
     private Integer expTo;
-
-    @NotBlank(message = "Активность вакансии обязательно для указания")
-    @AssertTrue
-    private Boolean isActive;
 }

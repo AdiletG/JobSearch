@@ -2,6 +2,7 @@ package kg.job.jobsearch.dao;
 
 import kg.job.jobsearch.dao.mapper.VacancyMapper;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
+import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
 import kg.job.jobsearch.model.Vacancy;
@@ -20,6 +21,22 @@ import java.util.Optional;
 public class VacancyDao {
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public VacanciesUpdateDto getByIdForUpdate(Long id) throws VacancyNotFoundException {
+        String sql = "SELECT * FROM vacancies WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+            VacanciesUpdateDto dto = new VacanciesUpdateDto();
+            dto.setId(rs.getLong("id"));
+            dto.setName(rs.getString("name"));
+            dto.setDescription(rs.getString("description"));
+            dto.setCategoryId(rs.getLong("category_id"));
+            dto.setSalary(rs.getBigDecimal("salary"));
+            dto.setExpFrom(rs.getInt("exp_from"));
+            dto.setExpTo(rs.getInt("exp_to"));
+            dto.setIsActive(rs.getBoolean("is_active"));
+            return dto;
+        }, id);
+    }
 
     public List<Vacancy> getALlVacancy(){
         String sql = "select * from vacancies;";
@@ -71,7 +88,7 @@ public class VacancyDao {
             exp_from, exp_to, is_active, author_id,
             created_date
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, now())
+        VALUES (?, ?, ?, ?, ?, ?, true, ?, now())
         """;
 
         jdbcTemplate.update(
@@ -82,7 +99,6 @@ public class VacancyDao {
                 dto.getSalary(),
                 dto.getExpFrom(),
                 dto.getExpTo(),
-                dto.getIsActive(),
                 authorId
                 );
     }

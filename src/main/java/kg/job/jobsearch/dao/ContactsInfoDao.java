@@ -15,6 +15,16 @@ import java.util.List;
 public class ContactsInfoDao {
     private final JdbcTemplate jdbcTemplate;
 
+    public List<ContactsInfoUpdateDto> getUpdate(Long resumeId){
+        String sql = "select * from contacts_info where resume_id = ?";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            ContactsInfoUpdateDto con = new ContactsInfoUpdateDto();
+            con.setType_id(rs.getLong("type_id"));
+            con.setContactValue(rs.getString("contact_value"));
+            return con;
+        }, resumeId);
+    }
+
     public List<ContactsInfo> getAllContactsInfo(){
         String sql = "select * from contacts_info;";
         return jdbcTemplate.query(sql, new ContactsInfoMapper());
