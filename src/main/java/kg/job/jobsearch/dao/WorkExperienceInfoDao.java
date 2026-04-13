@@ -23,7 +23,7 @@ public class WorkExperienceInfoDao {
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             WorkExperienceInfoUpdateDto work = new WorkExperienceInfoUpdateDto();
             work.setId(rs.getLong("id"));
-            work.setCompanyName(rs.getString("company-name"));
+            work.setCompanyName(rs.getString("company_name"));
             work.setPosition(rs.getString("position_in_company"));
             work.setYears(rs.getInt("years"));
             work.setResponsibilities(rs.getString("responsibilities"));

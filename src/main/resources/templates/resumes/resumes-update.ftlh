@@ -113,7 +113,7 @@
                 <div class="form-element">
                     <div class="checkBlock">
                         <p class="checkBox">Активна</p>
-                        <@spring.formCheckbox "vacancy.isActive" 'id="isActive" class="form-control check" ' />
+                        <@spring.formCheckbox "resume.isActive" 'id="isActive" class="form-control check" ' />
                     </div>
                 </div>
 

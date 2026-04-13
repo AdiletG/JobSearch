@@ -37,14 +37,14 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public ResumeUpdateDto getById(Long id) throws ResumeNotFoundException {
-        Resume resume = resumeDao.getResumeById(id)
-                .orElseThrow(ResumeNotFoundException::new);
+        ResumeUpdateDto resume = resumeDao.getByIdForUpdate(id);
 
         List<EducationInfoUpdateDto> education = educationInfoDao.getByResumeIdByUpdate(resume.getId());
         List<WorkExperienceInfoUpdateDto> work = workExperienceInfoDao.getUpdateList(resume.getId());
         List<ContactsInfoUpdateDto> contact = contactsInfoDao.getUpdate(resume.getId());
 
         return ResumeUpdateDto.builder()
+                .id(resume.getId())
                 .name(resume.getName())
                 .categoryId(resume.getCategoryId())
                 .salary(resume.getSalary())

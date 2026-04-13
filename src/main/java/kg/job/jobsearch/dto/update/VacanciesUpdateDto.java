@@ -14,16 +14,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class VacanciesUpdateDto {
     private Long id;
+
     @NotBlank(message = "Названия обязательно для указания")
-    @Size(min = 5, max = 25, message = "Названия не можеть быть меньше 5х и больше 25ти")
-    @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Названия не может содержать цифры")
+    @Size(min = 5, max = 25, message = "Названия не может быть меньше 5х и больше 25ти")
     private String name;
 
-    @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Описание не может содержать цифры")
+    @Size(max = 500, message = "Описание не может быть длиннее 500 символов")
     private String description;
 
     @NotNull(message = "Категория обязательно для указания")
-    @Min(value = 0, message = "Категория должна быть положительным")
+    @Min(value = 1, message = "Категория должна быть положительным")
     private Long categoryId;
 
     @Min(value = 0, message = "Зарплата должна быть положительным")
