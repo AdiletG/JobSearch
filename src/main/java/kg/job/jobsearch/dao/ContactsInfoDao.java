@@ -58,7 +58,7 @@ public class ContactsInfoDao {
     }
 
     public void delete(Long id){
-        String sql = "delete from contacts_info where id = ?";
+        String sql = "delete from contacts_info where resume_id = ?";
         jdbcTemplate.update(sql, id);
     }
 }

@@ -13,26 +13,27 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacanciesUpdateDto {
+
     private Long id;
 
-    @NotBlank(message = "Названия обязательно для указания")
-    @Size(min = 5, max = 25, message = "Названия не может быть меньше 5х и больше 25ти")
+    @NotBlank(message = "Название вакансии обязательно")
+    @Size(min = 5, max = 100, message = "Название должно быть от 5 до 100 символов")
     private String name;
 
-    @Size(max = 500, message = "Описание не может быть длиннее 500 символов")
+    @Size(max = 2000, message = "Описание слишком длинное (макс. 2000 символов)")
     private String description;
 
-    @NotNull(message = "Категория обязательно для указания")
-    @Min(value = 1, message = "Категория должна быть положительным")
+    @NotNull(message = "Категория обязательно должна быть выбрана")
+    @Min(value = 1, message = "Некорректный ID категории")
     private Long categoryId;
 
-    @Min(value = 0, message = "Зарплата должна быть положительным")
+    @Min(value = 0, message = "Зарплата не может быть отрицательной")
     private BigDecimal salary;
 
-    @Min(value = 0, message = "Опыт работы должен быть положительным")
+    @Min(value = 0, message = "Опыт работы 'от' не может быть отрицательным")
     private Integer expFrom;
 
-    @Min(value = 0, message = "Опыт работы должен быть положительным")
+    @Min(value = 0, message = "Опыт работы 'до' не может быть отрицательным")
     private Integer expTo;
 
     private Boolean isActive;

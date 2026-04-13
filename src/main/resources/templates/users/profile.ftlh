@@ -10,7 +10,7 @@
                         <div class="profile-main">
                             <div class="profile-left">
                                 <div class="avatar">
-                                    <img src="${user.avatar}" class="logo" alt="logo">
+                                    <img src="/images/${user.avatar}" class="logo" alt="logo">
                                 </div>
                                 <div class="user-info">
                                     <h1 class="user-name">${user.name} ${user.surname}</h1>
@@ -65,7 +65,7 @@
                             <div class="profile-main">
                                 <div class="profile-left">
                                     <div class="avatar">
-                                        <img src="${user.avatar}" class="logo" alt="logo">
+                                        <img src="/images/${user.avatar}" class="logo" alt="logo">
                                     </div>
                                     <div class="user-info">
                                         <h1 class="user-name">${user.name} ${user.surname}</h1>

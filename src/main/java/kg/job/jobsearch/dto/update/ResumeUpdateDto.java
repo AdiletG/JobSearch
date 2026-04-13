@@ -17,15 +17,15 @@ import java.util.List;
 public class ResumeUpdateDto {
     private Long id;
 
-    @NotBlank(message = "Имя обязательно для указания")
-    @Size(min = 3, max = 15, message = "Имя не может быть меньше 3х и больше 15ти")
+    @NotBlank(message = "Имя обязательно для заполнения")
+    @Size(min = 3, max = 50, message = "Имя должно быть от 3 до 50 символов")
     private String name;
 
-    @Min(value = 0, message = "Зарплата должна быть положительным")
+    @Min(value = 0, message = "Зарплата не может быть отрицательной")
     private BigDecimal salary;
 
-    @NotNull(message = "Категория обязательно для указания")
-    @Min(value = 1, message = "Категория должна быть положительным")
+    @NotNull(message = "Категория должна быть указана")
+    @Min(value = 1, message = "Некорректный ID категории")
     private Long categoryId;
 
     private Boolean isActive;
