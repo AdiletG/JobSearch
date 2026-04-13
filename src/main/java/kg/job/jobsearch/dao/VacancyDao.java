@@ -26,6 +26,7 @@ public class VacancyDao {
         String sql = "SELECT * FROM vacancies WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
             VacanciesUpdateDto dto = new VacanciesUpdateDto();
+            dto.setId(rs.getLong("id"));
             dto.setName(rs.getString("name"));
             dto.setDescription(rs.getString("description"));
             dto.setCategoryId(rs.getLong("category_id"));

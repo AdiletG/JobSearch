@@ -5,6 +5,7 @@ import kg.job.jobsearch.dto.create.WorkExperienceInfoCreateDto;
 import kg.job.jobsearch.dto.update.WorkExperienceInfoUpdateDto;
 import kg.job.jobsearch.model.WorkExperienceInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WorkExperienceInfoDao {
     private final JdbcTemplate jdbcTemplate;
+
+    public List<WorkExperienceInfoUpdateDto> getUpdateList(Long resumeId){
+        String sql = """
+                select * from work_experience_info where id = ?
+                """;
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            WorkExperienceInfoUpdateDto work = new WorkExperienceInfoUpdateDto();
+            work.setId(rs.getLong("id"));
+            work.setCompanyName(rs.getString("company-name"));
+            work.setPosition(rs.getString("position_in_company"));
+            work.setYears(rs.getInt("years"));
+            work.setResponsibilities(rs.getString("responsibilities"));
+            return work;
+        }, resumeId);
+    }
 
     public List<WorkExperienceInfo> getAllWorkExperienceInfo(){
         String sql = "select * from work_experience_info;";

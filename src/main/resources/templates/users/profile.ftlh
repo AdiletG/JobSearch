@@ -71,12 +71,12 @@
                                         <h1 class="user-name">${user.name} ${user.surname}</h1>
                                         <div class="user-meta">Возраст: ${user.age}</div>
                                         <div class="btn-row">
-                                            <button class="btn btn-primary">Редактировать профиль</button>
+                                            <a href="/profile/update" class="btn btn-primary">Редактировать профиль</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="header-actions">
-                                    <div class="action-card create"><span>+ Создать резюме</span></div>
+                                    <a href="/resumes/create" class="action-card create">Создать резюме</a>
                                     <div class="action-card responses">
                                         <span>Отклики</span>
                                         <div class="badge">5</div>
@@ -94,8 +94,11 @@
                                             <div class="resume-date-label">Дата обновления:</div>
                                             <div class="resume-date">${resume.createdDate}</div>
                                             <div class="resume-actions">
-                                                <button class="btn btn-outline-blue">Обновить</button>
-                                                <button class="btn btn-outline-green">Ред.</button>
+                                                <a href="/resumes/update/${resume.id}"
+                                                    class="btn btn-outline-blue">Обновить</a>
+                                                <form action="/resumes/delete/${resume.id}" method="post">
+                                                    <button type="submit" class="delete">Удалить</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </#list>

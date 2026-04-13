@@ -21,7 +21,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/vacancies")
 @RequiredArgsConstructor
-public class VacancyController {
+public class MvcVacancyController {
     private final VacancyService vacancyService;
     private final UserService userService;
 

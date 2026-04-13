@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface ResumeService {
 
+    ResumeUpdateDto getById(Long id) throws ResumeNotFoundException;
+
     List<ResumesDto> getAllResume() throws ResumeNotFoundException;
 
     List<ResumesDto> getResumeByCategory(Long category) throws ResumeNotFoundException;

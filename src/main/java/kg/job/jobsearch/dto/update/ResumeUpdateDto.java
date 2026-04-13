@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResumeUpdateDto {
+    private Long id;
     @NotBlank(message = "Имя обязательно для указания")
     @Size(min = 3, max = 15, message = "Имя не можеть быть меньше 3х и больше 15ти")
     @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Имя не может содержать цифры")
@@ -27,6 +28,8 @@ public class ResumeUpdateDto {
     @NotBlank(message = "Категория обязательно для указания")
     @Min(value = 0, message = "Категория должна быть положительным")
     private Long categoryId;
+
+    private Boolean isActive;
 
     private List<ContactsInfoUpdateDto> contacts;
     private List<EducationInfoUpdateDto> educations;
