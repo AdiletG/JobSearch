@@ -70,7 +70,7 @@ public class WorkExperienceInfoDao {
     }
 
     public void deleteById(Long id){
-        String sql = "delete from work_experience_info where id = ?";
+        String sql = "delete from work_experience_info where resume_id = ?";
         jdbcTemplate.update(sql, id);
     }
 }

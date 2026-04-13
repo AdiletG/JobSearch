@@ -72,7 +72,7 @@ public class EducationInfoDao {
     };
 
     public void deleteById(Long id){
-        String sql = "delete from education_info where id = ?";
+        String sql = "delete from education_info where resume_id = ?";
         jdbcTemplate.update(sql, id);
     }
 }
