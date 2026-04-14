@@ -1,17 +1,23 @@
 package kg.job.jobsearch.model;
 
-import kg.job.jobsearch.dto.update.EducationInfoUpdateDto;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "education_info")
 public class EducationInfo {
+    @Id
     private Long id;
-    private Long resumeId;
+
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
+
     private String institution;
     private String program;
     private LocalDate startDate;

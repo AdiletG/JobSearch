@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
     public ResponseEntity<?> download(Long userId) throws UserImageNotFoundException {
         UserImage userImage = userImageDao.findByUserId(userId)
                 .orElseThrow(UserImageNotFoundException::new);
-        log.debug("UserId = {}, image filename = {}", userImage.getUserId(), userImage.getFilename());
+        log.debug("UserId = {}, image filename = {}", userImage.getUser().getId(), userImage.getFilename());
         try {
             ByteArrayResource resource = new ByteArrayResource(getDownloadedFile(userImage.getFilename(), "images"));
 

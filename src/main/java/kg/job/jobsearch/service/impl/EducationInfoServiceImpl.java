@@ -30,7 +30,7 @@ public class EducationInfoServiceImpl implements EducationInfoService {
     private EducationInfoDto mapToDo(EducationInfo educationInfo){
         return EducationInfoDto.builder()
                 .id(educationInfo.getId())
-                .resumeId(educationInfo.getResumeId())
+                .resumeId(educationInfo.getResume().getId())
                 .institution(educationInfo.getInstitution())
                 .program(educationInfo.getProgram())
                 .startDate(educationInfo.getStartDate())
