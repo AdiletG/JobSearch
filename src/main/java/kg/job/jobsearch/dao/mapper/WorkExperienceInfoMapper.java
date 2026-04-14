@@ -12,7 +12,7 @@ public class WorkExperienceInfoMapper implements RowMapper<WorkExperienceInfo> {
     public WorkExperienceInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         WorkExperienceInfo workExperienceInfo = new WorkExperienceInfo();
         workExperienceInfo.setId(rs.getLong("id"));
-        workExperienceInfo.setResumeId(rs.getLong("resume_id"));
+        workExperienceInfo.setResume(rs.getLong("resume_id"));
         workExperienceInfo.setYears(rs.getInt("years"));
         workExperienceInfo.setCompanyName(rs.getString("company_name"));
         workExperienceInfo.setPosition(rs.getString("position_in_company"));

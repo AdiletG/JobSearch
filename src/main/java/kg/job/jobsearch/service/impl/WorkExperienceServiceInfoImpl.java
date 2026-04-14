@@ -30,7 +30,7 @@ public class WorkExperienceServiceInfoImpl implements WorkExperienceInfoService 
     private WorkExperienceInfoDto mapToDo(WorkExperienceInfo workExperienceInfo){
         return WorkExperienceInfoDto.builder()
                 .id(workExperienceInfo.getId())
-                .resumeId(workExperienceInfo.getResumeId())
+                .resumeId(workExperienceInfo.getResume().getId())
                 .years(workExperienceInfo.getYears())
                 .companyName(workExperienceInfo.getCompanyName())
                 .position(workExperienceInfo.getPosition())
