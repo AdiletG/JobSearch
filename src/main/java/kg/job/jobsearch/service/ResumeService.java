@@ -3,10 +3,8 @@ package kg.job.jobsearch.service;
 import kg.job.jobsearch.dto.create.ResumeCreateDto;
 import kg.job.jobsearch.dto.update.ResumeUpdateDto;
 import kg.job.jobsearch.dto.ResumesDto;
-import kg.job.jobsearch.exception.notFoundException.ContactsInfoNotFoundException;
-import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
-import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
-import kg.job.jobsearch.exception.notFoundException.WorkExperienceInfoNotFoundException;
+import kg.job.jobsearch.exception.createException.ResumeDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.*;
 
 import java.util.List;
 
@@ -22,9 +20,9 @@ public interface ResumeService {
 
     List<ResumesDto> getResumeByActive(boolean active) throws ResumeNotFoundException;
 
-    void createResume(Long applicantId, ResumeCreateDto dto) throws ResumeNotFoundException;
+    void createResume(Long applicantId, ResumeCreateDto dto) throws ResumeNotFoundException, ResumeDataCreateException;
 
-    ResumesDto updateResume(Long resumeId, ResumeUpdateDto dto) throws ResumeNotFoundException, EducationNotFoundException, WorkExperienceInfoNotFoundException, ContactsInfoNotFoundException;
+    ResumesDto updateResume(Long resumeId, ResumeUpdateDto dto) throws ResumeNotFoundException, EducationNotFoundException, WorkExperienceInfoNotFoundException, ContactsInfoNotFoundException, CategoryNotFoundException;
 
     void deleteResume(Long resumeId) throws ResumeNotFoundException;
 }

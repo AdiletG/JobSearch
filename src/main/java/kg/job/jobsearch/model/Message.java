@@ -17,6 +17,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "responded_applicants_id")
     private RespondedApplicant respondedApplicant;
+
     private String content;
     private LocalDateTime times;
 }

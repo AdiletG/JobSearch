@@ -20,8 +20,14 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
+
+    @Column(name = "avatar", columnDefinition = "CLOB")
     private String avatar;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_type")
     private AccountTypeEnums accountType;
+
     private Boolean enabled;
 
     @OneToMany(mappedBy = "user")

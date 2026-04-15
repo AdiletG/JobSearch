@@ -1,6 +1,5 @@
 package kg.job.jobsearch.service.impl;
 
-import kg.job.jobsearch.dao.UserDao;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
@@ -8,6 +7,7 @@ import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.model.User;
+import kg.job.jobsearch.repository.UserRepository;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +20,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
     private final FileService fileService;
     private final PasswordEncoder passwordEncoder;
 
         @Override
-        public UsersUpdateDto getUserForUpdate(String email){
-            UsersUpdateDto user = userDao.getByEmailForUpdate(email);
+        public UsersUpdateDto getUserForUpdate(String email) throws UserNotFoundException {
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(UserNotFoundException::new);
+
             return UsersUpdateDto.builder()
                     .id(user.getId())
                     .name(user.getName())
@@ -34,22 +36,22 @@ public class UserServiceImpl implements UserService {
                     .age(user.getAge())
                     .email(user.getEmail())
                     .phoneNumber(user.getPhoneNumber())
-                    .avatarPath(user.getAvatarPath())
+                    .avatarPath(user.getAvatar())
                     .build();
         }
 
     @Override
     public void deleteUser(Long userId) throws UserNotFoundException {
-        userDao.findById(userId)
+        userRepository.findById(userId)
                     .orElseThrow(UserNotFoundException::new);
 
-        userDao.deleteUser(userId);
+        userRepository.deleteById(userId);
     }
 
     @Override
     public void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException{
         try{
-            User user = userDao.findById(userId)
+            User user = userRepository.findById(userId)
                     .orElseThrow(UserNotFoundException::new);
 
             if (dto.getName() != null) {
@@ -90,7 +92,8 @@ public class UserServiceImpl implements UserService {
                 fileService.upload(userId, avatarFilename);
             }
 
-            userDao.updateUser(userId, user);
+            userRepository.save(user);
+
         }catch (SQLException | UserNotFoundException e){
             throw new UserDataUpdateException();
         }
@@ -115,20 +118,20 @@ public class UserServiceImpl implements UserService {
                 dto.setAvatar(avatarFilename);
             }
 
-            Long userId = userDao.createUser(dto);
+            Long userId = userRepository.save(dto).getId();
 
             if (avatarFilename != null) {
                 fileService.upload(userId, avatarFilename);
             }
 
-        }catch (SQLException e){
+        }catch (Exception e){
             throw new UserDataCreateException();
         }
     }
 
     @Override
     public List<UsersDto> getAllUsers() throws UserNotFoundException {
-        List<User> users = userDao.getAllUser();
+        List<User> users = userRepository.findAll();
         if(users.isEmpty()){
             throw new UserNotFoundException();
         }
@@ -139,21 +142,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UsersDto findById(Long id) throws UserNotFoundException {
-          User user = userDao.findById(id)
+          User user = userRepository.findById(id)
                   .orElseThrow(UserNotFoundException::new);
         return mapToDto(user);
     }
 
     @Override
     public UsersDto findByEmail(String email) throws UserNotFoundException {
-        User user = userDao.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
         return mapToDto(user);
     }
 
     @Override
     public List<UsersDto> findByName(String name) throws UserNotFoundException {
-        List<User> users = userDao.findByName(name);
+        List<User> users = userRepository.findByName(name);
+
         if(users.isEmpty()){
             throw new UserNotFoundException();
         }
@@ -164,7 +168,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UsersDto> findByPhoneNumber(String number) throws UserNotFoundException {
-        List<User> users = userDao.findByPhoneNumber(number);
+        List<User> users = userRepository.findByPhoneNumber(number);
         if(users.isEmpty()){
             throw new UserNotFoundException();
         }
@@ -175,12 +179,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean existsUserByEmail(String email) {
-        return userDao.existsUserByEmail(email);
+        return userRepository.existsByEmail(email);
     }
 
     @Override
     public List<UsersDto> getApplicantByVacancies(Long id) throws UserNotFoundException {
-        List<User> users = userDao.getApplicantByVacancies(id);
+        List<User> users = userRepository.findApplicantsByVacancyId(id);
 
         if(users.isEmpty()){
             throw new UserNotFoundException();

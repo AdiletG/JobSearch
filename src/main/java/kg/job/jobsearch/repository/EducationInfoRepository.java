@@ -1,7 +1,18 @@
 package kg.job.jobsearch.repository;
 
+import kg.job.jobsearch.dto.update.EducationInfoUpdateDto;
 import kg.job.jobsearch.model.EducationInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface EducationInfoRepository extends JpaRepository<EducationInfo, Long> {
+    List<EducationInfoUpdateDto> getEducationInfoBy(Long resumeId);
+
+    @Modifying
+    @Query("DELETE FROM EducationInfo e WHERE e.resume.id = :resumeId")
+    void deleteByResumeId(@Param("resumeId") Long resumeId);
 }

@@ -4,6 +4,8 @@ import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
 import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
 import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
 
@@ -23,9 +25,9 @@ public interface VacancyService {
 
     List<VacanciesDto> getVacanciesByApplicant(Long id) throws VacancyNotFoundException;
 
-    void createVacancy(Long authorId, VacanciesCreateDto dto) throws VacancyDataCreateException;
+    void createVacancy(Long authorId, VacanciesCreateDto dto) throws VacancyDataCreateException, UserNotFoundException;
 
-    VacanciesDto update(Long vacancyId, VacanciesUpdateDto dto) throws VacancyNotFoundException, VacancyDataUpdateException;
+    VacanciesDto update(Long vacancyId, VacanciesUpdateDto dto) throws VacancyNotFoundException, VacancyDataUpdateException, CategoryNotFoundException;
 
     void delete(Long resumeId) throws VacancyNotFoundException;
 }
