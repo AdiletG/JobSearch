@@ -1,6 +1,10 @@
 package kg.job.jobsearch.exception.createException;
 
-import java.sql.SQLException;
+import kg.job.jobsearch.exception.DataCreateException;
 
-public class WorkExperienceInfoDataCreateException extends SQLException {
+
+public class WorkExperienceInfoDataCreateException extends DataCreateException {
+    public WorkExperienceInfoDataCreateException() {
+        super("Ошибка при создании информации об опыте работы");
+    }
 }

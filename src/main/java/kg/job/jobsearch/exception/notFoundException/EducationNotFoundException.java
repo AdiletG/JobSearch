@@ -4,10 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class EducationNotFoundException extends NotFoundEntryException {
     public EducationNotFoundException() {
-        super("Education information not found");
+        super("Информация об образовании не найдена");
     }
-    public EducationNotFoundException(String message){
-        super(message);
-    }
-
 }

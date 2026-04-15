@@ -1,6 +1,9 @@
 package kg.job.jobsearch.exception.updateException;
 
-import java.sql.SQLException;
+import kg.job.jobsearch.exception.DataUpdateException;
 
-public class WorkExperienceInfoDataUpdateException extends SQLException {
+public class WorkExperienceInfoDataUpdateException extends DataUpdateException {
+    public WorkExperienceInfoDataUpdateException() {
+        super("Ошибка при обновлении опыта работы");
+    }
 }

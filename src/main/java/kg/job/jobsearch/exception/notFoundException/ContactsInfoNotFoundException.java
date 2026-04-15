@@ -4,9 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class ContactsInfoNotFoundException extends NotFoundEntryException {
     public ContactsInfoNotFoundException() {
-        super("Contact info not found");
-    }
-    public ContactsInfoNotFoundException(String message){
-        super(message);
+        super("Контактная информация не найдена");
     }
 }
