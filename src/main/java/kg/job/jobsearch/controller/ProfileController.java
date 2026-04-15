@@ -8,7 +8,6 @@ import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
-import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.service.RespondedApplicantService;
 import kg.job.jobsearch.service.ResumeService;
 import kg.job.jobsearch.service.UserService;
@@ -49,7 +48,7 @@ public class ProfileController {
     }
 
     @GetMapping("/update")
-    public String getProfileUpdate(Principal principal, Model model){
+    public String getProfileUpdate(Principal principal, Model model) throws UserNotFoundException {
         UsersUpdateDto user = userService.getUserForUpdate(principal.getName());
         model.addAttribute("userDto", user);
         return "users/profile-update";

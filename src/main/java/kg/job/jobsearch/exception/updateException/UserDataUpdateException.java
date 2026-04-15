@@ -1,6 +1,9 @@
 package kg.job.jobsearch.exception.updateException;
 
-import java.sql.SQLException;
+import kg.job.jobsearch.exception.DataUpdateException;
 
-public class UserDataUpdateException extends SQLException {
+public class UserDataUpdateException extends DataUpdateException {
+    public UserDataUpdateException() {
+        super("Ошибка при обновлении данных пользователя");
+    }
 }

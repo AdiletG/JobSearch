@@ -4,6 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class CategoryNotFoundException extends NotFoundEntryException {
     public CategoryNotFoundException() {
-        super("Category not found");
+        super("Категория не найдена");
     }
 }

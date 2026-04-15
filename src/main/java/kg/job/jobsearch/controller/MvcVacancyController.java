@@ -5,6 +5,7 @@ import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
 import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
@@ -51,6 +52,12 @@ public class MvcVacancyController {
             BindingResult bindingResult, Principal principal, Model model)
             throws UserNotFoundException, VacancyDataCreateException {
         UsersDto user = userService.findByEmail(principal.getName());
+
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(e -> System.out.println("❌ ERROR: " + e));
+            return "vacancies/vacancy-create";
+        }
+
         if(!bindingResult.hasErrors()){
             vacancyService.createVacancy(user.getId(), dto);
             return "redirect:/profile";
@@ -64,7 +71,7 @@ public class MvcVacancyController {
     public String updatePost(
             @Valid @ModelAttribute("vacancy") VacanciesUpdateDto dto,
             @PathVariable Long id, BindingResult bindingResult, Model model)
-            throws VacancyDataUpdateException, VacancyNotFoundException {
+            throws VacancyDataUpdateException, VacancyNotFoundException, CategoryNotFoundException {
         if(!bindingResult.hasErrors()){
             vacancyService.update(id, dto);
             return "redirect:/profile";

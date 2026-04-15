@@ -1,9 +1,10 @@
 package kg.job.jobsearch.service.impl;
 
-import kg.job.jobsearch.dao.UserImageDao;
 import kg.job.jobsearch.dto.UserImageDto;
 import kg.job.jobsearch.exception.notFoundException.UserImageNotFoundException;
+import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.model.UserImage;
+import kg.job.jobsearch.repository.UserImageRepository;
 import kg.job.jobsearch.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -30,7 +31,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileServiceImpl implements FileService {
 
-    private final UserImageDao userImageDao;
+    private final UserImageRepository userImageRepository;
     private static final String UPLOAD_DIR = "data/";
 
     @Override
@@ -70,22 +71,36 @@ public class FileServiceImpl implements FileService {
 
         log.debug("Result filename uploaded image is {}", fileName);
 
-        userImageDao.save(userId, fileName);
+        User user = new User();
+        user.setId(userId);
+
+        UserImage userImage = new UserImage();
+        userImage.setUser(user);
+        userImage.setFilename(fileName);
+
+        userImageRepository.save(userImage);
     }
 
     @Override
     public void upload(UserImageDto imageDto) {
-        String fileName = saveUploadedFile(imageDto.getFile(), "image");
+        String fileName = saveUploadedFile(imageDto.getFile(), "images");
         log.debug("Result filename uploaded image is {}", fileName);
 
-        userImageDao.save(imageDto.getUserId(), fileName);
+        User user = new User();
+        user.setId(imageDto.getUserId());
+
+        UserImage userImage = new UserImage();
+        userImage.setUser(user);
+        userImage.setFilename(fileName);
+
+        userImageRepository.save(userImage);
     }
 
     @Override
-    public ResponseEntity<?> download(Long userId) throws UserImageNotFoundException {
-        UserImage userImage = userImageDao.findByUserId(userId)
+    public ResponseEntity<?> download(Long userId) {
+        UserImage userImage = userImageRepository.findByUserId(userId)
                 .orElseThrow(UserImageNotFoundException::new);
-        log.debug("UserId = {}, image filename = {}", userImage.getUserId(), userImage.getFilename());
+        log.debug("UserId = {}, image filename = {}", userImage.getUser().getId(), userImage.getFilename());
         try {
             ByteArrayResource resource = new ByteArrayResource(getDownloadedFile(userImage.getFilename(), "images"));
 

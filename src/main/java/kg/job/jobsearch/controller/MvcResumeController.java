@@ -5,12 +5,8 @@ import kg.job.jobsearch.dto.ContactTypesDto;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.*;
 import kg.job.jobsearch.dto.update.ResumeUpdateDto;
-import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
-import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
+import kg.job.jobsearch.exception.createException.ResumeDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.*;
-import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
-import kg.job.jobsearch.model.ContactType;
-import kg.job.jobsearch.model.Resume;
 import kg.job.jobsearch.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -69,7 +65,7 @@ public class MvcResumeController {
     public String createPost(
             @Valid @ModelAttribute("resume") ResumeCreateDto dto,
             BindingResult bindingResult, Principal principal, Model model)
-            throws UserNotFoundException, ResumeNotFoundException {
+            throws UserNotFoundException, ResumeNotFoundException, ResumeDataCreateException {
         UsersDto user = userService.findByEmail(principal.getName());
         if(!bindingResult.hasErrors()){
            resumeService.createResume(user.getId(), dto);
@@ -83,7 +79,7 @@ public class MvcResumeController {
     @PostMapping("/update/{id}")
     public String updatePost(
             @Valid @ModelAttribute("resume") ResumeUpdateDto dto,
-            @PathVariable Long id, BindingResult bindingResult, Model model) throws EducationNotFoundException, ResumeNotFoundException, WorkExperienceInfoNotFoundException, ContactsInfoNotFoundException {
+            @PathVariable Long id, BindingResult bindingResult, Model model) throws EducationNotFoundException, ResumeNotFoundException, WorkExperienceInfoNotFoundException, ContactsInfoNotFoundException, CategoryNotFoundException {
         if(!bindingResult.hasErrors()){
             resumeService.updateResume(id, dto);
             return "redirect:/profile";

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,7 +31,7 @@ public class ResumeUpdateDto {
 
     private Boolean isActive;
 
-    private List<ContactsInfoUpdateDto> contacts;
-    private List<EducationInfoUpdateDto> educations;
-    private List<WorkExperienceInfoUpdateDto> workExperiences;
+    private List<ContactsInfoUpdateDto> contacts = new ArrayList<>();
+    private List<EducationInfoUpdateDto> educations = new ArrayList<>();
+    private List<WorkExperienceInfoUpdateDto> workExperiences = new ArrayList<>();
 }

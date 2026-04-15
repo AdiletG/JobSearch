@@ -4,6 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class MessageNotFoundException extends NotFoundEntryException {
     public MessageNotFoundException() {
-        super("Message not found");
+        super("Сообщение не найдено");
     }
 }

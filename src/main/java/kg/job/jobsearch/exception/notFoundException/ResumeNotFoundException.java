@@ -4,10 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class ResumeNotFoundException extends NotFoundEntryException {
     public ResumeNotFoundException() {
-        super("Resume not found");
-    }
-
-    public ResumeNotFoundException(String message){
-        super(message);
+        super("Резюме не найдено");
     }
 }

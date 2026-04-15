@@ -816,9 +816,9 @@ VALUES
 -- 5. CONTACT TYPES
 -- =====================
 INSERT INTO contact_types (type) VALUES
-    ('Phone-number'),
-    ('Telegram'),
-    ('Email');
+    ('PHONE_NUMBER'),
+    ('TELEGRAM'),
+    ('EMAIL');
 
 
 -- =====================
@@ -826,7 +826,7 @@ INSERT INTO contact_types (type) VALUES
 -- =====================
 INSERT INTO contacts_info (type_id, resume_id, contact_value)
 SELECT
-    (SELECT id FROM contact_types WHERE type = 'Phone-number'),
+    (SELECT id FROM contact_types WHERE type = 'PHONE_NUMBER'),
     r.id,
     u.phone_number
 FROM resumes r
@@ -834,7 +834,7 @@ JOIN users u ON u.id = r.applicant_id;
 
 INSERT INTO contacts_info (type_id, resume_id, contact_value)
 SELECT
-    (SELECT id FROM contact_types WHERE type = 'Telegram'),
+    (SELECT id FROM contact_types WHERE type = 'TELEGRAM'),
     r.id,
     '@' || LOWER(REPLACE(u.name, ' ', '_')) || '_' || LOWER(TRIM(SUBSTRING(r.name, LOCATE(' — ', r.name) + 3)))
 FROM resumes r
@@ -842,7 +842,7 @@ FROM resumes r
 
 INSERT INTO contacts_info (type_id, resume_id, contact_value)
 SELECT
-    (SELECT id FROM contact_types WHERE type = 'Email'),
+    (SELECT id FROM contact_types WHERE type = 'EMAIL'),
     r.id,
     u.email
 FROM resumes r

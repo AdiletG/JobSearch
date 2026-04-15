@@ -1,13 +1,28 @@
 package kg.job.jobsearch.model;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
+@Entity
+@Table(name = "contacts_info")
 public class ContactsInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long type_id;
-    private Long resume_id;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private ContactType type;
+
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
+
+    @Column(name = "contact_value", columnDefinition = "CLOB")
     private String contactValue;
 }

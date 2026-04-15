@@ -1,5 +1,7 @@
 package kg.job.jobsearch.exception.handler;
 
+import kg.job.jobsearch.exception.DataCreateException;
+import kg.job.jobsearch.exception.DataUpdateException;
 import kg.job.jobsearch.exception.NotFoundEntryException;
 import kg.job.jobsearch.service.ErrorService;
 import lombok.RequiredArgsConstructor;
@@ -7,15 +9,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.sql.SQLException;
-
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class GlobalControllerAdvice {
     private final ErrorService errorService;
+
+    @ExceptionHandler(DataUpdateException.class)
+    private ResponseEntity<ErrorResponseBody> createExceptionHandler(DataUpdateException e) {
+        return new ResponseEntity<>(errorService.makeResponse(e, e.getClass().getSimpleName()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataCreateException.class)
+    private ResponseEntity<ErrorResponseBody> createExceptionHandler(DataCreateException e) {
+        return new ResponseEntity<>(errorService.makeResponse(e, e.getClass().getSimpleName()), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(NotFoundEntryException.class)
     private ResponseEntity<ErrorResponseBody> noSuchFileExceptionHandler(NotFoundEntryException e) {

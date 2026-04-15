@@ -13,5 +13,5 @@ public class RespondApplicantUpdateDto {
     private Long id;
     private Long  resumeId;
     private Long vacancyId;
-    private Boolean confirmation;
+    private String status;
 }

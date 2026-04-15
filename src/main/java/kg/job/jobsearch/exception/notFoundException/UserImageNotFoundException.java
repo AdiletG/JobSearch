@@ -4,6 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class UserImageNotFoundException extends NotFoundEntryException {
     public UserImageNotFoundException() {
-        super("Resume not found");
+        super("Изображение пользователя не найдено");
     }
 }

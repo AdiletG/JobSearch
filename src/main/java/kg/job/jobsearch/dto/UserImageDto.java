@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class UserImageDto {
+    private Long id;
     private MultipartFile file;
     private Long userId;
 }

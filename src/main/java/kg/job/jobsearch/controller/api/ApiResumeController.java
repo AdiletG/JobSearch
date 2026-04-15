@@ -4,10 +4,8 @@ import jakarta.validation.Valid;
 import kg.job.jobsearch.dto.create.ResumeCreateDto;
 import kg.job.jobsearch.dto.update.ResumeUpdateDto;
 import kg.job.jobsearch.dto.ResumesDto;
-import kg.job.jobsearch.exception.notFoundException.ContactsInfoNotFoundException;
-import kg.job.jobsearch.exception.notFoundException.EducationNotFoundException;
-import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
-import kg.job.jobsearch.exception.notFoundException.WorkExperienceInfoNotFoundException;
+import kg.job.jobsearch.exception.createException.ResumeDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.*;
 import kg.job.jobsearch.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +43,7 @@ public class ApiResumeController {
             @Valid
             @PathVariable Long applicantId,
             @RequestBody ResumeCreateDto dto
-            ) throws ResumeNotFoundException {
+            ) throws ResumeNotFoundException, ResumeDataCreateException {
         resumeService.createResume(applicantId,dto);
     }
 
@@ -53,7 +51,7 @@ public class ApiResumeController {
     public ResumesDto updateResume(
             @PathVariable Long resumeId,
             @RequestBody ResumeUpdateDto dto
-            ) throws EducationNotFoundException, ResumeNotFoundException, WorkExperienceInfoNotFoundException, ContactsInfoNotFoundException {
+            ) throws EducationNotFoundException, ResumeNotFoundException, WorkExperienceInfoNotFoundException, ContactsInfoNotFoundException, CategoryNotFoundException {
         return resumeService.updateResume(resumeId, dto);
     }
 

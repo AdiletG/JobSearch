@@ -2,7 +2,6 @@ package kg.job.jobsearch.controller;
 
 import jakarta.validation.Valid;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
-import kg.job.jobsearch.enums.AccountTypeEnums;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("auth")

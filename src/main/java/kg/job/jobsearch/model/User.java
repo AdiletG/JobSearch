@@ -1,18 +1,19 @@
 package kg.job.jobsearch.model;
 
+import jakarta.persistence.*;
 import kg.job.jobsearch.enums.AccountTypeEnums;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.List;
 
 @Getter
 @Setter
-public class User implements UserDetails {
+@Entity
+@Table(name = "users", schema = "public")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
@@ -20,37 +21,25 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String phoneNumber;
+
+    @Column(name = "avatar", columnDefinition = "CLOB")
     private String avatar;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_type")
     private AccountTypeEnums accountType;
+
     private Boolean enabled;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(accountType.getAccountType()));
-    }
+    @OneToMany(mappedBy = "applicant")
+    private List<Resume> resumes;
 
-    @Override
-    public String getUsername() {
-        return name;
-    }
+    @OneToMany(mappedBy = "author")
+    private List<Vacancy> vacancies;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<UserImage> userImages;
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+    @ManyToMany(mappedBy = "users")
+    private List<Role> roles;
 }

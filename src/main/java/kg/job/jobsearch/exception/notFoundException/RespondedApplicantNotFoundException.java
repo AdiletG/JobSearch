@@ -4,6 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class RespondedApplicantNotFoundException extends NotFoundEntryException {
   public RespondedApplicantNotFoundException() {
-    super("Respond not found");
-    }
+    super("Отклик не найден");
+  }
 }

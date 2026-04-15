@@ -4,6 +4,6 @@ import kg.job.jobsearch.exception.NotFoundEntryException;
 
 public class UserNotFoundException extends NotFoundEntryException {
     public UserNotFoundException() {
-        super("User not found");
+        super("Пользователь не найден");
     }
 }

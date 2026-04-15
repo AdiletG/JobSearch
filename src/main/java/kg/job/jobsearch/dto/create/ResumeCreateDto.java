@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,7 +28,7 @@ public class ResumeCreateDto {
     @Min(value = 0, message = "Категория должна быть положительным")
     private Long categoryId;
 
-    private List<ContactsInfoCreateDto> contacts;
-    private List<EducationInfoCreateDto> educations;
-    private List<WorkExperienceInfoCreateDto> workExperiences;
+    private List<ContactsInfoCreateDto> contacts = new ArrayList<>();
+    private List<EducationInfoCreateDto> educations = new ArrayList<>();
+    private List<WorkExperienceInfoCreateDto> workExperiences = new ArrayList<>();
 }

@@ -1,9 +1,9 @@
 package kg.job.jobsearch.enums;
 
 public enum ContactTypeEnums {
-    TELEGRAM("Телеграм"),
-    EMAIL("Почта"),
-    PHONE_NUMBER("Phone-number");
+    TELEGRAM("Telegram"),
+    EMAIL("Email"),
+    PHONE_NUMBER("PHONE_NUMBER");
 
     private final String contactType;
 
