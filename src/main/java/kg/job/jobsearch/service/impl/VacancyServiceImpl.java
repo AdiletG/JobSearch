@@ -116,7 +116,7 @@ public class VacancyServiceImpl implements VacancyService {
         }
 
         if(dto.getCategoryId() != null){
-            vacancy.setCategoryId(dto.getCategoryId());
+            vacancy.getCategory().setId(dto.getCategoryId());
         }
 
         if(dto.getSalary() != null){
@@ -156,7 +156,7 @@ public class VacancyServiceImpl implements VacancyService {
                 .id(v.getId())
                 .name(v.getName())
                 .description(v.getDescription())
-                .categoryId(v.getCategoryId())
+                .categoryId(v.getCategory().getId())
                 .salary(v.getSalary())
                 .expFrom(v.getExpFrom())
                 .expTo(v.getExpTo())

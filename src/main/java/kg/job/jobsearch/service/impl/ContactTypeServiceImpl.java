@@ -1,9 +1,9 @@
 package kg.job.jobsearch.service.impl;
 
-import kg.job.jobsearch.dao.ContactTypeDao;
 import kg.job.jobsearch.dto.ContactTypesDto;
 import kg.job.jobsearch.exception.notFoundException.ContactsTypeNotFoundException;
 import kg.job.jobsearch.model.ContactType;
+import kg.job.jobsearch.repository.ContactTypeRepository;
 import kg.job.jobsearch.service.ContactTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ContactTypeServiceImpl implements ContactTypeService {
-    private final ContactTypeDao contactTypeDao;
+    private final ContactTypeRepository contactTypeRepository;
 
     @Override
     public List<ContactTypesDto> getAllContactType() throws ContactsTypeNotFoundException {
-        List<ContactType> contactTypes = contactTypeDao.getAllContactsType();
+        List<ContactType> contactTypes = contactTypeRepository.findAll();
         if(contactTypes.isEmpty()){
             throw new ContactsTypeNotFoundException();
         }

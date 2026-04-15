@@ -37,7 +37,4 @@ logging:
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"
 
-token:
-  signing:
-    key: ${JWT_SECRET}
 

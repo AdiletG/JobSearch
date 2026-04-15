@@ -26,14 +26,10 @@ public class SecurityConfig {
     private final DataSource dataSource;
 
     @Bean
-    public PasswordEncoder encoder(){
+    public static PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
-        return new InMemoryUserDetailsManager();
-    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth){
@@ -56,7 +52,7 @@ public class SecurityConfig {
                     .dataSource(dataSource)
                     .usersByUsernameQuery(userQuery)
                     .authoritiesByUsernameQuery(authQuery)
-                    .passwordEncoder(new BCryptPasswordEncoder());
+                    .passwordEncoder(encoder());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
