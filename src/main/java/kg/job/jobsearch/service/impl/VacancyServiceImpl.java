@@ -1,5 +1,6 @@
 package kg.job.jobsearch.service.impl;
 
+import jakarta.transaction.Transactional;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
 import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
@@ -31,7 +32,7 @@ public class VacancyServiceImpl implements VacancyService {
     private final UserRepository userRepository;
 
     @Override
-    public VacanciesUpdateDto getByIdForUpdate(Long id) throws VacancyNotFoundException {
+    public VacanciesUpdateDto getByIdForUpdate(Long id){
         Vacancy vacancy =  vacancyRepository.findById(id)
                 .orElseThrow(VacancyNotFoundException::new);
         return VacanciesUpdateDto.builder()
@@ -56,7 +57,7 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<VacanciesDto> getALLVacanciesByAuthor(Long id) throws VacancyNotFoundException {
+    public List<VacanciesDto> getALLVacanciesByAuthor(Long id) {
         List<Vacancy> vacancies = vacancyRepository.findAllByAuthor(id);
 
         if (vacancies.isEmpty()) {
@@ -69,7 +70,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     }
         @Override
-    public List<VacanciesDto> getVacancyByCategory(Long category) throws VacancyNotFoundException {
+    public List<VacanciesDto> getVacancyByCategory(Long category) {
         List<Vacancy> vacancies = vacancyRepository.getVacancyByCategory(category);
 
         if (vacancies.isEmpty()) {
@@ -82,8 +83,8 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<VacanciesDto> getVacancyByActive(boolean active) throws VacancyNotFoundException {
-        List<Vacancy> vacancies = vacancyRepository.getVacancyByActive(active);
+    public List<VacanciesDto> getVacancyByActive(boolean active) {
+        List<Vacancy> vacancies = vacancyRepository.getVacancyByIsActive(active);
 
         if (vacancies.isEmpty()) {
             throw new VacancyNotFoundException();
@@ -95,7 +96,7 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<VacanciesDto> getVacanciesByApplicant(Long id) throws VacancyNotFoundException {
+    public List<VacanciesDto> getVacanciesByApplicant(Long id) {
         List<Vacancy> vacancies = vacancyRepository.getVacanciesByApplicant(id);
 
         if (vacancies.isEmpty()) {
@@ -108,6 +109,7 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
+    @Transactional
     public void createVacancy(Long authorId, VacanciesCreateDto dto)
             throws VacancyDataCreateException {
         try {
@@ -118,11 +120,10 @@ public class VacancyServiceImpl implements VacancyService {
             vacancy.setExpTo(dto.getExpTo());
             vacancy.setExpFrom(dto.getExpFrom());
             vacancy.setIsActive(true);
-            vacancy.setCreatedDate(LocalDate.now());
 
             User user = userRepository.findById(authorId)
                     .orElseThrow(UserNotFoundException::new);
-            vacancy.setUser(user);
+            vacancy.setAuthor(user);
 
             Category category = categoryRepository.findById(dto.getCategoryId())
                             .orElseThrow(CategoryNotFoundException::new);
@@ -131,14 +132,15 @@ public class VacancyServiceImpl implements VacancyService {
             vacancyRepository.save(vacancy);
 
         }catch (Exception e){
+            e.printStackTrace();
             throw new VacancyDataCreateException();
         }
 
     }
 
     @Override
-    public VacanciesDto update(Long vacancyId, VacanciesUpdateDto dto)
-            throws VacancyNotFoundException, VacancyDataUpdateException, CategoryNotFoundException {
+    @Transactional
+    public VacanciesDto update(Long vacancyId, VacanciesUpdateDto dto){
         Vacancy vacancy = vacancyRepository.findById(vacancyId)
                 .orElseThrow(VacancyNotFoundException::new);
 
@@ -181,7 +183,8 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public void delete(Long vacancyId) throws VacancyNotFoundException {
+    @Transactional
+    public void delete(Long vacancyId) {
         vacancyRepository.findById(vacancyId)
                 .orElseThrow(VacancyNotFoundException::new);
 
@@ -199,7 +202,7 @@ public class VacancyServiceImpl implements VacancyService {
                 .expFrom(v.getExpFrom())
                 .expTo(v.getExpTo())
                 .isActive(v.getIsActive())
-                .authorId(v.getUser().getId())
+                .authorId(v.getAuthor().getId())
                 .createdDate(v.getCreatedDate())
                 .updateDate(v.getUpdateDate())
                 .build();

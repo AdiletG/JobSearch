@@ -16,7 +16,7 @@ public class MessageServiceImpl implements MessagesService {
     private final MessageRepository messageRepository;
 
     @Override
-    public List<MessagesDto> getAllMessage() throws MessageNotFoundException {
+    public List<MessagesDto> getAllMessage() {
         List<Message> messages = messageRepository.findAll();
         if(messages.isEmpty()){
             throw new MessageNotFoundException();
@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessagesService {
                 .id(message.getId())
                 .respondedApplicants(message.getRespondedApplicant().getId())
                 .content(message.getContent())
-                .times(message.getTimes())
+                .sent_at(message.getSent_at())
                 .build();
     }
 }

@@ -3,33 +3,30 @@ package kg.job.jobsearch.service;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
-import kg.job.jobsearch.exception.createException.UserDataCreateException;
-import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
-import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 
 import java.util.List;
 
 public interface UserService {
-    UsersUpdateDto getUserForUpdate(String email) throws UserNotFoundException;
+    UsersUpdateDto getUserForUpdate(String email);
 
-    void deleteUser(Long userId) throws UserNotFoundException;
+    void deleteUser(Long userId);
 
-    void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException;
+    void updateUser(Long userId, UsersUpdateDto dto);
 
 
-    void createUser(UsersCreateDto form) throws UserDataCreateException;
+    void createUser(UsersCreateDto form);
 
-    List<UsersDto> getAllUsers() throws UserNotFoundException;
+    List<UsersDto> getAllUsers();
 
-    UsersDto findById(Long id) throws UserNotFoundException;
+    UsersDto findById(Long id);
 
-    UsersDto findByEmail(String email) throws UserNotFoundException;
+    UsersDto findByEmail(String email);
 
-    List<UsersDto> findByName(String name) throws UserNotFoundException;
+    List<UsersDto> findByName(String name);
 
-    List<UsersDto> findByPhoneNumber(String number) throws UserNotFoundException;
+    List<UsersDto> findByPhoneNumber(String number);
 
-    boolean existsUserByEmail(String email) throws UserNotFoundException;
+    boolean existsUserByEmail(String email);
 
-    List<UsersDto> getApplicantByVacancies(Long id) throws UserNotFoundException;
+    List<UsersDto> getApplicantByVacancies(Long id);
 }

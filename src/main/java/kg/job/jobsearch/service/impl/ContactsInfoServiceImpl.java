@@ -16,7 +16,7 @@ public class ContactsInfoServiceImpl implements ContactsInfoService {
     private final ContactInfoRepository contactInfoRepository;
 
     @Override
-    public List<ContactsInfoDto> getAllContactsInfo() throws ContactsInfoNotFoundException {
+    public List<ContactsInfoDto> getAllContactsInfo() {
         List<ContactsInfo> contactsInfos = contactInfoRepository.findAll();
         if(contactsInfos.isEmpty()){
             throw new ContactsInfoNotFoundException();

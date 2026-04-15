@@ -52,6 +52,12 @@ public class MvcVacancyController {
             BindingResult bindingResult, Principal principal, Model model)
             throws UserNotFoundException, VacancyDataCreateException {
         UsersDto user = userService.findByEmail(principal.getName());
+
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(e -> System.out.println("❌ ERROR: " + e));
+            return "vacancies/vacancy-create";
+        }
+
         if(!bindingResult.hasErrors()){
             vacancyService.createVacancy(user.getId(), dto);
             return "redirect:/profile";

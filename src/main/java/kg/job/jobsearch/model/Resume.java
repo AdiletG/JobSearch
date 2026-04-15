@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,11 +14,12 @@ import java.util.List;
 @Table(name = "resumes")
 public class Resume {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "applicant_id")
-    private User user;
+    private User applicant;
 
     private String name;
 
@@ -29,8 +29,23 @@ public class Resume {
 
     private BigDecimal salary;
     private Boolean isActive;
+
+    @Column(name = "created_date", updatable = false)
     private LocalDate createdDate;
+
+    @Column(name = "update_date")
     private LocalDate updateDate;
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdDate == null) this.createdDate = LocalDate.now();
+        if (this.updateDate == null) this.updateDate = LocalDate.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateDate = LocalDate.now();
+    }
 
     @OneToMany(mappedBy = "resume")
     private List<ContactsInfo> contacts;

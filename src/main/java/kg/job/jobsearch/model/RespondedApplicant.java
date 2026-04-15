@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "responded_applicants")
 public class RespondedApplicant {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -23,7 +24,7 @@ public class RespondedApplicant {
     @JoinColumn(name = "vacancy_id")
     private Vacancy vacancy;
 
-    private Boolean confirmation;
+    private String status;
 
     @OneToMany(mappedBy = "respondedApplicant")
     private List<Message> messages;

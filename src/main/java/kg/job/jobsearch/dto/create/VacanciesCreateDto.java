@@ -14,24 +14,27 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class VacanciesCreateDto {
 
-    @NotBlank(message = "Названия обязательно для указания")
-    @Size(min = 5, max = 25, message = "Названия не можеть быть меньше 5х и больше 25ти")
-    @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Названия не может содержать цифры")
+    @NotBlank(message = "Название обязательно для заполнения")
+    @Size(min = 5, max = 50, message = "Название должно быть от 5 до 50 символов")
     private String name;
 
-    @Pattern(regexp = "^[A-Za-zА-Яа-я\\s]+$", message = "Описание не может содержать цифры")
+    @NotBlank(message = "Описание обязательно для заполнения")
+    @Size(min = 10, message = "Описание должно быть более подробным (от 10 символов)")
     private String description;
 
     @NotNull(message = "Категория обязательна для указания")
-    @Min(value = 1, message = "Выберите категорию")
+    @Min(value = 1, message = "Выберите корректную категорию")
     private Long categoryId;
 
-    @Min(value = 0, message = "Зарплата должна быть положительным")
+    @NotNull(message = "Укажите зарплату")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Зарплата не может быть отрицательной")
     private BigDecimal salary;
 
-    @Min(value = 0, message = "Опыт работы должен быть положительным")
+    @NotNull(message = "Укажите минимальный опыт")
+    @Min(value = 0, message = "Опыт работы не может быть отрицательным")
     private Integer expFrom;
 
-    @Min(value = 0, message = "Опыт работы должен быть положительным")
+    @NotNull(message = "Укажите максимальный опыт")
+    @Min(value = 0, message = "Опыт работы не может быть отрицательным")
     private Integer expTo;
 }

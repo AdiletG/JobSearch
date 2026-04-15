@@ -12,12 +12,16 @@ import java.time.LocalDateTime;
 @Table(name = "messages")
 public class Message {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "responded_applicants_id")
     private RespondedApplicant respondedApplicant;
 
+    @Lob
+    @Column(name = "content")
     private String content;
-    private LocalDateTime times;
+
+    private LocalDateTime sent_at;
 }

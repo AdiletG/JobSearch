@@ -12,6 +12,7 @@ import java.util.List;
 @Table(name = "contacts_info")
 public class ContactsInfo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -22,6 +23,6 @@ public class ContactsInfo {
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
-    @Column(name = "contact_value")
+    @Column(name = "contact_value", columnDefinition = "CLOB")
     private String contactValue;
 }

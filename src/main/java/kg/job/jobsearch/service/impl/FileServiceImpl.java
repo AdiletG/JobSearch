@@ -97,7 +97,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResponseEntity<?> download(Long userId) throws UserImageNotFoundException {
+    public ResponseEntity<?> download(Long userId) {
         UserImage userImage = userImageRepository.findByUserId(userId)
                 .orElseThrow(UserImageNotFoundException::new);
         log.debug("UserId = {}, image filename = {}", userImage.getUser().getId(), userImage.getFilename());

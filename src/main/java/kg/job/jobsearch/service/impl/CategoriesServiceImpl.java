@@ -16,7 +16,7 @@ public class CategoriesServiceImpl implements CategoriesService {
    private final CategoryRepository categoryRepository;
 
     @Override
-    public List<CategoriesDto> getAllCategories() throws CategoryNotFoundException {
+    public List<CategoriesDto> getAllCategories() {
        List<Category> categories = categoryRepository.findAll();
        if (categories.isEmpty()){
            throw new CategoryNotFoundException();

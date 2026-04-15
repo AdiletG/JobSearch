@@ -15,7 +15,7 @@ public class MessagesDto {
     private Long id;
     private Long respondedApplicants;
     private String content;
-    private LocalDateTime times;
+    private LocalDateTime sent_at;
 
     @Override
     public String toString() {
@@ -23,7 +23,7 @@ public class MessagesDto {
                 "id=" + id +
                 ", responded_applicants=" + respondedApplicants +
                 ", content='" + content + '\'' +
-                ", times=" + times +
+                ", sent_at=" + sent_at +
                 '}';
     }
 }

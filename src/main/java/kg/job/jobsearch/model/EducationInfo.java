@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Table(name = "education_info")
 public class EducationInfo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

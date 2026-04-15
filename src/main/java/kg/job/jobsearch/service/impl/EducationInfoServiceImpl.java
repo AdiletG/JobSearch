@@ -16,7 +16,7 @@ public class EducationInfoServiceImpl implements EducationInfoService {
     private final EducationInfoRepository educationInfoRepository;
 
     @Override
-    public List<EducationInfoDto> getAllEducationInfo() throws EducationNotFoundException {
+    public List<EducationInfoDto> getAllEducationInfo() {
         List<EducationInfo> educationInfos = educationInfoRepository.findAll();
         if(educationInfos.isEmpty()){
             throw new EducationNotFoundException();

@@ -16,7 +16,7 @@ public class WorkExperienceServiceInfoImpl implements WorkExperienceInfoService 
     private final WorkExperienceInfoRepository workExperienceInfoRepository;
 
     @Override
-    public List<WorkExperienceInfoDto> getAllWorkExperienceInfo() throws WorkExperienceInfoNotFoundException {
+    public List<WorkExperienceInfoDto> getAllWorkExperienceInfo() {
         List<WorkExperienceInfo> workExperienceInfos = workExperienceInfoRepository.findAll();
         if(workExperienceInfos.isEmpty()){
             throw new WorkExperienceInfoNotFoundException();

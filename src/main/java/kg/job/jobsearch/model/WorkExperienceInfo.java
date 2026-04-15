@@ -10,6 +10,7 @@ import lombok.Setter;
 @Table(name = "work_experience_info")
 public class WorkExperienceInfo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -18,6 +19,11 @@ public class WorkExperienceInfo {
 
     private Integer years;
     private String companyName;
+
+    @Column(name = "position_in_company")
     private String position;
+
+    @Lob
+    @Column(name = "responsibilities")
     private String responsibilities;
 }

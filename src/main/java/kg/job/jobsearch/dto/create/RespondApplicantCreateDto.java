@@ -17,5 +17,5 @@ public class RespondApplicantCreateDto {
     @NotNull(message = "Для отклика нужно указать на какую вакансию вы откликаетесь")
     private Long vacancyId;
 
-    private Boolean confirmation;
+    private String status;
 }

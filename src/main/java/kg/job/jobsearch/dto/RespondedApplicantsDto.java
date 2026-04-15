@@ -13,7 +13,7 @@ public class RespondedApplicantsDto {
     private Long id;
     private Long resumeId;
     private Long vacancyId;
-    private Boolean confirmation;
+    private String status;
 
     @Override
     public String toString() {
@@ -21,7 +21,7 @@ public class RespondedApplicantsDto {
                 "id=" + id +
                 ", resume_id=" + resumeId +
                 ", vacancy_id=" + vacancyId +
-                ", confirmation=" + confirmation +
+                ", status=" + status +
                 '}';
     }
 }

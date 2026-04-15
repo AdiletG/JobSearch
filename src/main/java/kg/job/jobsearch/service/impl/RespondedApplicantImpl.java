@@ -15,11 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RespondedApplicantImpl implements RespondedApplicantService {
     private final RespondedApplicantRepository respondedApplicantRepository;
-    private final UserService userService;
 
 
     @Override
-    public List<RespondedApplicantsDto> getAllRespond() throws RespondedApplicantNotFoundException {
+    public List<RespondedApplicantsDto> getAllRespond() {
         List<RespondedApplicant> respondedApplicants = respondedApplicantRepository.findAll();
         if(respondedApplicants.isEmpty()){
             throw new RespondedApplicantNotFoundException();
@@ -35,7 +34,7 @@ public class RespondedApplicantImpl implements RespondedApplicantService {
                 .id(respondedApplicant.getId())
                 .resumeId(respondedApplicant.getResume().getId())
                 .vacancyId(respondedApplicant.getVacancy().getId())
-                .confirmation(respondedApplicant.getConfirmation())
+                .status(respondedApplicant.getStatus())
                 .build();
     }
 

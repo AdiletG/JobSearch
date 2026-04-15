@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
-    List<Resume> getResumeByCategory(Long categoryId);
-    List<Resume> getResumeByApplicant(Long applicantId);
-    List<Resume> getResumeByActive(Boolean isActive);
+    List<Resume> findAllByCategory_Id(Long categoryId);
 
+    List<Resume> findAllByApplicant_Id(Long applicantId);
+
+    List<Resume> findAllByIsActive(Boolean isActive);
 
 }

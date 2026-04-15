@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
@@ -31,12 +32,10 @@ public class SecurityConfig {
     }
 
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth){
-        String userQuery = """
-                select email, password, enabled from users
-                where email = ?
-                """;
+
+    @Bean
+    public JdbcUserDetailsManager userDetailsService() {
+        String userQuery = "select email, password, enabled from users where email = ?";
         String authQuery = """
                 select u.email, auth.authority
                 from authorities auth
@@ -46,16 +45,11 @@ public class SecurityConfig {
                 inner join users u on ur.user_id = u.id
                 where u.email = ?
                 """;
-        try {
 
-            auth.jdbcAuthentication()
-                    .dataSource(dataSource)
-                    .usersByUsernameQuery(userQuery)
-                    .authoritiesByUsernameQuery(authQuery)
-                    .passwordEncoder(encoder());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+        manager.setUsersByUsernameQuery(userQuery);
+        manager.setAuthoritiesByUsernameQuery(authQuery);
+        return manager;
     }
 
     @Bean

@@ -4,6 +4,8 @@ import kg.job.jobsearch.dto.*;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
 import kg.job.jobsearch.exception.createException.VacancyDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
+import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
 import kg.job.jobsearch.service.VacancyService;
@@ -42,7 +44,7 @@ public class ApiVacanciesController {
     @PostMapping("/{authorId}")
     public void createVacancy(
             @PathVariable Long authorId,
-            @RequestBody VacanciesCreateDto dto) throws VacancyDataCreateException {
+            @RequestBody VacanciesCreateDto dto) throws VacancyDataCreateException, UserNotFoundException {
         vacancyService.createVacancy(authorId, dto);
     }
 
@@ -50,7 +52,7 @@ public class ApiVacanciesController {
     public VacanciesDto update(
             @PathVariable Long vacancyId,
             @RequestBody VacanciesUpdateDto dto
-    ) throws VacancyDataUpdateException, VacancyNotFoundException {
+    ) throws VacancyDataUpdateException, VacancyNotFoundException, CategoryNotFoundException {
         return vacancyService.update(vacancyId, dto);
     }
 

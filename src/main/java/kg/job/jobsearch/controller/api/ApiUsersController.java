@@ -20,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiUsersController {
     private final UserService userService;
-    private final FileService fileService;
 
     @GetMapping
     public List<UsersDto> getAllUsers() throws UserNotFoundException {

@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "users", schema = "public")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
@@ -30,10 +31,10 @@ public class User {
 
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "applicant")
     private List<Resume> resumes;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "author")
     private List<Vacancy> vacancies;
 
     @OneToMany(mappedBy = "user")

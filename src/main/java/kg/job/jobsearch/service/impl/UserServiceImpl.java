@@ -1,5 +1,6 @@
 package kg.job.jobsearch.service.impl;
 
+import jakarta.transaction.Transactional;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
@@ -14,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
         @Override
-        public UsersUpdateDto getUserForUpdate(String email) throws UserNotFoundException {
+        public UsersUpdateDto getUserForUpdate(String email) {
             User user = userRepository.findByEmail(email)
                     .orElseThrow(UserNotFoundException::new);
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         }
 
     @Override
-    public void deleteUser(Long userId) throws UserNotFoundException {
+    public void deleteUser(Long userId) {
         userRepository.findById(userId)
                     .orElseThrow(UserNotFoundException::new);
 
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Long userId, UsersUpdateDto dto) throws UserDataUpdateException{
+    public void updateUser(Long userId, UsersUpdateDto dto){
         try{
             User user = userRepository.findById(userId)
                     .orElseThrow(UserNotFoundException::new);
@@ -94,13 +94,15 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(user);
 
-        }catch (SQLException | UserNotFoundException e){
+        }catch (UserNotFoundException e){
+            e.printStackTrace();
             throw new UserDataUpdateException();
         }
     }
 
     @Override
-    public void createUser(UsersCreateDto form) throws UserDataCreateException {
+    @Transactional
+    public void createUser(UsersCreateDto form) {
         try{
             User dto = new User();
             dto.setName(form.getName());
@@ -130,7 +132,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UsersDto> getAllUsers() throws UserNotFoundException {
+    public List<UsersDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         if(users.isEmpty()){
             throw new UserNotFoundException();
@@ -141,21 +143,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UsersDto findById(Long id) throws UserNotFoundException {
+    public UsersDto findById(Long id) {
           User user = userRepository.findById(id)
                   .orElseThrow(UserNotFoundException::new);
         return mapToDto(user);
     }
 
     @Override
-    public UsersDto findByEmail(String email) throws UserNotFoundException {
+    public UsersDto findByEmail(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
         return mapToDto(user);
     }
 
     @Override
-    public List<UsersDto> findByName(String name) throws UserNotFoundException {
+    public List<UsersDto> findByName(String name) {
         List<User> users = userRepository.findByName(name);
 
         if(users.isEmpty()){
@@ -167,7 +169,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UsersDto> findByPhoneNumber(String number) throws UserNotFoundException {
+    public List<UsersDto> findByPhoneNumber(String number) {
         List<User> users = userRepository.findByPhoneNumber(number);
         if(users.isEmpty()){
             throw new UserNotFoundException();
@@ -183,7 +185,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UsersDto> getApplicantByVacancies(Long id) throws UserNotFoundException {
+    public List<UsersDto> getApplicantByVacancies(Long id) {
         List<User> users = userRepository.findApplicantsByVacancyId(id);
 
         if(users.isEmpty()){

@@ -16,7 +16,7 @@ public class ContactTypeServiceImpl implements ContactTypeService {
     private final ContactTypeRepository contactTypeRepository;
 
     @Override
-    public List<ContactTypesDto> getAllContactType() throws ContactsTypeNotFoundException {
+    public List<ContactTypesDto> getAllContactType() {
         List<ContactType> contactTypes = contactTypeRepository.findAll();
         if(contactTypes.isEmpty()){
             throw new ContactsTypeNotFoundException();
