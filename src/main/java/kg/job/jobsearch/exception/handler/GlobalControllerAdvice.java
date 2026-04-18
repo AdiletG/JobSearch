@@ -1,5 +1,6 @@
 package kg.job.jobsearch.exception.handler;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kg.job.jobsearch.exception.DataCreateException;
 import kg.job.jobsearch.exception.DataUpdateException;
 import kg.job.jobsearch.exception.NotFoundEntryException;
@@ -7,12 +8,14 @@ import kg.job.jobsearch.service.ErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.sql.SQLException;
-@RestControllerAdvice
+@ControllerAdvice
 @RequiredArgsConstructor
 public class GlobalControllerAdvice {
     private final ErrorService errorService;
@@ -28,8 +31,12 @@ public class GlobalControllerAdvice {
     }
 
     @ExceptionHandler(NotFoundEntryException.class)
-    private ResponseEntity<ErrorResponseBody> noSuchFileExceptionHandler(NotFoundEntryException e) {
-        return new ResponseEntity<>(errorService.makeResponse(e, e.getClass().getSimpleName()), HttpStatus.NOT_FOUND);
+    private String noSuchFileExceptionHandler(HttpServletRequest request, Model model, NotFoundEntryException e) {
+        model.addAttribute("status", HttpStatus.NOT_FOUND.value());
+        model.addAttribute("reason", HttpStatus.NOT_FOUND.getReasonPhrase() + ": " + e.getMessage());
+        model.addAttribute("details", request);
+        model.addAttribute("currentPage", "error");
+        return "errors/error";
     }
 
     @ExceptionHandler(SQLException.class)
