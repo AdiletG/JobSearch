@@ -15,7 +15,8 @@ import kg.job.jobsearch.model.*;
 import kg.job.jobsearch.repository.*;
 import kg.job.jobsearch.service.ResumeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,7 +85,18 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
+    public Page<Resume> findAllOrderByResponsesCountDesc(Pageable pageable) {
+        return resumeRepository.findAllOrderByResponsesCountDesc(pageable);
+    }
+
+    @Override
+    public Page<Resume> findResumesByPage(Pageable pageable) {
+            return resumeRepository.findAll(pageable);
+    }
+
+    @Override
     public List<ResumesDto> getAllResume(){
+
         List<Resume> resumes = resumeRepository.findAll();
 
         if(resumes.isEmpty()){

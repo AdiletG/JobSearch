@@ -10,8 +10,13 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/navbar.css">
         <title>JobSearch</title>
@@ -42,34 +47,37 @@
                             </a>
                     </#if>
 
-<#--                    <a href="/responses" class="nav-link ${(currentPage == 'responses')?then('active', '')}">-->
-<#--                        Отклики-->
-<#--                    </a>-->
+                    <#-- <a href="/responses" class="nav-link ${(currentPage == 'responses')?then('active', '')}">-->
+                        <#-- Отклики-->
+                            <#-- </a>-->
 
-<#--                    <a href="/settings" class="nav-link ${(currentPage == 'settings')?then('active', '')}">-->
-<#--                        Настройки-->
-<#--                    </a>-->
+                                <#-- <a href="/settings"
+                                    class="nav-link ${(currentPage == 'settings')?then('active', '')}">-->
+                                    <#-- Настройки-->
+                                        <#-- </a>-->
                 </nav>
 
                 <div class="navbar-right">
-<#--                    <button class="icon-btn" type="button">💬</button>-->
-
-<#--                    <button class="icon-btn" type="button">-->
-<#--                        🔔-->
-<#--                        <span class="icon-badge">5</span>-->
-<#--                    </button>-->
-
-                    <div class="profile-mini">
-                        <a href="/profile" class="nav-link ${(currentPage == 'profile')?then('active', '')}">
-                            Профиль
+                    <#if user??>
+                        <a href="/profile" class="profile-mini ${(currentPage == 'profile')?then('active', '')}">
+                            <#if user?? && user.avatar??>
+                                <img src="/images/${user.avatar}" alt="Profile avatar" class="profile-avatar">
+                                <#else>
+                                    <img src="/logo/profile-icon.png" alt="Default profile" class="profile-avatar">
+                            </#if>
                         </a>
-                    </div>
 
-                    <div class="exit-box">
-                        <form action="/auth/logout" method="post">
-                            <button type="submit" class="exit">Выйти</button>
-                        </form>
-                    </div>
+                        <div class="exit-box">
+                            <form action="/auth/logout" method="post">
+                                <button type="submit" class="exit">Выйти</button>
+                            </form>
+                        </div>
+
+                        <#else>
+                            <a href="/auth/login" class="login">Войти</a>
+                    </#if>
+
+
 
                     <button class="mobile-menu-btn" type="button">☰</button>
                 </div>

@@ -19,6 +19,12 @@
                     <img src="/logo/logo.png" class="logo">
                 </div>
 
+                <#if RequestParameters.error??>
+                    <div class="error-message">
+                        Неверный email или пароль
+                    </div>
+                </#if>
+
                 <div class="form-element">
                     <label for="user-email">email</label>
                     <input type="email" name="username" id="user-email" placeholder="Ваш email" required autofocus>

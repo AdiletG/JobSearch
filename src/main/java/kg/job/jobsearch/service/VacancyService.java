@@ -3,10 +3,17 @@ package kg.job.jobsearch.service;
 import kg.job.jobsearch.dto.create.VacanciesCreateDto;
 import kg.job.jobsearch.dto.VacanciesDto;
 import kg.job.jobsearch.dto.update.VacanciesUpdateDto;
+import kg.job.jobsearch.model.Vacancy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface VacancyService {
+
+    Page<Vacancy> findAllOrderByResponsesCountDesc(Pageable pageable);
+
+    Page<Vacancy> getVacancyByPage(Pageable pageable);
 
     VacanciesUpdateDto getByIdForUpdate(Long id);
 

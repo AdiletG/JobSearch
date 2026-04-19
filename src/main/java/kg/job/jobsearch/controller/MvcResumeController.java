@@ -7,8 +7,14 @@ import kg.job.jobsearch.dto.create.*;
 import kg.job.jobsearch.dto.update.ResumeUpdateDto;
 import kg.job.jobsearch.exception.createException.ResumeDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.*;
+import kg.job.jobsearch.model.Resume;
 import kg.job.jobsearch.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +33,24 @@ public class MvcResumeController {
     private final UserService userService;
 
     @GetMapping
-    public String getAllResumes(Model model) throws ResumeNotFoundException {
+    public String getAllResumes(
+            @RequestParam(required = false) String sort,
+            Model model,
+            @PageableDefault(size = 5, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+
+        Page<Resume> page;
+        if ("responsesCount,desc".equals(sort)) {
+            Pageable pageWithoutSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+            page = resumeService.findAllOrderByResponsesCountDesc(pageWithoutSort);
+        } else {
+            page = resumeService.findResumesByPage(pageable);
+        }
+
+        model.addAttribute("page", page);
+        model.addAttribute("resumes", page.getContent());
+        model.addAttribute("sort", sort);
         model.addAttribute("currentPage", "resumes");
-        model.addAttribute("resumes", resumeService.getAllResume());
         return "resumes/resumes";
     }
 
