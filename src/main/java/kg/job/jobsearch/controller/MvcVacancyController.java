@@ -9,9 +9,16 @@ import kg.job.jobsearch.exception.notFoundException.CategoryNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.VacancyDataUpdateException;
+import kg.job.jobsearch.model.Resume;
+import kg.job.jobsearch.model.Vacancy;
 import kg.job.jobsearch.service.UserService;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +34,24 @@ public class MvcVacancyController {
     private final UserService userService;
 
     @GetMapping
-    public String getAll(Model model) throws VacancyNotFoundException {
+    public String getAllVacancies(
+            @RequestParam(required = false) String sort,
+            Model model,
+            @PageableDefault(size = 5, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+
+        Page<Vacancy> page;
+        if ("responsesCount,desc".equals(sort)) {
+            Pageable pageWithoutSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+            page = vacancyService.findAllOrderByResponsesCountDesc(pageWithoutSort);
+        } else {
+            page = vacancyService.getVacancyByPage(pageable);
+        }
+
+        model.addAttribute("page", page);
+        model.addAttribute("vacancies", page.getContent());
+        model.addAttribute("sort", sort);
         model.addAttribute("currentPage", "vacancies");
-        model.addAttribute("vacancies", vacancyService.getALLVacancies());
         return "vacancies/vacancies";
     }
 

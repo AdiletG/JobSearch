@@ -18,9 +18,10 @@ import kg.job.jobsearch.repository.UserRepository;
 import kg.job.jobsearch.repository.VacancyRepository;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,6 +31,16 @@ public class VacancyServiceImpl implements VacancyService {
     private final RespondedApplicantRepository respondedApplicantRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+
+    @Override
+    public Page<Vacancy> findAllOrderByResponsesCountDesc(Pageable pageable){
+        return vacancyRepository.findAllOrderByResponsesCountDesc(pageable);
+    }
+
+    @Override
+    public Page<Vacancy> getVacancyByPage(Pageable pageable){
+        return vacancyRepository.findAll(pageable);
+    }
 
     @Override
     public VacanciesUpdateDto getByIdForUpdate(Long id){
