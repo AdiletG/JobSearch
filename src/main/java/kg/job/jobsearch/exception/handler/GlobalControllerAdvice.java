@@ -35,7 +35,6 @@ public class GlobalControllerAdvice {
         model.addAttribute("status", HttpStatus.NOT_FOUND.value());
         model.addAttribute("reason", HttpStatus.NOT_FOUND.getReasonPhrase() + ": " + e.getMessage());
         model.addAttribute("details", request);
-        model.addAttribute("currentPage", "error");
         return "errors/error";
     }
 
