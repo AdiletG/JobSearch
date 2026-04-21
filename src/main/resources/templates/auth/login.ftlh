@@ -14,6 +14,13 @@
 
     <div class="container">
         <form action="/auth/login" method="post" class="form">
+
+            <#if _csrf??>
+                <input type="hidden"
+                       name="${(_csrf.parameterName)!'csrf-param-name'}"
+                       value="${(_csrf.token)!'csrf-token'}">
+            </#if>
+
             <fieldset>
                 <div class="legend">
                     <img src="/logo/logo.png" class="logo">

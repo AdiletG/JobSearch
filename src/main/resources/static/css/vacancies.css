@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    text-decoration: none;
 }
 
 :root {
@@ -101,7 +100,7 @@ body {
     border: 1px solid var(--border-light);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
-    padding: 22px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -132,8 +131,8 @@ body {
 .resume-neck {
     width: 20%;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -167,10 +166,10 @@ body {
 }
 
 .btn {
-    border: 1px solid #fff;
-    border-radius: 22px;
+    /* border: 1px solid #fff;
+    border-radius: 22px; */
     text-decoration: none;
-    color: #fff;
+    /* color: #fff;
     background: #1877f2;
     font-size: 15px;
     font-weight: 600;
@@ -178,12 +177,12 @@ body {
     align-items: center;
     justify-content: center;
     transition: 0.2s ease;
-    padding: 10px 15px;
+    padding: 10px 15px; */ 
 }
 
 .btn:hover {
-    color: #1877f2;
-    background: #fff;
+    /* color: #1877f2;
+    background: #fff; */
 }
 
 .footer {
@@ -200,6 +199,7 @@ body {
 }
 
 .current-page-number {
+    text-decoration:underline;
     font-size: 22px;
     color: #fff;
 }
