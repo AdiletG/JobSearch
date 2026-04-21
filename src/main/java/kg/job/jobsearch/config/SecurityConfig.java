@@ -1,59 +1,23 @@
 package kg.job.jobsearch.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final DataSource dataSource;
 
     @Bean
-    public static PasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-
-
-    @Bean
-    public JdbcUserDetailsManager userDetailsService() {
-        String userQuery = "select email, password, enabled from users where email = ?";
-        String authQuery = """
-                select u.email, auth.authority
-                from authorities auth
-                inner join role_auth ra on auth.id = ra.auth_id
-                inner join roles r on ra.role_id = r.id
-                inner join user_role ur on r.id = ur.role_id
-                inner join users u on ur.user_id = u.id
-                where u.email = ?
-                """;
-
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-        manager.setUsersByUsernameQuery(userQuery);
-        manager.setAuthoritiesByUsernameQuery(authQuery);
-        return manager;
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http){
         http
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .formLogin(login -> login
@@ -69,7 +33,7 @@ public class SecurityConfig {
 //                        .clearAuthentication(true)
                         .permitAll())
                 .httpBasic(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
+//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET,"/vacancies/**").hasAuthority("VACANCY_VIEW")
                         .requestMatchers(HttpMethod.GET, "/resumes/**").hasAuthority("RESUME_VIEW")
