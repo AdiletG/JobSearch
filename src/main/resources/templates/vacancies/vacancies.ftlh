@@ -19,14 +19,8 @@
                                 <p class="resume-title">${vacancy.name}</p>
                             </div>
                             <div class="resume-body">
-                                <p class="2nd-text">Статус:</p>
-                                <p class="resume-text">
-                                    <#if vacancy.isActive>
-                                        ACTIVE
-                                        <#else>
-                                            DEACTIVATE
-                                    </#if>
-                                </p>
+                                <p class="2nd-text">Заработная плата:</p>
+                                <p class="resume-text">${vacancy.salary}</p>
                             </div>
                             <div class="resume-neck">
                                 <p class="resume-date-label">Дата обновления:</p>
@@ -34,11 +28,14 @@
                             </div>
                             <div class="resume-footer">
                                 <p class="3rd-text">Категория</p>
-                                <#if vacancy.category?has_content>
+
+                                ${vacancy.author.name}
+
+                                <!-- <#if vacancy.category?has_content>
                                     <p class="resume-cetogory">${vacancy.category.name}</p>
                                     <#else>
                                         <p class="resume-cetogory">-</p>
-                                </#if>
+                                </#if> -->
                             </div>
                         </a>
                     </#list>
@@ -52,21 +49,21 @@
 
             <footer class="footer">
                 <#if page.hasPrevious()>
-                    <a href="/resumes?page=${page.number-1}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
+                    <a href="/vacancies?page=${page.number-1}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
                         class="prev">
-                        << /a>
+                        <</a>
                 </#if>
 
                 <#list 0..(page.totalPages-1) as i>
                     <#if i==page.number>
                         <span class="current-page-number">${i+1}</span>
                         <#else>
-                            <a href="/resumes?page=${i}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
+                            <a href="/vacancies?page=${i}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
                                 class="page-number">${i+1}</a>
                     </#if>
                 </#list>
                 <#if page.hasNext()>
-                    <a href="/resumes?page=${page.number+1}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
+                    <a href="/vacancies?page=${page.number+1}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
                         class="next">></a>
                 </#if>
             </footer>

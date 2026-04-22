@@ -19,14 +19,8 @@
                                 <p class="resume-title">${resume.name}</p>
                             </div>
                             <div class="resume-body">
-                                <p class="2nd-text">Статус:</p>
-                                <p class="resume-text">
-                                    <#if resume.isActive>
-                                        ACTIVE
-                                        <#else>
-                                            DEACTIVATE
-                                    </#if>
-                                </p>
+                                <p class="2nd-text">Заработная плата:</p>
+                                <p class="resume-text">${resume.salary}</p>
                             </div>
                             <div class="resume-neck">
                                 <p class="resume-date-label">Дата обновления:</p>
@@ -34,11 +28,14 @@
                             </div>
                             <div class="resume-footer">
                                 <p class="3rd-text">Категория</p>
-                                <#if resume.category?has_content>
+
+                                ${resume.applicant.name}
+
+                                <!-- <#if resume.category?has_content>
                                     <p class="resume-cetogory">${resume.category.name}</p>
                                     <#else>
                                         <p class="resume-cetogory">-</p>
-                                </#if>
+                                </#if> -->
 
                             </div>
                         </a>

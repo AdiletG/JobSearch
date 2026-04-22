@@ -15,8 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,7 +34,6 @@ public class MvcResumeController {
 
     @GetMapping
     public String getAllResumes(
-            @AuthenticationPrincipal UserDetails userDetails,
             @RequestParam(required = false) String sort,
             Model model,
             @PageableDefault(size = 5, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
@@ -45,7 +42,7 @@ public class MvcResumeController {
         Page<Resume> page;
         if ("responsesCount,desc".equals(sort)) {
             Pageable pageWithoutSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-            page = resumeService.findAllOrderByResponsesCountDesc(pageWithoutSort, userDetails.getUsername());
+            page = resumeService.findAllOrderByResponsesCountDesc(pageWithoutSort);
         } else {
             page = resumeService.findResumesByPage(pageable);
         }
@@ -58,7 +55,8 @@ public class MvcResumeController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) throws ContactsTypeNotFoundException {
+    public String create(
+            Model model) throws ContactsTypeNotFoundException {
         List<ContactTypesDto> contactTypes = contactTypeService.getAllContactType();
 
         ResumeCreateDto resume = new ResumeCreateDto();

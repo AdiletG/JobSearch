@@ -9,8 +9,6 @@ import kg.job.jobsearch.dto.update.ContactsInfoUpdateDto;
 import kg.job.jobsearch.dto.update.EducationInfoUpdateDto;
 import kg.job.jobsearch.dto.update.ResumeUpdateDto;
 import kg.job.jobsearch.dto.update.WorkExperienceInfoUpdateDto;
-import kg.job.jobsearch.enums.AccountTypeEnums;
-import kg.job.jobsearch.exception.NoAccessException.NoAccessException;
 import kg.job.jobsearch.exception.createException.ResumeDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.*;
 import kg.job.jobsearch.model.*;
@@ -87,13 +85,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public Page<Resume> findAllOrderByResponsesCountDesc(Pageable pageable, String username) {
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(UserNotFoundException::new);
-        if(!user.getAccountType().equals(AccountTypeEnums.EMPLOYER)){
-            throw new NoAccessException("Только работодатели могут просматривать список всех резюме");
-        }
-
+    public Page<Resume> findAllOrderByResponsesCountDesc(Pageable pageable) {
         return resumeRepository.findAllOrderByResponsesCountDesc(pageable);
     }
 

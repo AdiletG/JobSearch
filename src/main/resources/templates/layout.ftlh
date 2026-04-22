@@ -33,9 +33,6 @@
                 </div>
 
                 <nav class="navbar-center">
-                    <a href="/" class="nav-link ${(currentPage == 'home')?then('active', '')}">
-                        Главная
-                    </a>
 
                     <#if user?? && user.accountType?string=="APPLICANT">
                         <a href="/vacancies" class="nav-link ${(currentPage == 'vacancies')?then('active', '')}">
@@ -75,6 +72,7 @@
 
                         <#else>
                             <a href="/auth/login" class="login">Войти</a>
+                            <a href="/auth/register" class="login">Регистрация</a>
                     </#if>
 
 
