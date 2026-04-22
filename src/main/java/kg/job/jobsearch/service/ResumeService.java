@@ -13,7 +13,7 @@ public interface ResumeService {
 
     ResumeUpdateDto getById(Long id);
 
-    Page<Resume> findAllOrderByResponsesCountDesc(Pageable pageable);
+    Page<Resume> findAllOrderByResponsesCountDesc(Pageable pageable, String username);
 
     Page<Resume> findResumesByPage(Pageable pageable);
 

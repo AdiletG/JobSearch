@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,6 +35,13 @@ public class SecurityConfig {
                         .permitAll())
                 .httpBasic(Customizer.withDefaults())
 //                .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            request.setAttribute("status", HttpStatus.FORBIDDEN.value());
+                            request.setAttribute("reason", "Доступ запрещен " + accessDeniedException.getMessage());
+                            request.setAttribute("details", request);
+                            request.getRequestDispatcher("/errors/error").forward(request, response);
+                        }))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET,"/vacancies/**").hasAuthority("VACANCY_VIEW")
                         .requestMatchers(HttpMethod.GET, "/resumes/**").hasAuthority("RESUME_VIEW")
