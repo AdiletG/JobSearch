@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .permitAll())
                 .logout(logout -> logout
                         .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/auth/logout"))
-//                        .logoutSuccessUrl("/auth/login")
+                       .logoutSuccessUrl("/")
 //                        .invalidateHttpSession(true)
 //                        .clearAuthentication(true)
                         .permitAll())
