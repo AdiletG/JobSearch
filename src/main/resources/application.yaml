@@ -6,7 +6,10 @@ spring:
     import: optional:file:.env[.properties]
   application:
     name: JobSearch
-
+#  mvc:
+#    static-path-pattern: /static/**
+  freemarker:
+    expose-session-attributes: true
 
 #  DB
   datasource:

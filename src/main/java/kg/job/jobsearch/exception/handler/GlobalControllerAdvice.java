@@ -3,6 +3,7 @@ package kg.job.jobsearch.exception.handler;
 import jakarta.servlet.http.HttpServletRequest;
 import kg.job.jobsearch.exception.DataCreateException;
 import kg.job.jobsearch.exception.DataUpdateException;
+import kg.job.jobsearch.exception.NoAccessException.NoAccessException;
 import kg.job.jobsearch.exception.NotFoundEntryException;
 import kg.job.jobsearch.service.ErrorService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,14 @@ import java.sql.SQLException;
 @RequiredArgsConstructor
 public class GlobalControllerAdvice {
     private final ErrorService errorService;
+
+    @ExceptionHandler(NoAccessException.class)
+    private String noAccessExceptionHandler(HttpServletRequest request, Model model, NoAccessException e) {
+        model.addAttribute("status", HttpStatus.FORBIDDEN.value());
+        model.addAttribute("reason", HttpStatus.FORBIDDEN.getReasonPhrase() + ": " + e.getMessage());
+        model.addAttribute("details", request);
+        return "errors/error";
+    }
 
     @ExceptionHandler(DataUpdateException.class)
     private ResponseEntity<ErrorResponseBody> createExceptionHandler(DataUpdateException e) {

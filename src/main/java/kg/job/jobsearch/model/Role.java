@@ -18,7 +18,7 @@ public class Role {
     @Column(name = "role")
     private String roleName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "role_auth",
             joinColumns = {@JoinColumn(name = "role_id")},
@@ -26,7 +26,7 @@ public class Role {
     )
     private List<Authority> authorities;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "role_id")},

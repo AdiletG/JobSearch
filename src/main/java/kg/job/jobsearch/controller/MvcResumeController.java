@@ -55,7 +55,8 @@ public class MvcResumeController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) throws ContactsTypeNotFoundException {
+    public String create(
+            Model model) throws ContactsTypeNotFoundException {
         List<ContactTypesDto> contactTypes = contactTypeService.getAllContactType();
 
         ResumeCreateDto resume = new ResumeCreateDto();

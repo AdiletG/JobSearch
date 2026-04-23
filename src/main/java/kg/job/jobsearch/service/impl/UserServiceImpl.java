@@ -5,21 +5,31 @@ import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
+import kg.job.jobsearch.exception.notFoundException.UserNameNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
+import kg.job.jobsearch.model.Authority;
+import kg.job.jobsearch.model.Role;
 import kg.job.jobsearch.model.User;
 import kg.job.jobsearch.repository.UserRepository;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final FileService fileService;
     private final PasswordEncoder passwordEncoder;
@@ -208,5 +218,45 @@ public class UserServiceImpl implements UserService {
                 .avatar(user.getAvatar())
                 .accountType(user.getAccountType())
                 .build();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+            User user = userRepository.findByEmail(username)
+                    .orElseThrow(UserNameNotFoundException::new);
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                getAuthorities(user.getRoles())
+        );
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles){
+            return getGrantedAuthorities(getPrivileges(roles));
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges){
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            for(String privilege : privileges){
+                authorities.add(new SimpleGrantedAuthority(privilege));
+            }
+
+            return authorities;
+    }
+
+    private List<String> getPrivileges(Collection<Role> roles){
+            List<String> privileges = new ArrayList<>();
+            List<Authority> collection = new ArrayList<>();
+
+            for(Role role : roles){
+                privileges.add(role.getRoleName());
+                collection.addAll(role.getAuthorities());
+            }
+
+            for(Authority item : collection){
+                privileges.add(item.getAuthorityName());
+            }
+
+            return privileges;
     }
 }

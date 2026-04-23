@@ -33,9 +33,6 @@
                 </div>
 
                 <nav class="navbar-center">
-                    <a href="/" class="nav-link ${(currentPage == 'home')?then('active', '')}">
-                        Главная
-                    </a>
 
                     <#if user?? && user.accountType?string=="APPLICANT">
                         <a href="/vacancies" class="nav-link ${(currentPage == 'vacancies')?then('active', '')}">
@@ -69,12 +66,19 @@
 
                         <div class="exit-box">
                             <form action="/auth/logout" method="post">
+
+                                <#if _csrf??>
+                                    <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                        value="${(_csrf.token)!'csrf-token'}">
+                                </#if>
+                                
                                 <button type="submit" class="exit">Выйти</button>
                             </form>
                         </div>
 
                         <#else>
                             <a href="/auth/login" class="login">Войти</a>
+                            <a href="/auth/register" class="login">Регистрация</a>
                     </#if>
 
 

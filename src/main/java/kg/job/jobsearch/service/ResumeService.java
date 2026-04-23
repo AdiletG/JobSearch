@@ -13,10 +13,6 @@ public interface ResumeService {
 
     ResumeUpdateDto getById(Long id);
 
-    Page<Resume> findAllOrderByResponsesCountDesc(Pageable pageable);
-
-    Page<Resume> findResumesByPage(Pageable pageable);
-
     List<ResumesDto> getAllResume();
 
     List<ResumesDto> getResumeByCategory(Long category);
@@ -30,4 +26,8 @@ public interface ResumeService {
     ResumesDto updateResume(Long resumeId, ResumeUpdateDto dto);
 
     void deleteResume(Long resumeId);
+
+    Page<Resume> findAllOrderByResponsesCountDesc(Pageable pageable);
+
+    Page<Resume> findResumesByPage(Pageable pageable);
 }

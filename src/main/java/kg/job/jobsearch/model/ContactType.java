@@ -5,6 +5,8 @@ import kg.job.jobsearch.enums.ContactTypeEnums;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -18,4 +20,7 @@ public class ContactType {
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private ContactTypeEnums type;
+
+    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
+    private List<ContactsInfo> contacts;
 }

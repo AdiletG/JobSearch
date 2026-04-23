@@ -26,9 +26,6 @@ values
     ((select id from authorities where authority = 'VACANCY_VIEW'),
      (select id from roles where role = 'ROLE_APPLICANT')),
 
-    ((select id from authorities where authority = 'RESUME_VIEW'),
-     (select id from roles where role = 'ROLE_APPLICANT')),
-
     ((select id from authorities where authority = 'RESUME_CREATE'),
      (select id from roles where role = 'ROLE_APPLICANT')),
 
@@ -47,9 +44,6 @@ values
 -- EMPLOYER
 insert into role_auth (auth_id, role_id)
 values
-    ((select id from authorities where authority = 'VACANCY_VIEW'),
-     (select id from roles where role = 'ROLE_EMPLOYER')),
-
     ((select id from authorities where authority = 'RESUME_VIEW'),
      (select id from roles where role = 'ROLE_EMPLOYER')),
 

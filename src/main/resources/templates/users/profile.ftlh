@@ -43,6 +43,11 @@
                                                 class="btn btn-outline-blue">Обновить</a>
 
                                             <form action="/vacancies/delete/${vacancy.id}" method="post">
+                                                <#if _csrf??>
+                                                    <input type="hidden"
+                                                        name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                                        value="${(_csrf.token)!'csrf-token'}">
+                                                </#if>
                                                 <button type="submit" class="delete">Удалить</button>
                                             </form>
                                         </div>
@@ -97,6 +102,13 @@
                                                 <a href="/resumes/update/${resume.id}"
                                                     class="btn btn-outline-blue">Обновить</a>
                                                 <form action="/resumes/delete/${resume.id}" method="post">
+
+                                                    <#if _csrf??>
+                                                        <input type="hidden"
+                                                            name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                                            value="${(_csrf.token)!'csrf-token'}">
+                                                    </#if>
+
                                                     <button type="submit" class="delete">Удалить</button>
                                                 </form>
                                             </div>
