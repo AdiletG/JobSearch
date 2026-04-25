@@ -1,12 +1,20 @@
 package kg.job.jobsearch.service;
 
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
+import kg.job.jobsearch.model.User;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface UserService {
+    void updatePassword(User user, String newPassword);
+
+    User findByToken(String token);
+
     UsersUpdateDto getUserForUpdate(String email);
 
     void deleteUser(Long userId);
@@ -29,4 +37,6 @@ public interface UserService {
     boolean existsUserByEmail(String email);
 
     List<UsersDto> getApplicantByVacancies(Long id);
+
+    void makeResetPasswordLink(HttpServletRequest request) throws MessagingException, UnsupportedEncodingException;
 }
