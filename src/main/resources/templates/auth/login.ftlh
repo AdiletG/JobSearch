@@ -48,6 +48,7 @@
                     <a href="/auth/register" class="link">Регистрация</a>
                     <button class="register-button" type="submit">Войти</button>
                 </div>
+                <a href="/auth/forgot-password">Забыли пароль?</a>
             </fieldset>
         </form>
     </div>
