@@ -1,6 +1,5 @@
 package kg.job.jobsearch.repository;
 
-import kg.job.jobsearch.model.Resume;
 import kg.job.jobsearch.model.Vacancy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
+
+    Page<Vacancy> findVacanciesByAuthor_Id(Long authorId, Pageable pageable);
 
     @Query(
             value = "SELECT v FROM Vacancy v LEFT JOIN v.respondedApplicants resp GROUP BY v ORDER BY COUNT(resp) DESC",

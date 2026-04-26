@@ -36,6 +36,11 @@ public class ResumeServiceImpl implements ResumeService {
     private final RespondedApplicantRepository respondedApplicantRepository;
 
     @Override
+    public Page<Resume> findByApplicantFromPage(Long applicantId, Pageable pageable){
+        return resumeRepository.findResumeByApplicant_Id(applicantId, pageable);
+    }
+
+    @Override
     public ResumeUpdateDto getById(Long id){
         Resume resume = resumeRepository.findById(id)
                 .orElseThrow(ResumeNotFoundException::new);

@@ -10,7 +10,11 @@
                         <div class="profile-main">
                             <div class="profile-left">
                                 <div class="avatar">
-                                    <img src="/images/${user.avatar}" class="logo" alt="logo">
+                                    <#if user.avatar?has_content>
+                                        <img src="/images/${user.avatar}" class="logo" alt="logo">
+                                        <#else>
+                                            <img src="/logo/profile-icon.png" class="logo" alt="logo">
+                                    </#if>
                                 </div>
                                 <div class="user-info">
                                     <h1 class="user-name">${user.name} ${user.surname}</h1>
@@ -57,8 +61,25 @@
                             <#else>
                                 <div class="empty-state">У вас пока нет вакансий</div>
                         </#if>
+                        <footer class="footer">
+                            <#if page.hasPrevious()>
+                                <a href="/profile?page=${page.number-1}&size=${page.size}" class="prev">
+                                    <</a>
+                            </#if>
+
+                            <#list 0..(page.totalPages-1) as i>
+                                <#if i==page.number>
+                                    <span class="current-page-number">${i+1}</span>
+                                    <#else>
+                                        <a href="/profile?page=${i}&size=${page.size}&sort=${sort!''}"
+                                            class="page-number">${i+1}</a>
+                                </#if>
+                            </#list>
+                            <#if page.hasNext()>
+                                <a href="/profile?page=${page.number+1}&size=${page.size}" class="next">></a>
+                            </#if>
+                        </footer>
                     </div>
-                    <div class="footer-note"></div>
                 </div>
             </div>
 
@@ -70,7 +91,11 @@
                             <div class="profile-main">
                                 <div class="profile-left">
                                     <div class="avatar">
-                                        <img src="/images/${user.avatar}" class="logo" alt="logo">
+                                        <#if user.avatar?has_content>
+                                            <img src="/images/${user.avatar}" class="logo" alt="logo">
+                                            <#else>
+                                                <img src="/logo/profile-icon.png" class="logo" alt="logo">
+                                        </#if>
                                     </div>
                                     <div class="user-info">
                                         <h1 class="user-name">${user.name} ${user.surname}</h1>
@@ -118,8 +143,27 @@
                                 <#else>
                                     <div class="empty-state">У вас пока нет резюме</div>
                             </#if>
+
+                            <footer class="footer">
+                                <#if page.hasPrevious()>
+                                    <a href="/profile?page=${page.number-1}&size=${page.size}" class="prev">
+                                        <</a>
+                                </#if>
+
+                                <#list 0..(page.totalPages-1) as i>
+                                    <#if i==page.number>
+                                        <span class="current-page-number">${i+1}</span>
+                                        <#else>
+                                            <a href="/profile?page=${i}&size=${page.size}"
+                                                class="page-number">${i+1}</a>
+                                    </#if>
+                                </#list>
+                                <#if page.hasNext()>
+                                    <a href="/profile?page=${page.number+1}&size=${page.size}" class="next">></a>
+                                </#if>
+                            </footer>
+
                         </div>
-                        <div class="footer-note"></div>
                     </div>
                 </div>
 

@@ -1,9 +1,13 @@
 package kg.job.jobsearch.service.impl;
 
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import kg.job.jobsearch.common.UrlBuilder;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
+import kg.job.jobsearch.enums.AccountTypeEnums;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.UserNameNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
@@ -11,7 +15,9 @@ import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.model.Authority;
 import kg.job.jobsearch.model.Role;
 import kg.job.jobsearch.model.User;
+import kg.job.jobsearch.repository.RoleRepository;
 import kg.job.jobsearch.repository.UserRepository;
+import kg.job.jobsearch.service.EmailService;
 import kg.job.jobsearch.service.FileService;
 import kg.job.jobsearch.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +29,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RoleNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +42,41 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final FileService fileService;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+    private final RoleRepository roleRepository;
+
+    @Override
+    public void makeResetPasswordLink(HttpServletRequest request)
+            throws UserNotFoundException, MessagingException, UnsupportedEncodingException {
+        String email = request.getParameter("email");
+        String token = UUID.randomUUID().toString();
+        updateResetPasswordToken(token, email);
+
+        String resetPwdLink = UrlBuilder.getSiteUrl(request) + "/auth/reset-password?token=" + token;
+        emailService.send(email, resetPwdLink);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword){
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+        user.setResetPasswordToken(null);
+        userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public User findByToken(String token){
+        return userRepository.findByResetPasswordToken(token)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    private void updateResetPasswordToken(String token, String email){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+
+        user.setResetPasswordToken(token);
+        userRepository.saveAndFlush(user);
+    }
 
         @Override
         public UsersUpdateDto getUserForUpdate(String email) {
@@ -113,7 +157,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void createUser(UsersCreateDto form) {
-        try{
+        try {
             User dto = new User();
             dto.setName(form.getName());
             dto.setSurname(form.getSurname());
@@ -122,6 +166,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             dto.setPassword(passwordEncoder.encode(form.getPassword()));
             dto.setPhoneNumber(form.getPhoneNumber());
             dto.setAccountType(form.getAccountType());
+            String roleName = form.getAccountType() == AccountTypeEnums.APPLICANT
+                    ? "ROLE_APPLICANT"
+                    : "ROLE_EMPLOYER";
+            Role role = roleRepository.findRoleByRoleName(roleName)
+                            .orElseThrow(RoleNotFoundException::new);
+            dto.setRoles(List.of(role));
 
             String avatarFilename = null;
 

@@ -33,7 +33,8 @@ public class User implements UserDetails {
     @Column(name = "account_type")
     private AccountTypeEnums accountType;
 
-    private Boolean enabled;
+    private Boolean enabled = true;
+    private String resetPasswordToken;
 
     @OneToMany(mappedBy = "applicant")
     private List<Resume> resumes;

@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface VacancyService {
 
+    Page<Vacancy> findByAuthorId(Long authorId, Pageable pageable);
+
     Page<Vacancy> findAllOrderByResponsesCountDesc(Pageable pageable);
 
     Page<Vacancy> getVacancyByPage(Pageable pageable);

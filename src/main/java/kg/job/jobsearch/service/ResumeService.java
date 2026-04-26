@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface ResumeService {
 
+    Page<Resume> findByApplicantFromPage(Long applicantId, Pageable pageable);
+
     ResumeUpdateDto getById(Long id);
 
     List<ResumesDto> getAllResume();
