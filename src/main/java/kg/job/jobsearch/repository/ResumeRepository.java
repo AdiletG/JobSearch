@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
+    Page<Resume> findResumeByApplicant_Id(Long applicantId, Pageable pageable);
+
     @Query(
             value = "SELECT r FROM Resume r LEFT JOIN r.respondedApplicants resp GROUP BY r ORDER BY COUNT(resp) DESC",
             countQuery = "SELECT COUNT(r) FROM Resume r"

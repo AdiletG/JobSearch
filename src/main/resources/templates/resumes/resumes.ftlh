@@ -1,12 +1,19 @@
 <#import "../layout.ftlh" as resume>
     <@resume.layout>
-        <link rel="stylesheet" href="/css/resumes.css"/>
+        <link rel="stylesheet" href="/css/resumes.css" />
         <div class="section">
 
             <div class="filter">
-                <form method="get" action="/resumes" class="filter-form">
-                    <button type="submit" name="sort" value="createdDate,desc" class="sort-btn">По дате</button><button
-                        type="submit" name="sort" value="responsesCount,desc" class="sort-btn">По откликам</button>
+                <p class="filter-text">Сортировка</p>
+                <form method="get" action="/resumes" id="sortForm" class="filter-form">
+                    <select name="sort" onchange="document.getElementById('sortForm').submit()" class="sort-select">
+                        <option value="createdDate,desc" class="sort-btn" <#if sort?? && sort=="createdDate,desc">
+                            selected</#if>>По дате
+                        </option>
+                        <option value="responsesCount,desc" class="sort-btn" <#if sort?? && sort=="responsesCount,desc">
+                            selected</#if>>По
+                            откликам</option>
+                    </select>
                 </form>
             </div>
 
@@ -49,7 +56,7 @@
                 <#if page.hasPrevious()>
                     <a href="/resumes?page=${page.number-1}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
                         class="prev">
-                        <</a>
+                        << /a>
                 </#if>
 
                 <#list 0..(page.totalPages-1) as i>
