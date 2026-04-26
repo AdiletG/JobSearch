@@ -56,7 +56,7 @@
                 <#if page.hasPrevious()>
                     <a href="/resumes?page=${page.number-1}&size=${page.size}&sort=${sort!''}&categoryId=${categoryId!''}"
                         class="prev">
-                        << /a>
+                        <</a>
                 </#if>
 
                 <#list 0..(page.totalPages-1) as i>

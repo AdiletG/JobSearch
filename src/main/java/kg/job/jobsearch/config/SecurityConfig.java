@@ -43,15 +43,19 @@ public class SecurityConfig {
                             request.getRequestDispatcher("/errors/error").forward(request, response);
                         }))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(HttpMethod.GET,"/vacancies/**").hasAuthority("VACANCY_VIEW")
-                        .requestMatchers(HttpMethod.GET, "/resumes/**").hasAuthority("RESUME_VIEW")
+                        .requestMatchers(HttpMethod.GET,"/vacancies").hasAuthority("VACANCY_VIEW")
+                        .requestMatchers(HttpMethod.GET, "/resumes").hasAuthority("RESUME_VIEW")
                         .requestMatchers(HttpMethod.GET, "/respond/**").hasAuthority("RESPONDED_APPLICANTS_VIEW")
                         .requestMatchers(HttpMethod.GET, "/users/**").hasAuthority("USER_MANAGE")
                         .requestMatchers(HttpMethod.GET, "/profile/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/vacancies/**").hasAuthority("VACANCY_CREATE")
-                        .requestMatchers(HttpMethod.POST, "/resumes/**").hasAuthority("RESUME_CREATE")
+                        .requestMatchers(HttpMethod.POST, "/vacancies/create").hasAuthority("VACANCY_CREATE")
+                        .requestMatchers(HttpMethod.POST, "/vacancies/update/**").hasAuthority("VACANCY_UPDATE")
+                        .requestMatchers(HttpMethod.POST, "/vacancies/delete/**").hasAuthority("VACANCY_DELETE")
+                        .requestMatchers(HttpMethod.POST, "/resumes/create").hasAuthority("RESUME_CREATE")
+                        .requestMatchers(HttpMethod.POST, "/resumes/update/**").hasAuthority("RESUME_UPDATE")
+                        .requestMatchers(HttpMethod.POST, "/resumes/delete/**").hasAuthority("RESUME_DELETE")
                         .requestMatchers(HttpMethod.POST, "/respond/**").hasAuthority("RESPOND_TO_VACANCY")
                         .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
 
