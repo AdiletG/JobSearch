@@ -8,11 +8,17 @@ import kg.job.jobsearch.exception.notFoundException.ResumeNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.VacancyNotFoundException;
 import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
+import kg.job.jobsearch.model.Resume;
+import kg.job.jobsearch.model.Vacancy;
 import kg.job.jobsearch.service.RespondedApplicantService;
 import kg.job.jobsearch.service.ResumeService;
 import kg.job.jobsearch.service.UserService;
 import kg.job.jobsearch.service.VacancyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/profile")
@@ -33,16 +40,34 @@ public class ProfileController {
     private final RespondedApplicantService respondedApplicantService;
 
     @GetMapping
-    public String getProfile(Model model, Principal principal) throws VacancyNotFoundException, UserNotFoundException, ResumeNotFoundException {
+    public String getProfile(
+            Model model,
+            Principal principal,
+            @PageableDefault(size = 3) Pageable pageable)
+            throws VacancyNotFoundException, UserNotFoundException, ResumeNotFoundException {
 
         model.addAttribute("currentPage", "profile");
 
         UsersDto user = userService.findByEmail(principal.getName());
 
         if (user.getAccountType() == AccountTypeEnums.APPLICANT) {
-            model.addAttribute("resumes", resumeService.getResumeByApplicant(user.getId()));
+            try {
+                Page<Resume> page;
+                page = resumeService.findByApplicantFromPage(user.getId(), pageable);
+                model.addAttribute("page", page);
+                model.addAttribute("resumes", page.getContent());
+            } catch (ResumeNotFoundException e) {
+                model.addAttribute("resumes", List.of());
+            }
         } else if (user.getAccountType() == AccountTypeEnums.EMPLOYER) {
-            model.addAttribute("vacancies", vacancyService.getALLVacanciesByAuthor(user.getId()));
+            try {
+                Page<Vacancy> page;
+                page = vacancyService.findByAuthorId(user.getId(), pageable);
+                model.addAttribute("page", page);
+                model.addAttribute("vacancies", page.getContent());
+            } catch (VacancyNotFoundException e) {
+                model.addAttribute("vacancies", List.of());
+            }
         }
         return "users/profile";
     }

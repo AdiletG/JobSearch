@@ -225,6 +225,9 @@ body {
 
 .section {
     padding: 10px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .section-title {
@@ -322,6 +325,43 @@ body {
     padding: 0 32px 32px;
     color: var(--text-secondary);
     font-size: 15px;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #166fe5;
+    padding: 8px;
+    border-radius: 12px;
+    color: #fff;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.current-page-number {
+    text-decoration: underline;
+    font-size: 18px;
+    color: #fff;
+}
+
+.page-number {
+    font-size: 15px;
+    text-decoration: none;
+    color: #cdcecf;
+}
+
+.prev {
+    text-decoration: none;
+    font-size: 24px;
+    color: #fff;
+}
+
+.next {
+    text-decoration: none;
+    font-size: 24px;
+    color: #fff;
 }
 
 @media (max-width: 992px) {
