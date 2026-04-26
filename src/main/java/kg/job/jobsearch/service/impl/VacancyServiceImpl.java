@@ -32,6 +32,12 @@ public class VacancyServiceImpl implements VacancyService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
 
+
+    @Override
+    public Page<Vacancy> findByAuthorId(Long authorId, Pageable pageable){
+        return vacancyRepository.findVacanciesByAuthor_Id(authorId, pageable);
+    }
+
     @Override
     public Page<Vacancy> findAllOrderByResponsesCountDesc(Pageable pageable){
         return vacancyRepository.findAllOrderByResponsesCountDesc(pageable);

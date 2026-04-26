@@ -7,6 +7,7 @@ import kg.job.jobsearch.common.UrlBuilder;
 import kg.job.jobsearch.dto.UsersDto;
 import kg.job.jobsearch.dto.create.UsersCreateDto;
 import kg.job.jobsearch.dto.update.UsersUpdateDto;
+import kg.job.jobsearch.enums.AccountTypeEnums;
 import kg.job.jobsearch.exception.createException.UserDataCreateException;
 import kg.job.jobsearch.exception.notFoundException.UserNameNotFoundException;
 import kg.job.jobsearch.exception.notFoundException.UserNotFoundException;
@@ -14,6 +15,7 @@ import kg.job.jobsearch.exception.updateException.UserDataUpdateException;
 import kg.job.jobsearch.model.Authority;
 import kg.job.jobsearch.model.Role;
 import kg.job.jobsearch.model.User;
+import kg.job.jobsearch.repository.RoleRepository;
 import kg.job.jobsearch.repository.UserRepository;
 import kg.job.jobsearch.service.EmailService;
 import kg.job.jobsearch.service.FileService;
@@ -27,6 +29,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RoleNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,6 +43,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final FileService fileService;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final RoleRepository roleRepository;
 
     @Override
     public void makeResetPasswordLink(HttpServletRequest request)
@@ -153,7 +157,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void createUser(UsersCreateDto form) {
-        try{
+        try {
             User dto = new User();
             dto.setName(form.getName());
             dto.setSurname(form.getSurname());
@@ -162,6 +166,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             dto.setPassword(passwordEncoder.encode(form.getPassword()));
             dto.setPhoneNumber(form.getPhoneNumber());
             dto.setAccountType(form.getAccountType());
+            String roleName = form.getAccountType() == AccountTypeEnums.APPLICANT
+                    ? "ROLE_APPLICANT"
+                    : "ROLE_EMPLOYER";
+            Role role = roleRepository.findRoleByRoleName(roleName)
+                            .orElseThrow(RoleNotFoundException::new);
+            dto.setRoles(List.of(role));
 
             String avatarFilename = null;
 
