@@ -34,22 +34,6 @@ public class AuthController {
         return "auth/register";
     }
 
-    @GetMapping("forgot-password")
-    public String getForgotPassword(){
-        return "auth/forgot-password-form";
-    }
-
-    @GetMapping("reset-password")
-    public String showResetPasswordForm(@RequestParam String token, Model model) {
-        try {
-            userService.findByToken(token);
-            model.addAttribute("token", token);
-        } catch (UserNotFoundException e) {
-            model.addAttribute("error", "Invalid token!");
-        }
-        return "auth/reset-password-form";
-    }
-
     @PostMapping("/register")
     public String registerPost(
             @Valid @ModelAttribute("userDto") UsersCreateDto dto,
@@ -61,6 +45,11 @@ public class AuthController {
         }
         model.addAttribute("userDto", dto);
         return "auth/register";
+    }
+
+    @GetMapping("forgot-password")
+    public String getForgotPassword(){
+        return "auth/forgot-password-form";
     }
 
     @PostMapping("forgot-password")
@@ -75,6 +64,17 @@ public class AuthController {
             model.addAttribute("error", "Ошибка при отправки ссылки на вашу почту");
         }
         return "auth/forgot-password-form";
+    }
+
+    @GetMapping("reset-password")
+    public String showResetPasswordForm(@RequestParam String token, Model model) {
+        try {
+            userService.findByToken(token);
+            model.addAttribute("token", token);
+        } catch (UserNotFoundException e) {
+            model.addAttribute("error", "Invalid token!");
+        }
+        return "auth/reset-password-form";
     }
 
     @PostMapping("reset-password")
