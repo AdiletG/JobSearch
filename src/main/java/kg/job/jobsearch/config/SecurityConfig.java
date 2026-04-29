@@ -1,5 +1,8 @@
 package kg.job.jobsearch.config;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +12,14 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
+
+import java.io.IOException;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -24,9 +33,9 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .defaultSuccessUrl("/")
                         .failureUrl("/auth/login?error=true")
-                        .permitAll())
+                        .permitAll()
+                        .successHandler(customSuccessHandler()))
                 .logout(logout -> logout
                         .logoutRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher("/auth/logout"))
                        .logoutSuccessUrl("/")
@@ -70,5 +79,19 @@ public class SecurityConfig {
 
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customSuccessHandler(){
+        return (request, response, authentication) -> {
+            Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+            if(roles.contains("ROLE_APPLICANT")){
+                response.sendRedirect("/vacancies");
+            } else if (roles.contains("ROLE_EMPLOYER")) {
+                response.sendRedirect("/resumes");
+            }else {
+                response.sendRedirect("/");
+            }
+        };
     }
 }

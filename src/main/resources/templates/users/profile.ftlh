@@ -13,7 +13,7 @@
                                     <#if user.avatar?has_content>
                                         <img src="/images/${user.avatar}" class="logo" alt="logo">
                                         <#else>
-                                            <img src="/logo/profile-icon.png" class="logo" alt="logo">
+                                            <img src="/logo/profile.png" class="logo" alt="logo">
                                     </#if>
                                 </div>
                                 <div class="user-info">

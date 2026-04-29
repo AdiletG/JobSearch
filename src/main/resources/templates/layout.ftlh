@@ -60,7 +60,7 @@
                             <#if user?? && user.avatar??>
                                 <img src="/images/${user.avatar}" alt="Profile avatar" class="profile-avatar">
                                 <#else>
-                                    <img src="/logo/profile-icon.png" alt="Default profile" class="profile-avatar">
+                                    <img src="/logo/profile.png" alt="Default profile" class="profile-avatar">
                             </#if>
                         </a>
 
