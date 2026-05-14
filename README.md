@@ -194,6 +194,28 @@ Pagination & sorting
 Global exception handling
 Monitoring & logging
 Microservice architecture
+
+# 🚧 Project Status
+
+Проект находится в активной разработке и продолжает расширяться новыми возможностями и инфраструктурными решениями.
+
+## 📌 Planned Improvements
+
+В ближайших обновлениях планируется добавить:
+
+- Docker & Docker Compose
+- Redis caching
+- RabbitMQ message broker
+- Unit & Integration tests
+- CI/CD pipeline
+- Pagination & sorting
+- Centralized logging
+- Monitoring & metrics
+- Email notifications
+- Improved exception handling
+
+Проект активно развивается как backend pet-project с уклоном в enterprise-подходы и современные backend-технологии.
+
 👨‍💻 Author
 
 Adilet G.
